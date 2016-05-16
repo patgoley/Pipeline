@@ -62,6 +62,13 @@ public final class ProducerPipeline<T>: ProducerType {
         
         return ProducerPipeline<NewOutput>(head: head, tail: transform)
     }
+    
+    func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+        
+        self.consumer = consumer.consume
+        
+        return self
+    }
 }
 
 public final class TransformerPipeline<T, U>: TransformerType {
@@ -124,6 +131,13 @@ public final class TransformerPipeline<T, U>: TransformerType {
         tail.consumer = transform.consume
         
         return TransformerPipeline<InputType, NewOutput>(head: head, tail: transform)
+    }
+    
+    func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+        
+        self.consumer = consumer.consume
+        
+        return self
     }
 }
 
