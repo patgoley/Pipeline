@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct GeneratorPipeline<T>: ProducerType {
+public final class ProducerPipeline<T>: ProducerType {
     
     public typealias OutputType = T
     
@@ -16,65 +16,92 @@ public struct GeneratorPipeline<T>: ProducerType {
     
     private let tail: AnyProducer<T>
     
-    public var consumer: (OutputType -> Void)?
-    
-    public init<Head: ProducerType where Head.OutputType == T>(head: Head) {
+    public var consumer: (OutputType -> Void)? {
         
-        self.init(head: head, tail: head)
+        didSet {
+            
+            _setConsumer(consumer)
+        }
+    }
+    
+    private let _setConsumer: (T -> Void)? -> Void
+    
+    public convenience init<Head: ProducerType where Head.OutputType == T>(head: Head) {
+        
+        let tail = AnyProducer(base: head)
+        
+        self.init(head: head, tail: tail)
     }
     
     private init<Tail: ProducerType where Tail.OutputType == T>(head: Any, tail: Tail) {
         
         self.head = head
         
-        var producer = AnyProducer(base: tail)
+        var tailProducer = tail
         
-        self.tail = producer
+        self.tail = AnyProducer(base: tail)
         
-        producer.consumer = { input in
+        _setConsumer = { consumer in
             
-            self.consumer?(input)
+            tailProducer.consumer = consumer
         }
     }
     
-    func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> GeneratorPipeline<Transform.OutputType> {
-        
-        var tail = self.tail
+    func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> ProducerPipeline<Transform.OutputType> {
         
         tail.consumer = transformer.consume
         
-        return GeneratorPipeline<Transform.OutputType>(head: head, tail: transformer)
+        return ProducerPipeline<Transform.OutputType>(head: head, tail: transformer)
+    }
+    
+    func then<NewOutput>(transformer: OutputType -> NewOutput) -> ProducerPipeline<NewOutput> {
+        
+        let transform = AnyTransformer(transform: transformer)
+        
+        tail.consumer = transform.consume
+        
+        return ProducerPipeline<NewOutput>(head: head, tail: transform)
     }
 }
 
-public struct TransformerPipeline<T, U>: TransformerType {
+public final class TransformerPipeline<T, U>: TransformerType {
     
     public typealias InputType = T
     
     public typealias OutputType = U
     
-    public var consumer: (OutputType -> Void)?
-    
-    private let head: AnyConsumer<T>
-    
-    private let tail: AnyProducer<U>
-    
-    public init<Head: TransformerType where Head.InputType == InputType, Head.OutputType == OutputType>(head: Head) {
+    public var consumer: (OutputType -> Void)? {
         
-        self.init(head: head, tail: head)
+        didSet {
+            
+            _setConsumer(consumer)
+        }
     }
     
-    private init<Head: ConsumerType, Tail: ProducerType where Head.InputType == InputType, Tail.OutputType == OutputType>(head: Head, tail: Tail) {
+    private let _setConsumer: (OutputType -> Void)? -> Void
+    
+    private let head: AnyConsumer<InputType>
+    
+    private let tail: AnyProducer<OutputType>
+    
+    public convenience init<Head: TransformerType where Head.InputType == InputType, Head.OutputType == OutputType>(head: Head) {
         
-        self.head = AnyConsumer(base: head)
+        let headConsumer = AnyConsumer(base: head)
         
-        var tailProducer = AnyProducer(base: tail)
+        self.init(head: headConsumer, tail: head)
+    }
+    
+    private init<Tail: TransformerType where Tail.OutputType == OutputType>(head: AnyConsumer<InputType>, tail: Tail) {
         
-        self.tail = tailProducer
+        self.head = head
         
-        tailProducer.consumer = { input in
+        var tailProducer = tail
+        
+        self.tail = AnyProducer(base: tail)
+        
+        _setConsumer = { consumer in
             
-            self.consumer?(input)
+            tailProducer.consumer = consumer
         }
     }
     
@@ -85,18 +112,14 @@ public struct TransformerPipeline<T, U>: TransformerType {
     
     func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> TransformerPipeline<InputType, Transform.OutputType> {
         
-        var tail = self.tail
-        
         tail.consumer = transformer.consume
         
-        return TransformerPipeline<T, Transform.OutputType>(head: head, tail: transformer)
+        return TransformerPipeline<InputType, Transform.OutputType>(head: head, tail: transformer)
     }
     
     func then<NewOutput>(transformer: U -> NewOutput) -> TransformerPipeline<InputType, NewOutput> {
         
-        var tail = self.tail
-        
-        let transform = AnyTransformer(consumer: nil, transform: transformer)
+        let transform = AnyTransformer(transform: transformer)
         
         tail.consumer = transform.consume
         

@@ -22,6 +22,8 @@
 		8EE644731CE8FFFB00403EFC /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644721CE8FFFB00403EFC /* Consumer.swift */; };
 		8EE644751CE9011000403EFC /* Producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644741CE9011000403EFC /* Producer.swift */; };
 		8EE644771CE9190900403EFC /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644761CE9190900403EFC /* ErrorHandling.swift */; };
+		8EE644791CE921DB00403EFC /* ModelParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644781CE921DB00403EFC /* ModelParser.swift */; };
+		8EE6447B1CE929EB00403EFC /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE6447A1CE929EB00403EFC /* user.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		8EE644721CE8FFFB00403EFC /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
 		8EE644741CE9011000403EFC /* Producer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Producer.swift; sourceTree = "<group>"; };
 		8EE644761CE9190900403EFC /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
+		8EE644781CE921DB00403EFC /* ModelParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelParser.swift; sourceTree = "<group>"; };
+		8EE6447A1CE929EB00403EFC /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 				8EE644691CE8D2BB00403EFC /* Transformer.swift */,
 				8EE6445F1CE7AEB900403EFC /* Pipeline.swift */,
 				8EE644611CE857ED00403EFC /* JSONTransformer.swift */,
+				8EE644781CE921DB00403EFC /* ModelParser.swift */,
 				8EE6446D1CE8DBFC00403EFC /* Timer.swift */,
 				8EE6446F1CE8DDC700403EFC /* Logger.swift */,
 				8EE6446B1CE8D2E200403EFC /* HTTPClient.swift */,
@@ -117,6 +122,7 @@
 				8EE644541CE7AEA500403EFC /* PipelineTests.swift */,
 				8EE644651CE8634C00403EFC /* JSONTests.swift */,
 				8EE644671CE8639500403EFC /* animals.json */,
+				8EE6447A1CE929EB00403EFC /* user.json */,
 				8EE644561CE7AEA500403EFC /* Info.plist */,
 			);
 			path = PipelineTests;
@@ -220,6 +226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EE6447B1CE929EB00403EFC /* user.json in Resources */,
 				8EE644681CE8639500403EFC /* animals.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,6 +244,7 @@
 				8EE6446E1CE8DBFC00403EFC /* Timer.swift in Sources */,
 				8EE644701CE8DDC700403EFC /* Logger.swift in Sources */,
 				8EE644731CE8FFFB00403EFC /* Consumer.swift in Sources */,
+				8EE644791CE921DB00403EFC /* ModelParser.swift in Sources */,
 				8EE644751CE9011000403EFC /* Producer.swift in Sources */,
 				8EE644771CE9190900403EFC /* ErrorHandling.swift in Sources */,
 				8EE644621CE857ED00403EFC /* JSONTransformer.swift in Sources */,

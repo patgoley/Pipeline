@@ -16,7 +16,7 @@ public protocol ConsumerType {
     func consume(_: InputType)
 }
 
-public struct AnyConsumer<T>: ConsumerType {
+public final class AnyConsumer<T>: ConsumerType {
     
     public typealias InputType = T
     

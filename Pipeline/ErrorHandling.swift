@@ -8,22 +8,22 @@
 
 import Foundation
 
-struct NilGuard<T, U>: TransformerType {
+public final class NilGuard<T, U>: TransformerType {
     
-    typealias InputType = T
+    public typealias InputType = T
     
-    typealias OutputType = U
+    public typealias OutputType = U
     
     private let map: InputType -> OutputType?
     
-    var consumer: (OutputType -> Void)?
+    public var consumer: (OutputType -> Void)?
     
     init(map: InputType -> OutputType?) {
         
         self.map = map
     }
     
-    func consume(input: InputType) {
+    public func consume(input: InputType) {
         
         guard let consumer = self.consumer,
                   value = map(input) else {
@@ -35,15 +35,40 @@ struct NilGuard<T, U>: TransformerType {
     }
 }
 
-struct HandleResult<T>: TransformerType {
+public final class Downcast<T, U>: TransformerType {
     
-    typealias InputType = Result<T>
+    public typealias InputType = T
     
-    typealias OutputType = T
+    public typealias OutputType = U
     
-    var consumer: (OutputType -> Void)?
+    public var consumer: (OutputType -> Void)?
     
-    func consume(result: InputType) {
+    init(_ outType: U.Type) {
+        
+        
+    }
+    
+    public func consume(input: InputType) {
+        
+        guard let consumer = self.consumer,
+                  value = input as? OutputType else {
+                
+                return
+        }
+        
+        consumer(value)
+    }
+}
+
+public final class HandleResult<T>: TransformerType {
+    
+    public typealias InputType = Result<T>
+    
+    public typealias OutputType = T
+    
+    public var consumer: (OutputType -> Void)?
+    
+    public func consume(result: InputType) {
         
         guard let consumer = self.consumer else {
             

@@ -15,28 +15,42 @@ public protocol ProducerType {
     var consumer: (OutputType -> Void)? { get set }
 }
 
-public struct AnyProducer<T>: ProducerType {
+public final class AnyProducer<T>: ProducerType {
     
     public typealias OutputType = T
     
-    public var consumer: (T -> Void)?
+    public var consumer: (T -> Void)? {
+        
+        didSet {
+            
+            _setConsumer(consumer)
+        }
+    }
     
-    private let captureBlock: () -> Void
+    private let _setConsumer: (T -> Void)? -> Void
     
     init<Base: ProducerType where Base.OutputType == OutputType>(base: Base) {
         
-        captureBlock = {
-            
-            let _ = base
-        }
-        
         var mutableBase = base
         
-        mutableBase.consumer = self.consume
+        _setConsumer = { consumer in
+            
+            mutableBase.consumer = consumer
+        }
     }
     
     private func consume(input: T) -> Void {
         
         consumer?(input)
+    }
+}
+
+public extension ProducerType {
+    
+    mutating func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+        
+        self.consumer = consumer.consume
+        
+        return self
     }
 }

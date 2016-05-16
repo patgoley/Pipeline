@@ -11,6 +11,8 @@ import Foundation
 
 public final class Timer: ProducerType {
     
+    public typealias OutputType = NSDate
+    
     private var timer: NSTimer? = nil
     
     public let interval: NSTimeInterval
@@ -36,8 +38,6 @@ public final class Timer: ProducerType {
         if let consumer = consumer {
             
             let date = NSDate()
-            
-            print(date)
             
             consumer(date)
         }

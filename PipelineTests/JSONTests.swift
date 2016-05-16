@@ -19,25 +19,64 @@ class JSONTests: XCTestCase {
         
         let deserializer = NSJSONSerialization.deserializer()
         
-        switch deserializer.transform(data) {
-            
-        case .Success(let result as Array<String>):
-            
-            let expectedResult = [
-                "bird",
-                "cat",
-                "dog"
-            ]
-            
-            XCTAssert(result == expectedResult, "")
-            
-        case .Error(let err):
-            
-            XCTAssert(false, "\(err)")
+        let pipeline = TransformerPipeline(head: deserializer)
         
-        default:
+        pipeline.consumer = { result in
             
-            XCTAssert(false, "unexpected JSON structure")
+            switch result {
+                
+            case .Success(let result as Array<String>):
+                
+                let expectedResult = [
+                    "bird",
+                    "cat",
+                    "dog"
+                ]
+                
+                XCTAssert(result == expectedResult, "")
+                
+            case .Error(let err):
+                
+                XCTAssert(false, "\(err)")
+                
+            default:
+                
+                XCTAssert(false, "unexpected JSON structure")
+            }
         }
+        
+        pipeline.consume(data)
+    }
+    
+    func testModelParser() {
+        
+        let url = NSBundle(forClass: self.dynamicType).URLForResource("user", withExtension: "json")!
+        
+        let data = NSData(contentsOfURL: url)!
+        
+        let parserPipeline = ModelParser<User>.JSONParser()
+        
+        parserPipeline.consumer = { user in
+            
+            print(user)
+        }
+        
+        parserPipeline.consume(data)
     }
 }
+
+
+struct User: Parseable {
+    
+    let firstName: String
+    let lastName: String
+    
+    static func createWithValues(values: [String: AnyObject]) -> User {
+        
+        return User(
+            firstName: values["firstName"] as! String,
+            lastName: values["lastName"] as! String
+        )
+    }
+}
+

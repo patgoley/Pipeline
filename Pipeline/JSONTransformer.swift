@@ -18,7 +18,7 @@ public extension NSJSONSerialization {
     
     static func deserializer() -> AnyTransformer<NSData, Result<AnyObject>> {
         
-        return AnyTransformer() { data in
+        return AnyTransformer<NSData, Result<AnyObject>>() { data in
             
             do {
                 
