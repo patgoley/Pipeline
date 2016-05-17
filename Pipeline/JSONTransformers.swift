@@ -1,5 +1,5 @@
 //
-//  JSONTransformer.swift
+//  JSONTransformers.swift
 //  Pipeline
 //
 //  Created by Patrick Goley on 5/15/16.
@@ -23,9 +23,11 @@ public enum JSONError: ErrorType, CustomStringConvertible {
     }
 }
 
+public typealias JSONObjectType = [String: AnyObject]
+
 public extension NSJSONSerialization {
     
-    static func deserializer() -> AnyTransformer<NSData, Result<AnyObject>> {
+    public static func deserializer() -> AnyTransformer<NSData, Result<AnyObject>> {
         
         return AnyTransformer<NSData, Result<AnyObject>>() { data in
             
@@ -42,9 +44,7 @@ public extension NSJSONSerialization {
         }
     }
     
-    typealias JSONObjectType = [String: AnyObject]
-    
-    static func objectDeserializer() -> AnyTransformer<NSData, Result<JSONObjectType>> {
+    public static func objectDeserializer() -> AnyTransformer<NSData, Result<JSONObjectType>> {
         
         return AnyTransformer<NSData, Result<JSONObjectType>>() { data in
             
@@ -64,7 +64,7 @@ public extension NSJSONSerialization {
         }
     }
     
-    static func serializer() -> AnyTransformer<Either<NSArray, NSDictionary>, Result<NSData>> {
+    public static func serializer() -> AnyTransformer<Either<NSArray, NSDictionary>, Result<NSData>> {
         
         return AnyTransformer() { either in
             

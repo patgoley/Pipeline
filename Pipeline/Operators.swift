@@ -21,6 +21,20 @@ public func |> <P: ProducerType, U: TransformerType where P.OutputType == U.Inpu
     return ProducerPipeline(head: lhs).then(rhs)
 }
 
+public func |> <V, T: TransformerType where V == T.InputType>(lhs: V, rhs: T) -> ProducerPipeline<T.OutputType>  {
+    
+    let valueProducer = ValueProducer(value: lhs)
+    
+    return ProducerPipeline(head: valueProducer).then(rhs)
+}
+
+public func |> <V, T: TransformerType where V == T.InputType>(lhs: () -> V, rhs: T) -> ProducerPipeline<T.OutputType>  {
+    
+    let thunkProducer = ThunkProducer(thunk: lhs)
+    
+    return ProducerPipeline(head: thunkProducer).then(rhs)
+}
+
 public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType -> U) -> TransformerPipeline<T.InputType, U>  {
     
     return TransformerPipeline(head: lhs).then(rhs)
@@ -64,3 +78,5 @@ public func |> <P: ProducerType>(lhs: P, rhs: P.OutputType -> Void) -> P  {
     
     return producer.finally(rhs)
 }
+
+

@@ -17,12 +17,12 @@ struct HTTPResponse {
 
 struct HTTPClient: TransformerType {
     
-    static func JSONClient() -> TransformerPipeline<NSURLRequest, Result<AnyObject>> {
+    static func JSONClient() -> TransformerPipeline<NSURLRequest, Result<JSONObjectType>> {
         
         return HTTPClient()
             |> swallowError()
             |> guardUnwrap { $0.body }
-            |> NSJSONSerialization.deserializer()
+            |> NSJSONSerialization.objectDeserializer()
     }
     
     typealias InputType = NSURLRequest
@@ -61,3 +61,7 @@ struct HTTPClient: TransformerType {
         task.resume()
     }
 }
+
+
+
+

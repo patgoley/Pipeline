@@ -61,3 +61,17 @@ extension ProducerType {
         return self
     }
 }
+
+protocol DiscreteProducer: ProducerType {
+    
+    func produce()
+}
+
+protocol ContinuousProducer: ProducerType {
+    
+    func start()
+    
+    func stop()
+}
+
+

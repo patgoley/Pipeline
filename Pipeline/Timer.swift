@@ -9,7 +9,7 @@
 import Foundation
 
 
-public final class Timer: ProducerType {
+public final class Timer: ProducerType, ContinuousProducer {
     
     public typealias OutputType = NSDate
     
@@ -31,6 +31,12 @@ public final class Timer: ProducerType {
     public func start() {
         
         timer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: #selector(tick), userInfo: nil, repeats: repeats)
+    }
+    
+    public func stop() {
+        
+        timer?.invalidate()
+        timer = nil
     }
     
     @objc func tick() {

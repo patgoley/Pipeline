@@ -11,9 +11,9 @@ import Foundation
 
 struct Logger: ConsumerType {
     
-    typealias InputType = String
+    typealias InputType = Any
     
-    func consume(input: String) {
+    func consume(input: Any) {
         
         print(input)
     }
