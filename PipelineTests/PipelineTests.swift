@@ -15,12 +15,17 @@ class PipelineTests: XCTestCase {
         
         let timer = Timer(interval: 1.0, repeats: true)
         
-        var _ = ProducerPipeline(head: timer).then { $0.description }.finally(Logger())
+        let timerExpectation = expectationWithDescription("timer")
+        
+        var _ = ProducerPipeline(head: timer).then { $0.description }.finally { _ in
+            
+            XCTAssertTrue(true)
+            
+            timerExpectation.fulfill()
+        }
         
         timer.start()
         
-        let _ = expectationWithDescription("timer")
-        
-        waitForExpectationsWithTimeout(1000, handler: nil)
+        waitForExpectationsWithTimeout(10.0, handler: nil)
     }
 }

@@ -56,12 +56,18 @@ class JSONTests: XCTestCase {
         
         let parserPipeline = ModelParser<User>.JSONParser()
         
+        let parseExpectation = expectationWithDescription("parse")
+        
         parserPipeline.consumer = { user in
             
-            print(user)
+            XCTAssert(true)
+            
+            parseExpectation.fulfill()
         }
         
         parserPipeline.consume(data)
+        
+        waitForExpectationsWithTimeout(10.0, handler: nil)
     }
 }
 
