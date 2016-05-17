@@ -9,7 +9,7 @@
 import Foundation
 
 
-public final class ValueProducer<T>: DiscreteProducer {
+public final class ValueProducer<T>: ProducerType {
     
     let value: T
     
@@ -20,13 +20,13 @@ public final class ValueProducer<T>: DiscreteProducer {
         self.value = value
     }
     
-    func produce() {
+    public func produce() {
         
         consumer?(value)
     }
 }
 
-public final class ThunkProducer<T>: DiscreteProducer {
+public final class ThunkProducer<T>: ProducerType {
     
     let thunk: () -> T
     
@@ -37,13 +37,10 @@ public final class ThunkProducer<T>: DiscreteProducer {
         self.thunk = thunk
     }
     
-    func produce() {
+    public func produce() {
         
         let value = thunk()
         
         consumer?(value)
     }
 }
-
-
-

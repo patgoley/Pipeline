@@ -27,6 +27,7 @@
 		8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9A1CEAA745006FCF13 /* Operators.swift */; };
 		8EF82E9D1CEAC077006FCF13 /* ValueProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9C1CEAC077006FCF13 /* ValueProducer.swift */; };
 		8EF82E9F1CEAC3C7006FCF13 /* NSFileManagerTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9E1CEAC3C7006FCF13 /* NSFileManagerTransformers.swift */; };
+		8EF82EA11CEAD1B1006FCF13 /* NSBundlePipelines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82EA01CEAD1B1006FCF13 /* NSBundlePipelines.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		8EF82E9A1CEAA745006FCF13 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		8EF82E9C1CEAC077006FCF13 /* ValueProducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueProducer.swift; sourceTree = "<group>"; };
 		8EF82E9E1CEAC3C7006FCF13 /* NSFileManagerTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSFileManagerTransformers.swift; sourceTree = "<group>"; };
+		8EF82EA01CEAD1B1006FCF13 /* NSBundlePipelines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSBundlePipelines.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				8EE644611CE857ED00403EFC /* JSONTransformers.swift */,
 				8EE644781CE921DB00403EFC /* ModelParser.swift */,
 				8EF82E9C1CEAC077006FCF13 /* ValueProducer.swift */,
+				8EF82EA01CEAD1B1006FCF13 /* NSBundlePipelines.swift */,
 				8EF82E9E1CEAC3C7006FCF13 /* NSFileManagerTransformers.swift */,
 				8EE6446D1CE8DBFC00403EFC /* Timer.swift */,
 				8EE6446F1CE8DDC700403EFC /* Logger.swift */,
@@ -253,6 +256,7 @@
 				8EE6446E1CE8DBFC00403EFC /* Timer.swift in Sources */,
 				8EE644701CE8DDC700403EFC /* Logger.swift in Sources */,
 				8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */,
+				8EF82EA11CEAD1B1006FCF13 /* NSBundlePipelines.swift in Sources */,
 				8EF82E9F1CEAC3C7006FCF13 /* NSFileManagerTransformers.swift in Sources */,
 				8EE644731CE8FFFB00403EFC /* Consumer.swift in Sources */,
 				8EE644791CE921DB00403EFC /* ModelParser.swift in Sources */,

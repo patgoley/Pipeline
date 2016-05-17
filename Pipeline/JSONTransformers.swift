@@ -49,9 +49,11 @@ public extension NSJSONSerialization {
             
             do {
                 
-                if let jsonObject = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String: AnyObject] {
+                let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                
+                if let object = json as? [String: AnyObject] {
                     
-                    return .Success(jsonObject)
+                    return .Success(object)
                 }
                 
                 return .Error(JSONError.CastError(NSDictionary))
@@ -88,4 +90,7 @@ public extension NSJSONSerialization {
         }
     }
 }
+
+
+
 

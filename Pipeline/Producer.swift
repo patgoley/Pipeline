@@ -13,6 +13,8 @@ public protocol ProducerType {
     associatedtype OutputType
     
     var consumer: (OutputType -> Void)? { get set }
+    
+    func produce()
 }
 
 public final class AnyProducer<T>: ProducerType {
@@ -29,7 +31,11 @@ public final class AnyProducer<T>: ProducerType {
     
     private let _setConsumer: (T -> Void)? -> Void
     
+    private let _produce: () -> Void
+    
     init<Base: ProducerType where Base.OutputType == OutputType>(base: Base) {
+        
+        _produce = base.produce
         
         var mutableBase = base
         
@@ -43,35 +49,11 @@ public final class AnyProducer<T>: ProducerType {
         
         consumer?(input)
     }
-}
-
-extension ProducerType {
     
-    mutating func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+    public func produce() {
         
-        self.consumer = consumer.consume
-        
-        return self
+        _produce()
     }
-    
-    mutating func finally(consumer: OutputType -> Void) -> Self {
-        
-        self.consumer = consumer
-        
-        return self
-    }
-}
-
-protocol DiscreteProducer: ProducerType {
-    
-    func produce()
-}
-
-protocol ContinuousProducer: ProducerType {
-    
-    func start()
-    
-    func stop()
 }
 
 

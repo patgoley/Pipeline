@@ -15,11 +15,7 @@ class PipelineTests: XCTestCase {
         
         let timer = Timer(interval: 1.0, repeats: true)
         
-        let _ = ProducerPipeline(head: timer).then({
-            
-            return $0.description
-            
-        }).finally(Logger())
+        var _ = ProducerPipeline(head: timer).then { $0.description }.finally(Logger())
         
         timer.start()
         

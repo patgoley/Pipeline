@@ -50,33 +50,33 @@ public func |> <I, O, U where U: TransformerType, O == U.InputType>(lhs: Transfo
     return lhs.then(rhs)
 }
 
-public func |> <O, U where U: TransformerType, O == U.InputType>(lhs: ProducerPipeline<O>, rhs: U) -> ProducerPipeline<U.OutputType>  {
+public func |> <O, C where C: TransformerType, O == C.InputType>(lhs: ProducerPipeline<O>, rhs: C) -> ProducerPipeline<C.OutputType>  {
     
     return lhs.then(rhs)
 }
 
-public func |> <I, O, U>(lhs: TransformerPipeline<I, O>, rhs: O -> U) -> TransformerPipeline<I, U>  {
+public func |> <I, O, C>(lhs: TransformerPipeline<I, O>, rhs: O -> C) -> TransformerPipeline<I, C>  {
     
     return lhs.then(rhs)
 }
 
-public func |> <O, U>(lhs: ProducerPipeline<O>, rhs: O -> U) -> ProducerPipeline<U>  {
+public func |> <O, C>(lhs: ProducerPipeline<O>, rhs: O -> C) -> ProducerPipeline<C>  {
     
     return lhs.then(rhs)
 }
 
-public func |> <P: ProducerType, C: ConsumerType where C.InputType == P.OutputType>(lhs: P, rhs: C) -> P  {
+public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ProducerPipeline<O>, rhs: C) -> ProducerPipeline<O>  {
     
-    var producer = lhs
-    
-    return producer.finally(rhs)
+    return lhs.finally(rhs)
 }
 
-public func |> <P: ProducerType>(lhs: P, rhs: P.OutputType -> Void) -> P  {
+public func |> <O>(lhs: ProducerPipeline<O>, rhs: O -> Void) -> ProducerPipeline<O>  {
     
-    var producer = lhs
-    
-    return producer.finally(rhs)
+    return lhs.finally(rhs)
 }
 
+public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: TransformerPipeline<I, O>, rhs: C) -> TransformerPipeline<I, O>  {
+    
+    return lhs.finally(rhs)
+}
 

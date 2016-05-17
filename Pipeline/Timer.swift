@@ -8,8 +8,7 @@
 
 import Foundation
 
-
-public final class Timer: ProducerType, ContinuousProducer {
+public final class Timer: ProducerType {
     
     public typealias OutputType = NSDate
     
@@ -21,7 +20,9 @@ public final class Timer: ProducerType, ContinuousProducer {
     
     public var consumer: (NSDate -> Void)?
     
-    public init(interval: NSTimeInterval, repeats: Bool) {
+    public var target: (() -> Void)?
+    
+    public init(interval: NSTimeInterval, repeats: Bool = true) {
         
         self.interval = interval
         
@@ -39,6 +40,11 @@ public final class Timer: ProducerType, ContinuousProducer {
         timer = nil
     }
     
+    public func produce() {
+        
+        tick()
+    }
+    
     @objc func tick() {
         
         if let consumer = consumer {
@@ -47,6 +53,12 @@ public final class Timer: ProducerType, ContinuousProducer {
             
             consumer(date)
         }
+        
+        if let target = target {
+            
+            target()
+        }
     }
 }
+
 

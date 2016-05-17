@@ -11,6 +11,14 @@ import Foundation
 
 public protocol TransformerType: ConsumerType, ProducerType { }
 
+extension TransformerType {
+    
+    public func produce() {
+        
+        fatalError("transformers cannot produce")
+    }
+}
+
 public final class AnyTransformer<T, U>: TransformerType  {
     
     public typealias InputType = T
