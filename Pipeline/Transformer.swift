@@ -15,6 +15,8 @@ extension TransformerType {
     
     public func produce() {
         
+        // FIXME: Don't allow transformers to produce at compile time
+        
         fatalError("transformers cannot produce")
     }
 }
