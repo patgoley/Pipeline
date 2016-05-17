@@ -23,7 +23,6 @@ public enum JSONError: ErrorType, CustomStringConvertible {
     }
 }
 
-public typealias JSONObjectType = [String: AnyObject]
 
 public extension NSJSONSerialization {
     
@@ -44,13 +43,13 @@ public extension NSJSONSerialization {
         }
     }
     
-    public static func objectDeserializer() -> AnyTransformer<NSData, Result<JSONObjectType>> {
+    public static func objectDeserializer() -> AnyTransformer<NSData, Result<[String: AnyObject]>> {
         
-        return AnyTransformer<NSData, Result<JSONObjectType>>() { data in
+        return AnyTransformer<NSData, Result<[String: AnyObject]>>() { data in
             
             do {
                 
-                if let jsonObject = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? JSONObjectType {
+                if let jsonObject = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String: AnyObject] {
                     
                     return .Success(jsonObject)
                 }

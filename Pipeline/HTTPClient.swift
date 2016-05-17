@@ -17,7 +17,7 @@ struct HTTPResponse {
 
 struct HTTPClient: TransformerType {
     
-    static func JSONClient() -> TransformerPipeline<NSURLRequest, Result<JSONObjectType>> {
+    static func JSONClient() -> TransformerPipeline<NSURLRequest, Result<[String: AnyObject]>> {
         
         return HTTPClient()
             |> swallowError()
