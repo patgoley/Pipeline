@@ -44,3 +44,20 @@ public final class AnyProducer<T>: ProducerType {
         consumer?(input)
     }
 }
+
+extension ProducerType {
+    
+    mutating func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+        
+        self.consumer = consumer.consume
+        
+        return self
+    }
+    
+    mutating func finally(consumer: OutputType -> Void) -> Self {
+        
+        self.consumer = consumer
+        
+        return self
+    }
+}

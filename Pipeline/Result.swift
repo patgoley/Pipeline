@@ -8,15 +8,15 @@
 
 import Foundation
 
-
-public protocol ResultType {
-    
-    associatedtype ValueType
-}
-
-public enum Result<T>: ResultType {
+public enum Result<T> {
     
     public typealias ValueType = T
     
     case Success(T), Error(ErrorType)
 }
+
+public enum Either<A, B> {
+    
+    case First(A), Second(B)
+}
+

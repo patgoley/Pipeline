@@ -19,12 +19,10 @@ struct HTTPClient: TransformerType {
     
     static func JSONClient() -> TransformerPipeline<NSURLRequest, Result<AnyObject>> {
         
-        let pipeline = TransformerPipeline(head: HTTPClient())
-            .then(HandleResult())
-            .then(NilGuard() { $0.body })
-            .then(NSJSONSerialization.deserializer())
-        
-        return pipeline
+        return HTTPClient()
+            |> swallowError()
+            |> guardUnwrap { $0.body }
+            |> NSJSONSerialization.deserializer()
     }
     
     typealias InputType = NSURLRequest

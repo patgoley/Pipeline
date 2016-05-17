@@ -132,12 +132,5 @@ public final class TransformerPipeline<T, U>: TransformerType {
         
         return TransformerPipeline<InputType, NewOutput>(head: head, tail: transform)
     }
-    
-    func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
-        
-        self.consumer = consumer.consume
-        
-        return self
-    }
 }
 

@@ -24,6 +24,7 @@
 		8EE644771CE9190900403EFC /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644761CE9190900403EFC /* ErrorHandling.swift */; };
 		8EE644791CE921DB00403EFC /* ModelParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644781CE921DB00403EFC /* ModelParser.swift */; };
 		8EE6447B1CE929EB00403EFC /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE6447A1CE929EB00403EFC /* user.json */; };
+		8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9A1CEAA745006FCF13 /* Operators.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		8EE644761CE9190900403EFC /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		8EE644781CE921DB00403EFC /* ModelParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelParser.swift; sourceTree = "<group>"; };
 		8EE6447A1CE929EB00403EFC /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
+		8EF82E9A1CEAA745006FCF13 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				8EE6446B1CE8D2E200403EFC /* HTTPClient.swift */,
 				8EE644761CE9190900403EFC /* ErrorHandling.swift */,
 				8EE644631CE8600800403EFC /* Result.swift */,
+				8EF82E9A1CEAA745006FCF13 /* Operators.swift */,
 				8EE6444A1CE7AEA500403EFC /* Info.plist */,
 			);
 			path = Pipeline;
@@ -243,6 +246,7 @@
 				8EE6446C1CE8D2E200403EFC /* HTTPClient.swift in Sources */,
 				8EE6446E1CE8DBFC00403EFC /* Timer.swift in Sources */,
 				8EE644701CE8DDC700403EFC /* Logger.swift in Sources */,
+				8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */,
 				8EE644731CE8FFFB00403EFC /* Consumer.swift in Sources */,
 				8EE644791CE921DB00403EFC /* ModelParser.swift in Sources */,
 				8EE644751CE9011000403EFC /* Producer.swift in Sources */,
@@ -437,6 +441,7 @@
 				8EE6445B1CE7AEA500403EFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8EE6445C1CE7AEA500403EFC /* Build configuration list for PBXNativeTarget "PipelineTests" */ = {
 			isa = XCConfigurationList;
@@ -445,6 +450,7 @@
 				8EE6445E1CE7AEA500403EFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

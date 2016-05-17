@@ -8,82 +8,66 @@
 
 import Foundation
 
-public final class NilGuard<T, U>: TransformerType {
+public func guardUnwrap<T>() -> OptionalFilterTransformer<T?, T> {
     
-    public typealias InputType = T
+    return OptionalFilterTransformer() { $0 }
+}
+
+public func guardUnwrap<T, U>(transform: T -> U?) -> OptionalFilterTransformer<T, U> {
     
-    public typealias OutputType = U
+    return OptionalFilterTransformer() { transform($0) }
+}
+
+public func forceUnwrap<T>() -> AnyTransformer<T?, T> {
     
-    private let map: InputType -> OutputType?
+    return AnyTransformer() { $0! }
+}
+
+public func forceUnwrap<T, U>(transform: T -> U?) -> AnyTransformer<T, U> {
     
-    public var consumer: (OutputType -> Void)?
+    return AnyTransformer() { transform($0)! }
+}
+
+public func downCast<T, U>(toType: U.Type) -> OptionalFilterTransformer<T, U> {
     
-    init(map: InputType -> OutputType?) {
-        
-        self.map = map
-    }
+    return OptionalFilterTransformer() { $0 as? U }
+}
+
+public func forceCast<T, U>(toType: U.Type) -> AnyTransformer<T, U> {
     
-    public func consume(input: InputType) {
-        
-        guard let consumer = self.consumer,
-                  value = map(input) else {
+    return AnyTransformer() { $0 as! U }
+}
+
+public func swallowError<T>() -> OptionalFilterTransformer<Result<T>, T> {
+    
+    return OptionalFilterTransformer() {
+    
+        switch $0 {
             
-            return
+        case .Success(let value):
+            
+            return value
+            
+        case .Error( _):
+            
+            return nil
         }
-        
-        consumer(value)
     }
 }
 
-public final class Downcast<T, U>: TransformerType {
+public func crashOnError<T>(result: Result<T>) -> AnyTransformer<Result<T>, T> {
     
-    public typealias InputType = T
-    
-    public typealias OutputType = U
-    
-    public var consumer: (OutputType -> Void)?
-    
-    init(_ outType: U.Type) {
+    return AnyTransformer() {
         
-        
-    }
-    
-    public func consume(input: InputType) {
-        
-        guard let consumer = self.consumer,
-                  value = input as? OutputType else {
-                
-                return
-        }
-        
-        consumer(value)
-    }
-}
-
-public final class HandleResult<T>: TransformerType {
-    
-    public typealias InputType = Result<T>
-    
-    public typealias OutputType = T
-    
-    public var consumer: (OutputType -> Void)?
-    
-    public func consume(result: InputType) {
-        
-        guard let consumer = self.consumer else {
+        switch $0 {
             
-            return
-        }
-        
-        switch result {
+        case .Success(let value):
             
-        case .Success(let x):
-            
-            consumer(x)
+            return value
             
         case .Error(let err):
             
-            fatalError("\(err)")
+            fatalError("ERROR: \(err)")
         }
     }
 }
