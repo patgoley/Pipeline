@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		8E8550A31CEE4CDD00720DC1 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8550A21CEE4CDD00720DC1 /* Consumable.swift */; };
+		8E8550A51CEE5A9C00720DC1 /* TransformerPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8550A41CEE5A9C00720DC1 /* TransformerPipeline.swift */; };
+		8E8550A71CEE5AC900720DC1 /* ConsumablePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8550A61CEE5AC900720DC1 /* ConsumablePipeline.swift */; };
 		8EE644491CE7AEA500403EFC /* Pipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EE644481CE7AEA500403EFC /* Pipeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8EE644501CE7AEA500403EFC /* Pipeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE644451CE7AEA500403EFC /* Pipeline.framework */; };
 		8EE644551CE7AEA500403EFC /* PipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644541CE7AEA500403EFC /* PipelineTests.swift */; };
-		8EE644601CE7AEB900403EFC /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE6445F1CE7AEB900403EFC /* Pipeline.swift */; };
+		8EE644601CE7AEB900403EFC /* ProducerPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE6445F1CE7AEB900403EFC /* ProducerPipeline.swift */; };
 		8EE644621CE857ED00403EFC /* JSONTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644611CE857ED00403EFC /* JSONTransformers.swift */; };
 		8EE644641CE8600800403EFC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644631CE8600800403EFC /* Result.swift */; };
 		8EE644661CE8634C00403EFC /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644651CE8634C00403EFC /* JSONTests.swift */; };
@@ -43,13 +45,15 @@
 
 /* Begin PBXFileReference section */
 		8E8550A21CEE4CDD00720DC1 /* Consumable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
+		8E8550A41CEE5A9C00720DC1 /* TransformerPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerPipeline.swift; sourceTree = "<group>"; };
+		8E8550A61CEE5AC900720DC1 /* ConsumablePipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumablePipeline.swift; sourceTree = "<group>"; };
 		8EE644451CE7AEA500403EFC /* Pipeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pipeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE644481CE7AEA500403EFC /* Pipeline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pipeline.h; sourceTree = "<group>"; };
 		8EE6444A1CE7AEA500403EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EE6444F1CE7AEA500403EFC /* PipelineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PipelineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE644541CE7AEA500403EFC /* PipelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipelineTests.swift; sourceTree = "<group>"; };
 		8EE644561CE7AEA500403EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8EE6445F1CE7AEB900403EFC /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
+		8EE6445F1CE7AEB900403EFC /* ProducerPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducerPipeline.swift; sourceTree = "<group>"; };
 		8EE644611CE857ED00403EFC /* JSONTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTransformers.swift; sourceTree = "<group>"; };
 		8EE644631CE8600800403EFC /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		8EE644651CE8634C00403EFC /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
@@ -112,9 +116,11 @@
 				8EE644481CE7AEA500403EFC /* Pipeline.h */,
 				8EE644721CE8FFFB00403EFC /* Consumer.swift */,
 				8E8550A21CEE4CDD00720DC1 /* Consumable.swift */,
+				8E8550A61CEE5AC900720DC1 /* ConsumablePipeline.swift */,
 				8EE644741CE9011000403EFC /* Producer.swift */,
+				8EE6445F1CE7AEB900403EFC /* ProducerPipeline.swift */,
 				8EE644691CE8D2BB00403EFC /* Transformer.swift */,
-				8EE6445F1CE7AEB900403EFC /* Pipeline.swift */,
+				8E8550A41CEE5A9C00720DC1 /* TransformerPipeline.swift */,
 				8EE644611CE857ED00403EFC /* JSONTransformers.swift */,
 				8EE644781CE921DB00403EFC /* ModelParser.swift */,
 				8EF82E9C1CEAC077006FCF13 /* ValueProducer.swift */,
@@ -254,15 +260,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EE644641CE8600800403EFC /* Result.swift in Sources */,
-				8EE644601CE7AEB900403EFC /* Pipeline.swift in Sources */,
+				8EE644601CE7AEB900403EFC /* ProducerPipeline.swift in Sources */,
 				8EE6446C1CE8D2E200403EFC /* HTTPClient.swift in Sources */,
 				8EE6446E1CE8DBFC00403EFC /* Timer.swift in Sources */,
 				8E8550A31CEE4CDD00720DC1 /* Consumable.swift in Sources */,
 				8EE644701CE8DDC700403EFC /* Logger.swift in Sources */,
+				8E8550A71CEE5AC900720DC1 /* ConsumablePipeline.swift in Sources */,
 				8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */,
 				8EF82EA11CEAD1B1006FCF13 /* NSBundlePipelines.swift in Sources */,
 				8EF82E9F1CEAC3C7006FCF13 /* NSFileManagerTransformers.swift in Sources */,
 				8EE644731CE8FFFB00403EFC /* Consumer.swift in Sources */,
+				8E8550A51CEE5A9C00720DC1 /* TransformerPipeline.swift in Sources */,
 				8EE644791CE921DB00403EFC /* ModelParser.swift in Sources */,
 				8EE644751CE9011000403EFC /* Producer.swift in Sources */,
 				8EE644771CE9190900403EFC /* ErrorHandling.swift in Sources */,
