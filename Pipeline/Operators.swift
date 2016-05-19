@@ -23,6 +23,16 @@ public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: S.OutputType -> NewOu
     return ConsumablePipeline(head: lhs).then(rhs)
 }
 
+public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ConsumablePipeline<O>, rhs: C) -> ConsumablePipeline<O>  {
+    
+    return lhs.finally(rhs)
+}
+
+public func |> <O>(lhs: ConsumablePipeline<O>, rhs: O -> Void) -> ConsumablePipeline<O>  {
+    
+    return lhs.finally(rhs)
+}
+
 // MARK: - ProducerPipeline
 
 public func |> <P: ProducerType, U: TransformerType where P.OutputType == U.InputType>(lhs: P, rhs: U) -> ProducerPipeline<U.OutputType>  {
@@ -92,6 +102,11 @@ public func |> <I, O, C>(lhs: TransformerPipeline<I, O>, rhs: O -> C) -> Transfo
 }
 
 public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: TransformerPipeline<I, O>, rhs: C) -> TransformerPipeline<I, O>  {
+    
+    return lhs.finally(rhs)
+}
+
+public func |> <I, O>(lhs: TransformerPipeline<I, O>, rhs: O -> Void) -> TransformerPipeline<I, O>  {
     
     return lhs.finally(rhs)
 }
