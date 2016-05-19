@@ -9,17 +9,7 @@
 import Foundation
 
 
-public protocol TransformerType: ConsumerType, ProducerType { }
-
-extension TransformerType {
-    
-    public func produce() {
-        
-        // FIXME: Don't allow transformers to produce at compile time
-        
-        fatalError("transformers cannot produce")
-    }
-}
+public protocol TransformerType: ConsumerType, ConsumableType { }
 
 public final class AnyTransformer<T, U>: TransformerType  {
     

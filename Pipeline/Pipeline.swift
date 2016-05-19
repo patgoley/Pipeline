@@ -14,7 +14,7 @@ public final class ProducerPipeline<T>: ProducerType {
     
     private let head: Any
     
-    private let tail: AnyProducer<T>
+    private let tail: AnyConsumable<T>
     
     public var consumer: (OutputType -> Void)? {
         
@@ -35,7 +35,7 @@ public final class ProducerPipeline<T>: ProducerType {
         self.init(head: head, produce: head.produce, tail: tail)
     }
     
-    private init<Tail: ProducerType where Tail.OutputType == T>(head: Any, produce: () -> Void, tail: Tail) {
+    private init<Tail: ConsumableType where Tail.OutputType == T>(head: Any, produce: () -> Void, tail: Tail) {
         
         self.head = head
         
@@ -43,7 +43,7 @@ public final class ProducerPipeline<T>: ProducerType {
         
         var tailProducer = tail
         
-        self.tail = AnyProducer(base: tail)
+        self.tail = AnyConsumable(base: tail)
         
         _setConsumer = { consumer in
             
@@ -56,14 +56,14 @@ public final class ProducerPipeline<T>: ProducerType {
         _produce()
     }
     
-    func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> ProducerPipeline<Transform.OutputType> {
+    public func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> ProducerPipeline<Transform.OutputType> {
         
         tail.consumer = transformer.consume
         
         return ProducerPipeline<Transform.OutputType>(head: head, produce: _produce, tail: transformer)
     }
     
-    func then<NewOutput>(transformer: OutputType -> NewOutput) -> ProducerPipeline<NewOutput> {
+    public func then<NewOutput>(transformer: OutputType -> NewOutput) -> ProducerPipeline<NewOutput> {
         
         let transform = AnyTransformer(transform: transformer)
         
@@ -72,14 +72,14 @@ public final class ProducerPipeline<T>: ProducerType {
         return ProducerPipeline<NewOutput>(head: head, produce: _produce, tail: transform)
     }
     
-    func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
         
         self.consumer = consumer.consume
         
         return self
     }
     
-    func finally(consumer: OutputType -> Void) -> Self {
+    public func finally(consumer: OutputType -> Void) -> Self {
         
         self.consumer = consumer
         
@@ -105,7 +105,7 @@ public final class TransformerPipeline<T, U>: TransformerType {
     
     private let head: AnyConsumer<InputType>
     
-    private let tail: AnyProducer<OutputType>
+    private let tail: AnyConsumable<OutputType>
     
     public convenience init<Head: TransformerType where Head.InputType == InputType, Head.OutputType == OutputType>(head: Head) {
         
@@ -120,7 +120,7 @@ public final class TransformerPipeline<T, U>: TransformerType {
         
         var tailProducer = tail
         
-        self.tail = AnyProducer(base: tail)
+        self.tail = AnyConsumable(base: tail)
         
         _setConsumer = { consumer in
             
@@ -140,7 +140,7 @@ public final class TransformerPipeline<T, U>: TransformerType {
         return TransformerPipeline<InputType, Transform.OutputType>(head: head, tail: transformer)
     }
     
-    func then<NewOutput>(transformer: U -> NewOutput) -> TransformerPipeline<InputType, NewOutput> {
+    public func then<NewOutput>(transformer: U -> NewOutput) -> TransformerPipeline<InputType, NewOutput> {
         
         let transform = AnyTransformer(transform: transformer)
         
@@ -149,14 +149,14 @@ public final class TransformerPipeline<T, U>: TransformerType {
         return TransformerPipeline<InputType, NewOutput>(head: head, tail: transform)
     }
     
-    func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
         
         self.consumer = consumer.consume
         
         return self
     }
     
-    func finally(consumer: OutputType -> Void) -> Self {
+    public func finally(consumer: OutputType -> Void) -> Self {
         
         self.consumer = consumer
         

@@ -1,19 +1,21 @@
 //
-//  Producer.swift
+//  Consumable.swift
 //  Pipeline
 //
-//  Created by Patrick Goley on 5/15/16.
+//  Created by Patrick Goley on 5/19/16.
 //  Copyright © 2016 arbiter. All rights reserved.
 //
 
 import Foundation
 
-public protocol ProducerType: ConsumableType {
+public protocol ConsumableType {
     
-    func produce()
+    associatedtype OutputType
+    
+    var consumer: (OutputType -> Void)? { get set }
 }
 
-public final class AnyProducer<T>: ProducerType {
+public final class AnyConsumable<T>: ConsumableType {
     
     public typealias OutputType = T
     
@@ -27,11 +29,7 @@ public final class AnyProducer<T>: ProducerType {
     
     private let _setConsumer: (T -> Void)? -> Void
     
-    private let _produce: () -> Void
-    
-    public init<Base: ProducerType where Base.OutputType == OutputType>(base: Base) {
-        
-        _produce = base.produce
+    public init<Base: ConsumableType where Base.OutputType == OutputType>(base: Base) {
         
         var mutableBase = base
         
@@ -40,11 +38,4 @@ public final class AnyProducer<T>: ProducerType {
             mutableBase.consumer = consumer
         }
     }
-    
-    public func produce() {
-        
-        _produce()
-    }
 }
-
-
