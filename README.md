@@ -15,9 +15,9 @@ protocol ConsumableType {
     var consumer: (OutputType -> Void)? { get set }
 }
 ```
-A `ConsumableType` is something that produces data of a particular type as passes it to a consumer function. Other types can "hook into" the `ConsumableType` by setting it's consumer to a function, which will then be invoked whenever a new value is available.
+A `ConsumableType` is something that produces data of a particular type as passes it to a consumer function. Other types can "hook into" the `ConsumableType` by setting it's consumer to a function, which will then be call whenever a new value is available.
 
-The compliment to a `ConsumableType` is a `ConsumerType`. It has an input type and a function to receive incoming values. Consumers can be hooked up to Consumables as long as their InputType and OutputType match.
+The compliment to a `ConsumableType` is a `ConsumerType`. It has an input type and a function to receive incoming values. Consumers can be hooked up to Consumables as long as their `InputType` and `OutputType` match.
 
 ``` swift
 protocol ConsumerType {
