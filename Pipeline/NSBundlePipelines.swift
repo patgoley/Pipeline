@@ -15,7 +15,7 @@ public extension NSBundle {
         
         return { self.URLForResource(name, withExtension: fileExtension) }
             |> forceUnwrap
-            |> NSFileManager.urlLoader()
+            |> NSFileManager.loadFromURL
             |> crashOnError
     }
 }
