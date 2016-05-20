@@ -39,8 +39,11 @@ public final class ThunkProducer<T>: ProducerType {
     
     public func produce() {
         
-        let value = thunk()
-        
-        consumer?(value)
+        if let consumer = consumer {
+            
+            let value = thunk()
+            
+            consumer(value)
+        }
     }
 }
