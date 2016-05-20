@@ -26,67 +26,74 @@ public enum JSONError: ErrorType, CustomStringConvertible {
 
 public extension NSJSONSerialization {
     
-    public static func deserializer() -> AnyTransformer<NSData, Result<AnyObject>> {
+    public static func arrayDeserializer(data: NSData) -> Result<[AnyObject]> {
         
-        return AnyTransformer<NSData, Result<AnyObject>>() { data in
+        do {
             
-            do {
+            let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+            
+            if let array = json as? [AnyObject] {
                 
-                let jsonObject = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                return .Success(array)
                 
-                return .Success(jsonObject)
+            } else {
                 
-            } catch {
-                
-                return .Error(error)
+                return .Error(JSONError.CastError(NSArray))
             }
+            
+        } catch {
+            
+            return .Error(error)
         }
     }
     
-    public static func objectDeserializer() -> AnyTransformer<NSData, Result<[String: AnyObject]>> {
+    
+    public static func objectDeserializer(data: NSData) -> Result<[String: AnyObject]> {
         
-        return AnyTransformer<NSData, Result<[String: AnyObject]>>() { data in
+        do {
             
-            do {
+            let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+            
+            if let object = json as? [String: AnyObject] {
                 
-                let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                return .Success(object)
                 
-                if let object = json as? [String: AnyObject] {
-                    
-                    return .Success(object)
-                }
+            } else {
                 
                 return .Error(JSONError.CastError(NSDictionary))
-                
-            } catch {
-                
-                return .Error(error)
             }
+            
+        } catch {
+            
+            return .Error(error)
         }
     }
     
-    public static func serializer() -> AnyTransformer<Either<NSArray, NSDictionary>, Result<NSData>> {
+    public static func serializer(array: NSArray) -> Result<NSData> {
         
-        return AnyTransformer() { either in
+        do {
             
-            let object: AnyObject
+            let data = try NSJSONSerialization.dataWithJSONObject(array, options: .PrettyPrinted)
             
-            switch either {
-                
-            case .First(let array): object = array
-            case .Second(let dictionary): object = dictionary
-            }
+            return .Success(data)
             
-            do {
-                
-                let data = try NSJSONSerialization.dataWithJSONObject(object, options: .PrettyPrinted)
-                
-                return .Success(data)
-                
-            } catch {
-                
-                return .Error(error)
-            }
+        } catch {
+            
+            return .Error(error)
+        }
+    }
+    
+    public static func serializer(dict: NSDictionary) -> Result<NSData> {
+        
+        do {
+            
+            let data = try NSJSONSerialization.dataWithJSONObject(dict, options: .PrettyPrinted)
+            
+            return .Success(data)
+            
+        } catch {
+            
+            return .Error(error)
         }
     }
 }

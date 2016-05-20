@@ -40,13 +40,11 @@ public final class TransformerPipeline<T, U>: TransformerType {
         
         self.head = head
         
-        var tailProducer = tail
-        
         self.tail = AnyConsumable(base: tail)
         
         _setConsumer = { consumer in
             
-            tailProducer.consumer = consumer
+            tail.consumer = consumer
         }
     }
     

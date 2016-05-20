@@ -18,14 +18,17 @@ public func guardUnwrap<T, U>(transform: T -> U?) -> OptionalFilterTransformer<T
     return OptionalFilterTransformer() { transform($0) }
 }
 
-public func forceUnwrap<T>() -> AnyTransformer<T?, T> {
+public func forceUnwrap<T>(input: T?) -> T {
     
-    return AnyTransformer() { $0! }
+    return input!
 }
 
-public func forceUnwrap<T, U>(transform: T -> U?) -> AnyTransformer<T, U> {
+public func forceUnwrap<T, U>(transform: T -> U?) -> (T -> U) {
     
-    return AnyTransformer() { transform($0)! }
+    return {
+        
+        transform($0)!
+    }
 }
 
 public func downCast<T, U>(toType: U.Type) -> OptionalFilterTransformer<T, U> {
@@ -38,7 +41,7 @@ public func forceCast<T, U>(toType: U.Type) -> AnyTransformer<T, U> {
     return AnyTransformer() { $0 as! U }
 }
 
-public func swallowError<T>() -> OptionalFilterTransformer<Result<T>, T> {
+public func swallowError<T>(log log: Bool = true) -> OptionalFilterTransformer<Result<T>, T> {
     
     return OptionalFilterTransformer() {
     
@@ -48,27 +51,29 @@ public func swallowError<T>() -> OptionalFilterTransformer<Result<T>, T> {
             
             return value
             
-        case .Error( _):
+        case .Error(let err):
+            
+            if log {
+                
+                print("Pipeline error: \(err)")
+            }
             
             return nil
         }
     }
 }
 
-public func crashOnError<T>(result: Result<T>) -> AnyTransformer<Result<T>, T> {
+public func crashOnError<T>(result: Result<T>) -> T {
     
-    return AnyTransformer() {
+    switch result {
         
-        switch $0 {
-            
-        case .Success(let value):
-            
-            return value
-            
-        case .Error(let err):
-            
-            fatalError("ERROR: \(err)")
-        }
+    case .Success(let value):
+        
+        return value
+        
+    case .Error(let err):
+        
+        fatalError("ERROR: \(err)")
     }
 }
 

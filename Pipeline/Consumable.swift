@@ -8,28 +8,11 @@
 
 import Foundation
 
-public protocol ConsumableType {
+public protocol ConsumableType: class {
     
     associatedtype OutputType
     
     var consumer: (OutputType -> Void)? { get set }
-}
-
-extension ConsumableType {
-    
-    mutating public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
-        
-        self.consumer = consumer.consume
-        
-        return self
-    }
-    
-    mutating public func finally(consumer: OutputType -> Void) -> Self {
-        
-        self.consumer = consumer
-        
-        return self
-    }
 }
 
 public final class AnyConsumable<T>: ConsumableType {
@@ -48,11 +31,9 @@ public final class AnyConsumable<T>: ConsumableType {
     
     public init<Base: ConsumableType where Base.OutputType == OutputType>(base: Base) {
         
-        var mutableBase = base
-        
         _setConsumer = { consumer in
             
-            mutableBase.consumer = consumer
+            base.consumer = consumer
         }
     }
 }

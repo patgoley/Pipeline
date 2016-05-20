@@ -17,15 +17,13 @@ class JSONTests: XCTestCase {
         
         let data = NSData(contentsOfURL: url)!
         
-        let deserializer = NSJSONSerialization.deserializer()
+        let transformer = AnyTransformer(transform: NSJSONSerialization.arrayDeserializer)
         
-        let pipeline = TransformerPipeline(head: deserializer)
-        
-        pipeline.consumer = { result in
+        transformer.consumer = { result in
             
             switch result {
                 
-            case .Success(let result as Array<String>):
+            case .Success(let result):
                 
                 let expectedResult = [
                     "bird",
@@ -33,19 +31,15 @@ class JSONTests: XCTestCase {
                     "dog"
                 ]
                 
-                XCTAssert(result == expectedResult, "")
+                XCTAssert(result as! [String] == expectedResult, "")
                 
             case .Error(let err):
                 
                 XCTAssert(false, "\(err)")
-                
-            default:
-                
-                XCTAssert(false, "unexpected JSON structure")
             }
         }
         
-        pipeline.consume(data)
+        transformer.consume(data)
     }
     
     func testModelParser() {

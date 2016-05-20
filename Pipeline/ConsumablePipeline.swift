@@ -38,13 +38,11 @@ public final class ConsumablePipeline<T>: ConsumableType {
         
         self.head = head
         
-        var tailProducer = tail
-        
         self.tail = AnyConsumable(base: tail)
         
         _setConsumer = { consumer in
             
-            tailProducer.consumer = consumer
+            tail.consumer = consumer
         }
     }
     
@@ -62,6 +60,20 @@ public final class ConsumablePipeline<T>: ConsumableType {
         tail.consumer = transform.consume
         
         return ConsumablePipeline<NewOutput>(head: head, tail: transform)
+    }
+    
+    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+        
+        self.consumer = consumer.consume
+        
+        return self
+    }
+    
+    public func finally(consumer: OutputType -> Void) -> Self {
+        
+        self.consumer = consumer
+        
+        return self
     }
 }
 

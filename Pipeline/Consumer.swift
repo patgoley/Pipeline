@@ -9,7 +9,7 @@
 import Foundation
 
 
-public protocol ConsumerType {
+public protocol ConsumerType: class {
     
     associatedtype InputType
     

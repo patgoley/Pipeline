@@ -1,5 +1,5 @@
 //
-//  PipelineTests.swift
+//  TimerTests.swift
 //  PipelineTests
 //
 //  Created by Patrick Goley on 5/14/16.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Pipeline
 
-class PipelineTests: XCTestCase {
+class TimerTests: XCTestCase {
     
     func testDateLogger() {
         
@@ -17,15 +17,26 @@ class PipelineTests: XCTestCase {
         
         let timerExpectation = expectationWithDescription("timer")
         
-        var _ = ProducerPipeline(head: timer).then { $0.description }.finally { _ in
+        var count = 0
+        
+        let _ = timer
+            |> { $0.description }
+            |> { date in
+                
+            print(date)
             
             XCTAssertTrue(true)
             
-            timerExpectation.fulfill()
+            count += 1
+            
+            if count == 2 {
+                
+                timerExpectation.fulfill()
+            }
         }
         
         timer.start()
         
-        waitForExpectationsWithTimeout(10.0, handler: nil)
+        waitForExpectationsWithTimeout(3.0, handler: nil)
     }
 }

@@ -33,11 +33,9 @@ public final class AnyProducer<T>: ProducerType {
         
         _produce = base.produce
         
-        var mutableBase = base
-        
         _setConsumer = { consumer in
             
-            mutableBase.consumer = consumer
+            base.consumer = consumer
         }
     }
     

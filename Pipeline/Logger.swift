@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct Logger: ConsumerType {
+class Logger: ConsumerType {
     
     typealias InputType = Any
     

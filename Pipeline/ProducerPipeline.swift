@@ -14,7 +14,7 @@ public final class ProducerPipeline<T>: ProducerType {
     
     private let head: Any
     
-    private let tail: AnyConsumable<T>
+    private var tail: AnyConsumable<T>
     
     public var consumer: (OutputType -> Void)? {
         
@@ -41,13 +41,11 @@ public final class ProducerPipeline<T>: ProducerType {
         
         _produce = produce
         
-        var tailProducer = tail
-        
         self.tail = AnyConsumable(base: tail)
         
         _setConsumer = { consumer in
             
-            tailProducer.consumer = consumer
+            tail.consumer = consumer
         }
     }
     
@@ -70,6 +68,20 @@ public final class ProducerPipeline<T>: ProducerType {
         tail.consumer = transform.consume
         
         return ProducerPipeline<NewOutput>(head: head, produce: _produce, tail: transform)
+    }
+    
+    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+        
+        self.consumer = consumer.consume
+        
+        return self
+    }
+    
+    public func finally(consumer: OutputType -> Void) -> Self {
+        
+        self.consumer = consumer
+        
+        return self
     }
 }
 

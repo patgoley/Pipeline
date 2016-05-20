@@ -8,35 +8,35 @@
 
 import Foundation
 
-struct HTTPResponse {
+public struct HTTPResponse {
     
     let statusCode: Int
     let headers: [String: String]
     let body: NSData?
 }
 
-struct HTTPClient: TransformerType {
+public final class HTTPClient: TransformerType {
     
-    static func JSONClient() -> TransformerPipeline<NSURLRequest, NSData> {
+    static func safeClient() -> TransformerPipeline<NSURLRequest, NSData> {
         
         return HTTPClient()
             |> swallowError()
             |> guardUnwrap { $0.body }
     }
     
-    typealias InputType = NSURLRequest
+    public typealias InputType = NSURLRequest
     
-    typealias OutputType = Result<HTTPResponse>
+    public typealias OutputType = Result<HTTPResponse>
     
     private let urlSession = NSURLSession.sharedSession()
     
-    var consumer: (OutputType -> Void)?
+    public var consumer: (OutputType -> Void)?
     
-    func consume(request: NSURLRequest) {
+    public func consume(request: NSURLRequest) {
         
         guard let consumer = self.consumer else {
             
-            return
+            fatalError()
         }
         
         let task = urlSession.dataTaskWithRequest(request) { data, urlResponse, error in
