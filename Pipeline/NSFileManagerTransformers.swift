@@ -15,35 +15,30 @@ public enum FileError: ErrorType {
 
 public extension NSFileManager {
     
-    static func urlLoader() -> AnyTransformer<NSURL, Result<NSData>> {
+    static func loadFromURL(url: NSURL) -> Result<NSData> {
         
-        return AnyTransformer() { url in
+        if let data = NSData(contentsOfURL: url) {
             
-            if let data = NSData(contentsOfURL: url) {
-                
-                return .Success(data)
-                
-            } else {
-                
-                return .Error(FileError.NotFound)
-            }
+            return .Success(data)
+            
+        } else {
+            
+            return .Error(FileError.NotFound)
         }
     }
     
-    static func pathLoader() -> AnyTransformer<String, Result<NSData>> {
+    static func loadFromPath(path: String) -> Result<NSData> {
         
-        return AnyTransformer() { path in
+        let fileManager = NSFileManager()
+        
+        if let data = fileManager.contentsAtPath(path) {
             
-            let fileManager = NSFileManager()
+            return .Success(data)
             
-            if let data = fileManager.contentsAtPath(path) {
-                
-                return .Success(data)
-                
-            } else {
-                
-                return .Error(FileError.NotFound)
-            }
+        } else {
+            
+            return .Error(FileError.NotFound)
         }
     }
 }
+
