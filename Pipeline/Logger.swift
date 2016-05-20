@@ -9,12 +9,17 @@
 import Foundation
 
 
-class Logger: ConsumerType {
+func logger<T: CustomStringConvertible>() -> PassThroughTransformer<T> {
     
-    typealias InputType = Any
-    
-    func consume(input: Any) {
+    return PassThroughTransformer<T>() {
         
-        print(input)
+        print($0)
     }
+}
+
+func logToConsole<T>(input: T) -> T {
+    
+    print(input)
+    
+    return input
 }

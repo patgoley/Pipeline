@@ -20,10 +20,8 @@ class TimerTests: XCTestCase {
         var count = 0
         
         let _ = timer
-            |> { $0.description }
-            |> { date in
-                
-            print(date)
+            |> logToConsole
+            |> { _ in
             
             XCTAssertTrue(true)
             

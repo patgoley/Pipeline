@@ -66,6 +66,29 @@ public final class OptionalFilterTransformer<T, U>: TransformerType  {
     }
 }
 
+public final class PassThroughTransformer<T>: TransformerType  {
+    
+    public typealias InputType = T
+    
+    public typealias OutputType = T
+    
+    public var consumer: (OutputType -> Void)?
+    
+    public let observe: InputType -> Void
+    
+    public init(observe: InputType -> Void) {
+        
+        self.observe = observe
+    }
+    
+    public func consume(input: InputType) {
+        
+        observe(input)
+        
+        consumer?(input)
+    }
+}
+
 public final class AsyncTransformer<T, U>: TransformerType  {
     
     public typealias InputType = T
