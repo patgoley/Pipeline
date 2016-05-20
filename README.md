@@ -1,7 +1,5 @@
 # Pipeline
 
-==============
-
 Pipeline is a framework that facilitates functional programming in Swift. It chains together values, functions, and types that act like functions into "pipelines" that produce, transform, or consume data.
 
 There are three main protocols that underly the types in Pipeline. The first one we'll look at is `ConsumableType`. 
