@@ -33,7 +33,7 @@ public final class RESTClient {
         
         return RequestBuilder.getOneRequest(resource)
             |> HTTPClient.safeClient()
-            |> NSJSONSerialization.objectDeserializer
+            |> NSJSONSerialization.deserializeObject
             |> swallowError()
             |> T.ModelType.createWithValues
     }

@@ -17,7 +17,7 @@ public struct ModelParser<T: Parseable> {
     
     public static func JSONParser() -> TransformerPipeline<NSData, T> {
         
-        return NSJSONSerialization.objectDeserializer
+        return NSJSONSerialization.deserializeObject
             |> swallowError()
             |> T.createWithValues
     }

@@ -26,7 +26,7 @@ public enum JSONError: ErrorType, CustomStringConvertible {
 
 public extension NSJSONSerialization {
     
-    public static func arrayDeserializer(data: NSData) -> Result<[AnyObject]> {
+    public static func deserializeArray(data: NSData) -> Result<[AnyObject]> {
         
         do {
             
@@ -48,7 +48,7 @@ public extension NSJSONSerialization {
     }
     
     
-    public static func objectDeserializer(data: NSData) -> Result<[String: AnyObject]> {
+    public static func deserializeObject(data: NSData) -> Result<[String: AnyObject]> {
         
         do {
             
