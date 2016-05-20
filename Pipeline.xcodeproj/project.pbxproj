@@ -13,6 +13,7 @@
 		8EB155B01CEF7CFE00AB1A75 /* RESTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB155AF1CEF7CFE00AB1A75 /* RESTClient.swift */; };
 		8EB155B41CEF8E6F00AB1A75 /* RESTClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB155B31CEF8E6F00AB1A75 /* RESTClientTests.swift */; };
 		8EB155B61CEFC1A700AB1A75 /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB155B51CEFC1A700AB1A75 /* Threading.swift */; };
+		8EB155BA1CEFC3D400AB1A75 /* ThreadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB155B91CEFC3D400AB1A75 /* ThreadingTests.swift */; };
 		8EE644491CE7AEA500403EFC /* Pipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EE644481CE7AEA500403EFC /* Pipeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8EE644501CE7AEA500403EFC /* Pipeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE644451CE7AEA500403EFC /* Pipeline.framework */; };
 		8EE644551CE7AEA500403EFC /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644541CE7AEA500403EFC /* TimerTests.swift */; };
@@ -53,6 +54,7 @@
 		8EB155AF1CEF7CFE00AB1A75 /* RESTClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RESTClient.swift; path = ../Pipeline/RESTClient.swift; sourceTree = "<group>"; };
 		8EB155B31CEF8E6F00AB1A75 /* RESTClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RESTClientTests.swift; sourceTree = "<group>"; };
 		8EB155B51CEFC1A700AB1A75 /* Threading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Threading.swift; sourceTree = "<group>"; };
+		8EB155B91CEFC3D400AB1A75 /* ThreadingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadingTests.swift; sourceTree = "<group>"; };
 		8EE644451CE7AEA500403EFC /* Pipeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pipeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE644481CE7AEA500403EFC /* Pipeline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pipeline.h; sourceTree = "<group>"; };
 		8EE6444A1CE7AEA500403EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				8EE644611CE857ED00403EFC /* JSONTransformers.swift */,
 				8EE644781CE921DB00403EFC /* ModelParser.swift */,
 				8EB155B51CEFC1A700AB1A75 /* Threading.swift */,
+				8EB155B91CEFC3D400AB1A75 /* ThreadingTests.swift */,
 				8EE644671CE8639500403EFC /* animals.json */,
 				8EE6447A1CE929EB00403EFC /* user.json */,
 				8EE644561CE7AEA500403EFC /* Info.plist */,
@@ -295,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EB155B61CEFC1A700AB1A75 /* Threading.swift in Sources */,
+				8EB155BA1CEFC3D400AB1A75 /* ThreadingTests.swift in Sources */,
 				8EB155B41CEF8E6F00AB1A75 /* RESTClientTests.swift in Sources */,
 				8EE644551CE7AEA500403EFC /* TimerTests.swift in Sources */,
 				8EE644661CE8634C00403EFC /* JSONTests.swift in Sources */,
