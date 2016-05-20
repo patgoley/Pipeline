@@ -15,32 +15,56 @@ infix operator |>   { precedence 50 associativity left }
 
 public func |> <S: ConsumableType, T: TransformerType where S.OutputType == T.InputType>(lhs: S, rhs: T) -> ConsumablePipeline<T.OutputType>  {
     
+    if let pipeline = lhs as? ConsumablePipeline<S.OutputType> {
+        
+        return pipeline.then(rhs)
+    }
+    
     return ConsumablePipeline(head: lhs).then(rhs)
 }
 
 public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: S.OutputType -> NewOutput) -> ConsumablePipeline<NewOutput>  {
+    
+    if let pipeline = lhs as? ConsumablePipeline<S.OutputType> {
+        
+        return pipeline.then(rhs)
+    }
     
     return ConsumablePipeline(head: lhs).then(rhs)
 }
 
 public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ConsumablePipeline<O>, rhs: C) -> ConsumablePipeline<O>  {
     
-    return lhs.finally(rhs)
+    var mutableLhs = lhs
+    
+    return mutableLhs.finally(rhs)
 }
 
 public func |> <O>(lhs: ConsumablePipeline<O>, rhs: O -> Void) -> ConsumablePipeline<O>  {
     
-    return lhs.finally(rhs)
+    var mutableLhs = lhs
+    
+    return mutableLhs.finally(rhs)
 }
 
 // MARK: - ProducerPipeline
 
 public func |> <P: ProducerType, U: TransformerType where P.OutputType == U.InputType>(lhs: P, rhs: U) -> ProducerPipeline<U.OutputType>  {
     
+    if let pipeline = lhs as? ProducerPipeline<P.OutputType> {
+        
+        return pipeline.then(rhs)
+    }
+    
     return ProducerPipeline(head: lhs).then(rhs)
 }
 
 public func |> <P: ProducerType, U>(lhs: P, rhs: P.OutputType -> U) -> ProducerPipeline<U>  {
+    
+    if let pipeline = lhs as? ProducerPipeline<P.OutputType> {
+        
+        return pipeline.then(rhs)
+    }
     
     return ProducerPipeline(head: lhs).then(rhs)
 }
@@ -71,22 +95,36 @@ public func |> <O, C>(lhs: ProducerPipeline<O>, rhs: O -> C) -> ProducerPipeline
 
 public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ProducerPipeline<O>, rhs: C) -> ProducerPipeline<O>  {
     
-    return lhs.finally(rhs)
+    var mutableLhs = lhs
+    
+    return mutableLhs.finally(rhs)
 }
 
 public func |> <O>(lhs: ProducerPipeline<O>, rhs: O -> Void) -> ProducerPipeline<O>  {
     
-    return lhs.finally(rhs)
+    var mutableLhs = lhs
+    
+    return mutableLhs.finally(rhs)
 }
 
 // MARK: - TransformerPipeline
 
 public func |> <T: TransformerType, U: TransformerType where T.OutputType == U.InputType>(lhs: T, rhs: U) -> TransformerPipeline<T.InputType, U.OutputType>  {
     
+    if let pipeline = lhs as? TransformerPipeline<T.InputType, T.OutputType> {
+        
+        return pipeline.then(rhs)
+    }
+    
     return TransformerPipeline(head: lhs).then(rhs)
 }
 
 public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType -> U) -> TransformerPipeline<T.InputType, U>  {
+    
+    if let pipeline = lhs as? TransformerPipeline<T.InputType, T.OutputType> {
+        
+        return pipeline.then(rhs)
+    }
     
     return TransformerPipeline(head: lhs).then(rhs)
 }

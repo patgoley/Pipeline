@@ -15,6 +15,23 @@ public protocol ConsumableType {
     var consumer: (OutputType -> Void)? { get set }
 }
 
+extension ConsumableType {
+    
+    mutating public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+        
+        self.consumer = consumer.consume
+        
+        return self
+    }
+    
+    mutating public func finally(consumer: OutputType -> Void) -> Self {
+        
+        self.consumer = consumer
+        
+        return self
+    }
+}
+
 public final class AnyConsumable<T>: ConsumableType {
     
     public typealias OutputType = T

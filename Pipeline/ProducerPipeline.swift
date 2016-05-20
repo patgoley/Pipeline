@@ -71,20 +71,6 @@ public final class ProducerPipeline<T>: ProducerType {
         
         return ProducerPipeline<NewOutput>(head: head, produce: _produce, tail: transform)
     }
-    
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
-        
-        self.consumer = consumer.consume
-        
-        return self
-    }
-    
-    public func finally(consumer: OutputType -> Void) -> Self {
-        
-        self.consumer = consumer
-        
-        return self
-    }
 }
 
 

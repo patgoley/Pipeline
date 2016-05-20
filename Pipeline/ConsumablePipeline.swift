@@ -63,20 +63,6 @@ public final class ConsumablePipeline<T>: ConsumableType {
         
         return ConsumablePipeline<NewOutput>(head: head, tail: transform)
     }
-    
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
-        
-        self.consumer = consumer.consume
-        
-        return self
-    }
-    
-    public func finally(consumer: OutputType -> Void) -> Self {
-        
-        self.consumer = consumer
-        
-        return self
-    }
 }
 
 
