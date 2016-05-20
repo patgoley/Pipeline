@@ -11,11 +11,11 @@ import Foundation
 
 public extension NSBundle {
     
-    func loadResourcePipeline(name: String, fileExtension: String) -> ProducerPipeline<NSData> {
+    func loadResource(name: String, fileExtension: String) -> ProducerPipeline<NSData> {
         
         return { self.URLForResource(name, withExtension: fileExtension) }
-            |> guardUnwrap()
+            |> forceUnwrap
             |> NSFileManager.urlLoader()
-            |> swallowError()
+            |> crashOnError
     }
 }

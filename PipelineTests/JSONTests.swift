@@ -13,13 +13,11 @@ class JSONTests: XCTestCase {
 
     func testSerializer() {
         
-        let url = NSBundle(forClass: self.dynamicType).URLForResource("animals", withExtension: "json")!
+        let bundle = NSBundle(forClass: self.dynamicType)
         
-        let data = NSData(contentsOfURL: url)!
+        let pipeline = bundle.loadResource("animals", fileExtension: "json") |> NSJSONSerialization.deserializeArray
         
-        let transformer = AnyTransformer(transform: NSJSONSerialization.arrayDeserializer)
-        
-        transformer.consumer = { result in
+        pipeline.consumer = { result in
             
             switch result {
                 
@@ -39,7 +37,7 @@ class JSONTests: XCTestCase {
             }
         }
         
-        transformer.consume(data)
+        pipeline.produce()
     }
     
     func testModelParser() {
