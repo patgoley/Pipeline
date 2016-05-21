@@ -9,7 +9,7 @@
 import Foundation
 
 
-infix operator |>   { precedence 50 associativity left }
+infix operator |> { precedence 95 associativity left }
 
 // MARK: - Consumable
 

@@ -24,6 +24,7 @@
 		8EB155C81CEFE30700AB1A75 /* ErrorHandlingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB155C71CEFE30700AB1A75 /* ErrorHandlingTests.swift */; };
 		8EB45FF11CF0D17700D0C0C4 /* ConsumablePipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF01CF0D17700D0C0C4 /* ConsumablePipelineTests.swift */; };
 		8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */; };
+		8EB45FF51CF0D4F500D0C0C4 /* OperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF41CF0D4F500D0C0C4 /* OperatorTests.swift */; };
 		8EE644491CE7AEA500403EFC /* Pipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EE644481CE7AEA500403EFC /* Pipeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8EE644501CE7AEA500403EFC /* Pipeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE644451CE7AEA500403EFC /* Pipeline.framework */; };
 		8EE644551CE7AEA500403EFC /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644541CE7AEA500403EFC /* TimerTests.swift */; };
@@ -61,6 +62,7 @@
 		8EB155C71CEFE30700AB1A75 /* ErrorHandlingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandlingTests.swift; sourceTree = "<group>"; };
 		8EB45FF01CF0D17700D0C0C4 /* ConsumablePipelineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumablePipelineTests.swift; sourceTree = "<group>"; };
 		8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
+		8EB45FF41CF0D4F500D0C0C4 /* OperatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorTests.swift; sourceTree = "<group>"; };
 		8EE644451CE7AEA500403EFC /* Pipeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pipeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE644481CE7AEA500403EFC /* Pipeline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pipeline.h; sourceTree = "<group>"; };
 		8EE6444A1CE7AEA500403EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				8EF82E9E1CEAC3C7006FCF13 /* NSFileManagerTransformers.swift */,
 				8EB155C71CEFE30700AB1A75 /* ErrorHandlingTests.swift */,
 				8EB45FF01CF0D17700D0C0C4 /* ConsumablePipelineTests.swift */,
+				8EB45FF41CF0D4F500D0C0C4 /* OperatorTests.swift */,
 				8EE644671CE8639500403EFC /* animals.json */,
 				8EE6447A1CE929EB00403EFC /* user.json */,
 				8EE644561CE7AEA500403EFC /* Info.plist */,
@@ -304,6 +307,7 @@
 				8EB155BE1CEFDE3200AB1A75 /* Timer.swift in Sources */,
 				8EB155BA1CEFC3D400AB1A75 /* ThreadingTests.swift in Sources */,
 				8EB155BB1CEFDE2600AB1A75 /* HTTPClient.swift in Sources */,
+				8EB45FF51CF0D4F500D0C0C4 /* OperatorTests.swift in Sources */,
 				8EB155C21CEFDE4000AB1A75 /* Threading.swift in Sources */,
 				8EE644551CE7AEA500403EFC /* TimerTests.swift in Sources */,
 				8EB155C51CEFDE5100AB1A75 /* NSBundlePipelines.swift in Sources */,
