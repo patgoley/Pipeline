@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Pipeline
 
 public protocol RESTAPI {
     

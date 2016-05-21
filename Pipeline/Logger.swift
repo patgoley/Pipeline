@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Pipeline
 
 
 func logger<T: CustomStringConvertible>() -> PassThroughTransformer<T> {

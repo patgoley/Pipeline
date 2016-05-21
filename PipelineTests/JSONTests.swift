@@ -54,7 +54,8 @@ class JSONTests: XCTestCase {
         
         pipeline.consumer = { user in
             
-            XCTAssert(true)
+            XCTAssert(user.firstName == "rick")
+            XCTAssert(user.lastName == "sanchez")
             
             parseExpectation.fulfill()
         }

@@ -15,7 +15,7 @@ public final class ValueProducer<T>: ProducerType {
     
     public var consumer: (T -> Void)?
     
-    init(value: T) {
+    public init(value: T) {
         
         self.value = value
     }
@@ -32,7 +32,7 @@ public final class ThunkProducer<T>: ProducerType {
     
     public var consumer: (T -> Void)?
     
-    init(thunk: () -> T) {
+    public init(thunk: () -> T) {
         
         self.thunk = thunk
     }
