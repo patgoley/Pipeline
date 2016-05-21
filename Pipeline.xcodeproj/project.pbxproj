@@ -22,6 +22,8 @@
 		8EB155C51CEFDE5100AB1A75 /* NSBundlePipelines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82EA01CEAD1B1006FCF13 /* NSBundlePipelines.swift */; };
 		8EB155C61CEFDE5600AB1A75 /* NSFileManagerTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9E1CEAC3C7006FCF13 /* NSFileManagerTransformers.swift */; };
 		8EB155C81CEFE30700AB1A75 /* ErrorHandlingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB155C71CEFE30700AB1A75 /* ErrorHandlingTests.swift */; };
+		8EB45FF11CF0D17700D0C0C4 /* ConsumablePipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF01CF0D17700D0C0C4 /* ConsumablePipelineTests.swift */; };
+		8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */; };
 		8EE644491CE7AEA500403EFC /* Pipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EE644481CE7AEA500403EFC /* Pipeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8EE644501CE7AEA500403EFC /* Pipeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE644451CE7AEA500403EFC /* Pipeline.framework */; };
 		8EE644551CE7AEA500403EFC /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644541CE7AEA500403EFC /* TimerTests.swift */; };
@@ -57,6 +59,8 @@
 		8EB155B51CEFC1A700AB1A75 /* Threading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Threading.swift; sourceTree = "<group>"; };
 		8EB155B91CEFC3D400AB1A75 /* ThreadingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadingTests.swift; sourceTree = "<group>"; };
 		8EB155C71CEFE30700AB1A75 /* ErrorHandlingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandlingTests.swift; sourceTree = "<group>"; };
+		8EB45FF01CF0D17700D0C0C4 /* ConsumablePipelineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumablePipelineTests.swift; sourceTree = "<group>"; };
+		8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
 		8EE644451CE7AEA500403EFC /* Pipeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pipeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE644481CE7AEA500403EFC /* Pipeline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pipeline.h; sourceTree = "<group>"; };
 		8EE6444A1CE7AEA500403EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 				8EE644721CE8FFFB00403EFC /* Consumer.swift */,
 				8E8550A21CEE4CDD00720DC1 /* Consumable.swift */,
 				8E8550A61CEE5AC900720DC1 /* ConsumablePipeline.swift */,
+				8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */,
 				8EE644741CE9011000403EFC /* Producer.swift */,
 				8EE6445F1CE7AEB900403EFC /* ProducerPipeline.swift */,
 				8EE644691CE8D2BB00403EFC /* Transformer.swift */,
@@ -157,6 +162,7 @@
 				8EF82EA01CEAD1B1006FCF13 /* NSBundlePipelines.swift */,
 				8EF82E9E1CEAC3C7006FCF13 /* NSFileManagerTransformers.swift */,
 				8EB155C71CEFE30700AB1A75 /* ErrorHandlingTests.swift */,
+				8EB45FF01CF0D17700D0C0C4 /* ConsumablePipelineTests.swift */,
 				8EE644671CE8639500403EFC /* animals.json */,
 				8EE6447A1CE929EB00403EFC /* user.json */,
 				8EE644561CE7AEA500403EFC /* Info.plist */,
@@ -277,6 +283,7 @@
 				8EE644641CE8600800403EFC /* Result.swift in Sources */,
 				8EE644601CE7AEB900403EFC /* ProducerPipeline.swift in Sources */,
 				8E8550A31CEE4CDD00720DC1 /* Consumable.swift in Sources */,
+				8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */,
 				8E8550A71CEE5AC900720DC1 /* ConsumablePipeline.swift in Sources */,
 				8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */,
 				8EE644731CE8FFFB00403EFC /* Consumer.swift in Sources */,
@@ -292,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EB45FF11CF0D17700D0C0C4 /* ConsumablePipelineTests.swift in Sources */,
 				8EB155BD1CEFDE2E00AB1A75 /* RESTClientTests.swift in Sources */,
 				8EB155BE1CEFDE3200AB1A75 /* Timer.swift in Sources */,
 				8EB155BA1CEFC3D400AB1A75 /* ThreadingTests.swift in Sources */,

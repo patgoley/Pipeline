@@ -9,7 +9,7 @@
 import Foundation
 
 
-public final class TransformerPipeline<T, U>: TransformerType {
+public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
     
     public typealias InputType = T
     
@@ -69,18 +69,18 @@ public final class TransformerPipeline<T, U>: TransformerType {
         return TransformerPipeline<InputType, NewOutput>(head: head, tail: transform)
     }
     
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> AnyConsumer<InputType> {
         
         self.consumer = consumer.consume
         
-        return self
+        return AnyConsumer(base: self)
     }
     
-    public func finally(consumer: OutputType -> Void) -> Self {
+    public func finally(consumer: OutputType -> Void) -> AnyConsumer<InputType> {
         
         self.consumer = consumer
         
-        return self
+        return AnyConsumer(base: self)
     }
 }
 

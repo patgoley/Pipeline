@@ -9,7 +9,7 @@
 import Foundation
 
 
-public final class ConsumablePipeline<T>: ConsumableType {
+public final class ConsumablePipeline<T>: Pipeline, ConsumableType {
     
     public typealias OutputType = T
     
@@ -62,14 +62,14 @@ public final class ConsumablePipeline<T>: ConsumableType {
         return ConsumablePipeline<NewOutput>(head: head, tail: transform)
     }
     
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Pipeline {
         
         self.consumer = consumer.consume
         
         return self
     }
     
-    public func finally(consumer: OutputType -> Void) -> Self {
+    public func finally(consumer: OutputType -> Void) -> Pipeline {
         
         self.consumer = consumer
         

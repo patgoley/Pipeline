@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class ProducerPipeline<T>: ProducerType {
+public final class ProducerPipeline<T>: Pipeline, ProducerType {
     
     public typealias OutputType = T
     
@@ -70,14 +70,14 @@ public final class ProducerPipeline<T>: ProducerType {
         return ProducerPipeline<NewOutput>(head: head, produce: _produce, tail: transform)
     }
     
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Self {
+    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> ProducerPipeline<OutputType> {
         
         self.consumer = consumer.consume
         
         return self
     }
     
-    public func finally(consumer: OutputType -> Void) -> Self {
+    public func finally(consumer: OutputType -> Void) -> ProducerPipeline<OutputType> {
         
         self.consumer = consumer
         
