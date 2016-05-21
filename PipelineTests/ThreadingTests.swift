@@ -19,7 +19,7 @@ class ThreadingTests: XCTestCase {
             
             XCTAssert(!NSThread.isMainThread())
             
-            let pipe = 123 |> ensureMainThread() |> { _ in
+            let pipe = ValueProducer(123) |> ensureMainThread() |> { _ in
                 
                 XCTAssert(NSThread.isMainThread())
                 
@@ -38,7 +38,7 @@ class ThreadingTests: XCTestCase {
         
         XCTAssert(NSThread.isMainThread())
         
-        let pipe = "abc" |> asyncBackgroundThread() |> { _ in
+        let pipe = ValueProducer("abc") |> asyncBackgroundThread() |> { _ in
             
             XCTAssert(!NSThread.isMainThread())
             

@@ -15,7 +15,7 @@ public final class ValueProducer<T>: ProducerType {
     
     public var consumer: (T -> Void)?
     
-    public init(value: T) {
+    public init(_ value: T) {
         
         self.value = value
     }
