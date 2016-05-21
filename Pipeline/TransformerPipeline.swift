@@ -84,3 +84,12 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
     }
 }
 
+extension TransformerPipeline {
+    
+    convenience init(transform: InputType -> OutputType) {
+        
+        let transformer = AnyTransformer(transform: transform)
+        
+        self.init(head: transformer)
+    }
+}

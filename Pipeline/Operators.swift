@@ -15,22 +15,17 @@ infix operator |> { precedence 95 associativity left }
 
 public func |> <S: ConsumableType, T: TransformerType where S.OutputType == T.InputType>(lhs: S, rhs: T) -> ConsumablePipeline<T.OutputType>  {
     
-    if let pipeline = lhs as? ConsumablePipeline<S.OutputType> {
-        
-        return pipeline.then(rhs)
-    }
-    
     return ConsumablePipeline(head: lhs).then(rhs)
 }
 
 public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: S.OutputType -> NewOutput) -> ConsumablePipeline<NewOutput>  {
     
-    if let pipeline = lhs as? ConsumablePipeline<S.OutputType> {
-        
-        return pipeline.then(rhs)
-    }
-    
     return ConsumablePipeline(head: lhs).then(rhs)
+}
+
+public func |> <S: ConsumableType, C: ConsumerType where S.OutputType == C.InputType>(lhs: S, rhs: C) -> Pipeline  {
+    
+    return ConsumablePipeline(head: lhs).finally(rhs)
 }
 
 public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ConsumablePipeline<O>, rhs: C) -> Pipeline  {
@@ -81,17 +76,24 @@ public func |> <V, T>(lhs: () -> V, rhs: V -> T) -> ProducerPipeline<T>  {
     return ProducerPipeline(head: thunkProducer).then(rhs)
 }
 
+public func |> <V>(lhs: () -> V, rhs: V -> Void) -> Producable  {
+    
+    let thunkProducer = ThunkProducer(thunk: lhs)
+    
+    return ProducerPipeline(head: thunkProducer).finally(rhs)
+}
+
 public func |> <O, C>(lhs: ProducerPipeline<O>, rhs: O -> C) -> ProducerPipeline<C>  {
     
     return lhs.then(rhs)
 }
 
-public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ProducerPipeline<O>, rhs: C) -> ProducerPipeline<O>  {
+public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ProducerPipeline<O>, rhs: C) -> Producable  {
     
     return lhs.finally(rhs)
 }
 
-public func |> <O>(lhs: ProducerPipeline<O>, rhs: O -> Void) -> ProducerPipeline<O>  {
+public func |> <O>(lhs: ProducerPipeline<O>, rhs: O -> Void) -> Producable  {
     
     return lhs.finally(rhs)
 }
@@ -133,5 +135,19 @@ public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: TransformerPi
 public func |> <I, O>(lhs: TransformerPipeline<I, O>, rhs: O -> Void) -> AnyConsumer<I>  {
     
     return lhs.finally(rhs)
+}
+
+public func |> <I, O>(lhs: I -> O, rhs: O -> Void) -> AnyConsumer<I>  {
+    
+    let pipeline = TransformerPipeline(transform: lhs)
+    
+    return pipeline.finally(rhs)
+}
+
+public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: I -> O, rhs: C) -> AnyConsumer<I>  {
+    
+    let pipeline = TransformerPipeline(transform: lhs)
+    
+    return pipeline.finally(rhs)
 }
 

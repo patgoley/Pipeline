@@ -12,7 +12,7 @@ public final class ProducerPipeline<T>: Pipeline, ProducerType {
     
     public typealias OutputType = T
     
-    private let head: Any
+    private let head: Producable
     
     private var tail: AnyConsumable<T>
     
@@ -26,20 +26,16 @@ public final class ProducerPipeline<T>: Pipeline, ProducerType {
     
     private let _setConsumer: (T -> Void)? -> Void
     
-    private let _produce: () -> Void
-    
     public convenience init<Head: ProducerType where Head.OutputType == T>(head: Head) {
         
         let tail = AnyProducer(base: head)
         
-        self.init(head: head, produce: head.produce, tail: tail)
+        self.init(head: head, tail: tail)
     }
     
-    private init<Tail: ConsumableType where Tail.OutputType == T>(head: Any, produce: () -> Void, tail: Tail) {
+    private init<Tail: ConsumableType where Tail.OutputType == T>(head: Producable, tail: Tail) {
         
         self.head = head
-        
-        _produce = produce
         
         self.tail = AnyConsumable(base: tail)
         
@@ -51,14 +47,14 @@ public final class ProducerPipeline<T>: Pipeline, ProducerType {
     
     public func produce() {
         
-        _produce()
+        head.produce()
     }
     
     public func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> ProducerPipeline<Transform.OutputType> {
         
         tail.consumer = transformer.consume
         
-        return ProducerPipeline<Transform.OutputType>(head: head, produce: _produce, tail: transformer)
+        return ProducerPipeline<Transform.OutputType>(head: head, tail: transformer)
     }
     
     public func then<NewOutput>(transformer: OutputType -> NewOutput) -> ProducerPipeline<NewOutput> {
@@ -67,17 +63,17 @@ public final class ProducerPipeline<T>: Pipeline, ProducerType {
         
         tail.consumer = transform.consume
         
-        return ProducerPipeline<NewOutput>(head: head, produce: _produce, tail: transform)
+        return ProducerPipeline<NewOutput>(head: head, tail: transform)
     }
     
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> ProducerPipeline<OutputType> {
+    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Producable {
         
         self.consumer = consumer.consume
         
         return self
     }
     
-    public func finally(consumer: OutputType -> Void) -> ProducerPipeline<OutputType> {
+    public func finally(consumer: OutputType -> Void) -> Producable {
         
         self.consumer = consumer
         

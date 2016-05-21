@@ -8,10 +8,12 @@
 
 import Foundation
 
-public protocol ProducerType: ConsumableType {
+public protocol Producable {
     
     func produce()
 }
+
+public protocol ProducerType: Producable, ConsumableType { }
 
 public final class AnyProducer<T>: ProducerType {
     
