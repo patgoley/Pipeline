@@ -15,7 +15,8 @@ class JSONTests: XCTestCase {
         
         let bundle = NSBundle(forClass: self.dynamicType)
         
-        let pipeline = bundle.loadResource("animals", fileExtension: "json") |> NSJSONSerialization.deserializeArray
+        let pipeline = bundle.loadResource("animals", fileExtension: "json")
+            |> NSJSONSerialization.deserializeArray
         
         pipeline.consumer = { result in
             
@@ -42,22 +43,23 @@ class JSONTests: XCTestCase {
     
     func testModelParser() {
         
-        let url = NSBundle(forClass: self.dynamicType).URLForResource("user", withExtension: "json")!
+        let bundle = NSBundle(forClass: self.dynamicType)
         
-        let data = NSData(contentsOfURL: url)!
-        
-        let parserPipeline = ModelParser<User>.JSONParser()
+        let pipeline = bundle.loadResource("user", fileExtension: "json")
+            |> NSJSONSerialization.deserializeObject
+            |> crashOnError
+            |> User.createWithValues
         
         let parseExpectation = expectationWithDescription("parse")
         
-        parserPipeline.consumer = { user in
+        pipeline.consumer = { user in
             
             XCTAssert(true)
             
             parseExpectation.fulfill()
         }
         
-        parserPipeline.consume(data)
+        pipeline.produce()
         
         waitForExpectationsWithTimeout(10.0, handler: nil)
     }

@@ -29,7 +29,7 @@
 		8EE644731CE8FFFB00403EFC /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644721CE8FFFB00403EFC /* Consumer.swift */; };
 		8EE644751CE9011000403EFC /* Producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644741CE9011000403EFC /* Producer.swift */; };
 		8EE644771CE9190900403EFC /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644761CE9190900403EFC /* ErrorHandling.swift */; };
-		8EE644791CE921DB00403EFC /* ModelParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644781CE921DB00403EFC /* ModelParser.swift */; };
+		8EE644791CE921DB00403EFC /* Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644781CE921DB00403EFC /* Parseable.swift */; };
 		8EE6447B1CE929EB00403EFC /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE6447A1CE929EB00403EFC /* user.json */; };
 		8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9A1CEAA745006FCF13 /* Operators.swift */; };
 		8EF82E9D1CEAC077006FCF13 /* ValueProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9C1CEAC077006FCF13 /* ValueProducer.swift */; };
@@ -73,7 +73,7 @@
 		8EE644721CE8FFFB00403EFC /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
 		8EE644741CE9011000403EFC /* Producer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Producer.swift; sourceTree = "<group>"; };
 		8EE644761CE9190900403EFC /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
-		8EE644781CE921DB00403EFC /* ModelParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelParser.swift; path = ../Pipeline/ModelParser.swift; sourceTree = "<group>"; };
+		8EE644781CE921DB00403EFC /* Parseable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parseable.swift; path = ../Pipeline/Parseable.swift; sourceTree = "<group>"; };
 		8EE6447A1CE929EB00403EFC /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		8EF82E9A1CEAA745006FCF13 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		8EF82E9C1CEAC077006FCF13 /* ValueProducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueProducer.swift; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 				8EB155B51CEFC1A700AB1A75 /* Threading.swift */,
 				8EB155B91CEFC3D400AB1A75 /* ThreadingTests.swift */,
 				8EE644651CE8634C00403EFC /* JSONTests.swift */,
-				8EE644781CE921DB00403EFC /* ModelParser.swift */,
+				8EE644781CE921DB00403EFC /* Parseable.swift */,
 				8EE644611CE857ED00403EFC /* JSONTransformers.swift */,
 				8EF82EA01CEAD1B1006FCF13 /* NSBundlePipelines.swift */,
 				8EF82E9E1CEAC3C7006FCF13 /* NSFileManagerTransformers.swift */,
@@ -283,7 +283,7 @@
 				8EF82E9F1CEAC3C7006FCF13 /* NSFileManagerTransformers.swift in Sources */,
 				8EE644731CE8FFFB00403EFC /* Consumer.swift in Sources */,
 				8E8550A51CEE5A9C00720DC1 /* TransformerPipeline.swift in Sources */,
-				8EE644791CE921DB00403EFC /* ModelParser.swift in Sources */,
+				8EE644791CE921DB00403EFC /* Parseable.swift in Sources */,
 				8EE644751CE9011000403EFC /* Producer.swift in Sources */,
 				8EE644771CE9190900403EFC /* ErrorHandling.swift in Sources */,
 				8EF82E9D1CEAC077006FCF13 /* ValueProducer.swift in Sources */,

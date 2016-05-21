@@ -47,20 +47,10 @@ public func |> <O>(lhs: ConsumablePipeline<O>, rhs: O -> Void) -> ConsumablePipe
 
 public func |> <P: ProducerType, U: TransformerType where P.OutputType == U.InputType>(lhs: P, rhs: U) -> ProducerPipeline<U.OutputType>  {
     
-    if let pipeline = lhs as? ProducerPipeline<P.OutputType> {
-        
-        return pipeline.then(rhs)
-    }
-    
     return ProducerPipeline(head: lhs).then(rhs)
 }
 
 public func |> <P: ProducerType, U>(lhs: P, rhs: P.OutputType -> U) -> ProducerPipeline<U>  {
-    
-    if let pipeline = lhs as? ProducerPipeline<P.OutputType> {
-        
-        return pipeline.then(rhs)
-    }
     
     return ProducerPipeline(head: lhs).then(rhs)
 }
@@ -110,20 +100,10 @@ public func |> <O>(lhs: ProducerPipeline<O>, rhs: O -> Void) -> ProducerPipeline
 
 public func |> <T: TransformerType, U: TransformerType where T.OutputType == U.InputType>(lhs: T, rhs: U) -> TransformerPipeline<T.InputType, U.OutputType>  {
     
-    if let pipeline = lhs as? TransformerPipeline<T.InputType, T.OutputType> {
-        
-        return pipeline.then(rhs)
-    }
-    
     return TransformerPipeline(head: lhs).then(rhs)
 }
 
 public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType -> U) -> TransformerPipeline<T.InputType, U>  {
-    
-    if let pipeline = lhs as? TransformerPipeline<T.InputType, T.OutputType> {
-        
-        return pipeline.then(rhs)
-    }
     
     return TransformerPipeline(head: lhs).then(rhs)
 }

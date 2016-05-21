@@ -36,7 +36,7 @@ public final class HTTPClient: TransformerType {
         
         guard let consumer = self.consumer else {
             
-            fatalError()
+            return
         }
         
         let task = urlSession.dataTaskWithRequest(request) { data, urlResponse, error in
