@@ -29,7 +29,7 @@ class ThreadingTests: XCTestCase {
             pipe.produce()
         }
         
-        waitForExpectationsWithTimeout(10, handler: nil)
+        waitForExpectationsWithTimeout(3, handler: nil)
     }
 
     func testAsyncBackground() {
@@ -47,7 +47,7 @@ class ThreadingTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(10, handler: nil)
+        waitForExpectationsWithTimeout(3, handler: nil)
     }
 
 }

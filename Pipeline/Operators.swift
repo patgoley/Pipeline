@@ -76,24 +76,17 @@ public func |> <V, T>(lhs: () -> V, rhs: V -> T) -> ProducerPipeline<T>  {
     return ProducerPipeline(head: thunkProducer).then(rhs)
 }
 
-public func |> <V>(lhs: () -> V, rhs: V -> Void) -> Producable  {
-    
-    let thunkProducer = ThunkProducer(thunk: lhs)
-    
-    return ProducerPipeline(head: thunkProducer).finally(rhs)
-}
-
 public func |> <O, C>(lhs: ProducerPipeline<O>, rhs: O -> C) -> ProducerPipeline<C>  {
     
     return lhs.then(rhs)
 }
 
-public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ProducerPipeline<O>, rhs: C) -> Producable  {
+public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ProducerPipeline<O>, rhs: C) -> ProducerPipeline<O>  {
     
     return lhs.finally(rhs)
 }
 
-public func |> <O>(lhs: ProducerPipeline<O>, rhs: O -> Void) -> Producable  {
+public func |> <O>(lhs: ProducerPipeline<O>, rhs: O -> Void) -> ProducerPipeline<O>  {
     
     return lhs.finally(rhs)
 }
