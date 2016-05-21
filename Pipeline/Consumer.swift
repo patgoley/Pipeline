@@ -22,6 +22,11 @@ public final class AnyConsumer<T>: ConsumerType {
     
     private let _consume: T -> Void
     
+    public init(consume: T -> Void) {
+        
+        self._consume = consume
+    }
+    
     public init<Base: ConsumerType where Base.InputType == T>(base: Base) {
         
         self._consume = base.consume
