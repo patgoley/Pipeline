@@ -55,13 +55,6 @@ public func |> <O, C where C: TransformerType, O == C.InputType>(lhs: ProducerPi
     return lhs.then(rhs)
 }
 
-public func |> <V, T: TransformerType where V == T.InputType>(lhs: V, rhs: T) -> ProducerPipeline<T.OutputType>  {
-    
-    let valueProducer = ValueProducer(lhs)
-    
-    return ProducerPipeline(head: valueProducer).then(rhs)
-}
-
 public func |> <V, T: TransformerType where V == T.InputType>(lhs: () -> V, rhs: T) -> ProducerPipeline<T.OutputType>  {
     
     let thunkProducer = ThunkProducer(thunk: lhs)

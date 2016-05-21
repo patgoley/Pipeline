@@ -15,7 +15,7 @@ class ErrorHandlingTests: XCTestCase {
         
         let string: String? = nil
         
-        let pipe = string |> guardUnwrap() |> { _ in XCTAssert(false) }
+        let pipe = ValueProducer(string) |> guardUnwrap() |> { _ in XCTAssert(false) }
         
         pipe.produce()
     }

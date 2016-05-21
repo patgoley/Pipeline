@@ -17,7 +17,7 @@ class OperatorTests: XCTestCase {
         
         let pipe: Pipeline
         
-        pipe = "123" |> AnyTransformer<String, String>() { x in return x }
+        pipe = ValueProducer("123") |> AnyTransformer<String, String>() { x in return x }
         
         _ = { pipe }
         
