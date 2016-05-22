@@ -123,16 +123,21 @@ public func |> <I, O>(lhs: TransformerPipeline<I, O>, rhs: O -> Void) -> AnyCons
     return lhs.finally(rhs)
 }
 
+public func |> <S, U, V>(lhs: S -> U, rhs: U -> V) -> TransformerPipeline<S, V>  {
+    
+    return TransformerPipeline(head: lhs).then(rhs)
+}
+
 public func |> <I, O>(lhs: I -> O, rhs: O -> Void) -> AnyConsumer<I>  {
     
-    let pipeline = TransformerPipeline(transform: lhs)
+    let pipeline = TransformerPipeline(head: lhs)
     
     return pipeline.finally(rhs)
 }
 
 public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: I -> O, rhs: C) -> AnyConsumer<I>  {
     
-    let pipeline = TransformerPipeline(transform: lhs)
+    let pipeline = TransformerPipeline(head: lhs)
     
     return pipeline.finally(rhs)
 }
