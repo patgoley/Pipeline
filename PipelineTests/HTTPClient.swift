@@ -29,9 +29,9 @@ public final class HTTPClient: TransformerType {
     
     public typealias OutputType = Result<HTTPResponse>
     
-    private let urlSession = NSURLSession.sharedSession()
-    
     public var consumer: (OutputType -> Void)?
+    
+    private let urlSession = NSURLSession.sharedSession()
     
     public func consume(request: NSURLRequest) {
         
