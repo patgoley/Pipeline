@@ -47,7 +47,9 @@ public func |> <P: ProducerType, U: TransformerType where P.OutputType == U.Inpu
 
 public func |> <P: ProducerType, U>(lhs: P, rhs: P.OutputType -> U) -> ProducerPipeline<U>  {
     
-    return ProducerPipeline(head: lhs).then(rhs)
+    let pipe = ProducerPipeline(head: lhs)
+    
+    return pipe.then(rhs)
 }
 
 public func |> <O, C where C: TransformerType, O == C.InputType>(lhs: ProducerPipeline<O>, rhs: C) -> ProducerPipeline<C.OutputType>  {
@@ -74,12 +76,17 @@ public func |> <O, C>(lhs: ProducerPipeline<O>, rhs: O -> C) -> ProducerPipeline
     return lhs.then(rhs)
 }
 
-public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ProducerPipeline<O>, rhs: C) -> ProducerPipeline<O>  {
+public func |> <P: ProducerType>(lhs: P, rhs: P.OutputType -> Void) -> Producible  {
+    
+    return ProducerPipeline(head: lhs).finally(rhs)
+}
+
+public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ProducerPipeline<O>, rhs: C) -> Producible  {
     
     return lhs.finally(rhs)
 }
 
-public func |> <O>(lhs: ProducerPipeline<O>, rhs: O -> Void) -> ProducerPipeline<O>  {
+public func |> <O>(lhs: ProducerPipeline<O>, rhs: O -> Void) -> Producible  {
     
     return lhs.finally(rhs)
 }
