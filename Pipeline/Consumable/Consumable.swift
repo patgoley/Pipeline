@@ -15,6 +15,7 @@ public protocol ConsumableType: class {
     var consumer: (OutputType -> Void)? { get set }
 }
 
+
 public final class AnyConsumable<T>: ConsumableType {
     
     public typealias OutputType = T

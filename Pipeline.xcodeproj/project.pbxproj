@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E57D0FD1CF516FD00EDAF4A /* ConsumablePipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0ED1CF516FD00EDAF4A /* ConsumablePipelineTests.swift */; };
 		8E57D0FE1CF516FD00EDAF4A /* ErrorHandlingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0EE1CF516FD00EDAF4A /* ErrorHandlingTests.swift */; };
 		8E57D0FF1CF516FD00EDAF4A /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0EF1CF516FD00EDAF4A /* HTTPClient.swift */; };
 		8E57D1001CF516FD00EDAF4A /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */; };
@@ -23,22 +22,28 @@
 		8E57D10A1CF516FD00EDAF4A /* ThreadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0FA1CF516FD00EDAF4A /* ThreadingTests.swift */; };
 		8E57D10B1CF516FD00EDAF4A /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0FB1CF516FD00EDAF4A /* Timer.swift */; };
 		8E57D10C1CF516FD00EDAF4A /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0FC1CF516FD00EDAF4A /* TimerTests.swift */; };
-		8E8550A31CEE4CDD00720DC1 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8550A21CEE4CDD00720DC1 /* Consumable.swift */; };
-		8E8550A51CEE5A9C00720DC1 /* TransformerPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8550A41CEE5A9C00720DC1 /* TransformerPipeline.swift */; };
-		8E8550A71CEE5AC900720DC1 /* ConsumablePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8550A61CEE5AC900720DC1 /* ConsumablePipeline.swift */; };
+		8E57D10E1CF51A0200EDAF4A /* ConsumableOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D10D1CF51A0200EDAF4A /* ConsumableOperatorTests.swift */; };
+		8E57D1231CF51E6300EDAF4A /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1161CF51E6300EDAF4A /* Consumable.swift */; };
+		8E57D1241CF51E6300EDAF4A /* ConsumableOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1171CF51E6300EDAF4A /* ConsumableOperators.swift */; };
+		8E57D1251CF51E6300EDAF4A /* ConsumablePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1181CF51E6300EDAF4A /* ConsumablePipeline.swift */; };
+		8E57D1261CF51E6300EDAF4A /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1191CF51E6300EDAF4A /* Consumer.swift */; };
+		8E57D1271CF51E6300EDAF4A /* Producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D11B1CF51E6300EDAF4A /* Producer.swift */; };
+		8E57D1281CF51E6300EDAF4A /* ProducerOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D11C1CF51E6300EDAF4A /* ProducerOperators.swift */; };
+		8E57D1291CF51E6300EDAF4A /* ProducerPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D11D1CF51E6300EDAF4A /* ProducerPipeline.swift */; };
+		8E57D12A1CF51E6300EDAF4A /* ValueProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D11E1CF51E6300EDAF4A /* ValueProducer.swift */; };
+		8E57D12B1CF51E6300EDAF4A /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1201CF51E6300EDAF4A /* Transformer.swift */; };
+		8E57D12C1CF51E6300EDAF4A /* TransformerOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1211CF51E6300EDAF4A /* TransformerOperators.swift */; };
+		8E57D12D1CF51E6300EDAF4A /* TransformerPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1221CF51E6300EDAF4A /* TransformerPipeline.swift */; };
+		8E57D1311CF51FDE00EDAF4A /* ProcuderOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1301CF51FDE00EDAF4A /* ProcuderOperatorTests.swift */; };
+		8E57D1331CF5235E00EDAF4A /* TransformerOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1321CF5235E00EDAF4A /* TransformerOperatorTests.swift */; };
 		8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */; };
 		8EE644491CE7AEA500403EFC /* Pipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EE644481CE7AEA500403EFC /* Pipeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8EE644501CE7AEA500403EFC /* Pipeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE644451CE7AEA500403EFC /* Pipeline.framework */; };
-		8EE644601CE7AEB900403EFC /* ProducerPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE6445F1CE7AEB900403EFC /* ProducerPipeline.swift */; };
 		8EE644641CE8600800403EFC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644631CE8600800403EFC /* Result.swift */; };
 		8EE644681CE8639500403EFC /* animals.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE644671CE8639500403EFC /* animals.json */; };
-		8EE6446A1CE8D2BB00403EFC /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644691CE8D2BB00403EFC /* Transformer.swift */; };
-		8EE644731CE8FFFB00403EFC /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644721CE8FFFB00403EFC /* Consumer.swift */; };
-		8EE644751CE9011000403EFC /* Producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644741CE9011000403EFC /* Producer.swift */; };
 		8EE644771CE9190900403EFC /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644761CE9190900403EFC /* ErrorHandling.swift */; };
 		8EE6447B1CE929EB00403EFC /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE6447A1CE929EB00403EFC /* user.json */; };
 		8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9A1CEAA745006FCF13 /* Operators.swift */; };
-		8EF82E9D1CEAC077006FCF13 /* ValueProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9C1CEAC077006FCF13 /* ValueProducer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +57,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8E57D0ED1CF516FD00EDAF4A /* ConsumablePipelineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumablePipelineTests.swift; sourceTree = "<group>"; };
 		8E57D0EE1CF516FD00EDAF4A /* ErrorHandlingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandlingTests.swift; sourceTree = "<group>"; };
 		8E57D0EF1CF516FD00EDAF4A /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
@@ -68,25 +72,31 @@
 		8E57D0FA1CF516FD00EDAF4A /* ThreadingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadingTests.swift; sourceTree = "<group>"; };
 		8E57D0FB1CF516FD00EDAF4A /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		8E57D0FC1CF516FD00EDAF4A /* TimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
-		8E8550A21CEE4CDD00720DC1 /* Consumable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
-		8E8550A41CEE5A9C00720DC1 /* TransformerPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerPipeline.swift; sourceTree = "<group>"; };
-		8E8550A61CEE5AC900720DC1 /* ConsumablePipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumablePipeline.swift; sourceTree = "<group>"; };
+		8E57D10D1CF51A0200EDAF4A /* ConsumableOperatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumableOperatorTests.swift; sourceTree = "<group>"; };
+		8E57D1161CF51E6300EDAF4A /* Consumable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
+		8E57D1171CF51E6300EDAF4A /* ConsumableOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumableOperators.swift; sourceTree = "<group>"; };
+		8E57D1181CF51E6300EDAF4A /* ConsumablePipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumablePipeline.swift; sourceTree = "<group>"; };
+		8E57D1191CF51E6300EDAF4A /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
+		8E57D11B1CF51E6300EDAF4A /* Producer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Producer.swift; sourceTree = "<group>"; };
+		8E57D11C1CF51E6300EDAF4A /* ProducerOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducerOperators.swift; sourceTree = "<group>"; };
+		8E57D11D1CF51E6300EDAF4A /* ProducerPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducerPipeline.swift; sourceTree = "<group>"; };
+		8E57D11E1CF51E6300EDAF4A /* ValueProducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueProducer.swift; sourceTree = "<group>"; };
+		8E57D1201CF51E6300EDAF4A /* Transformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transformer.swift; sourceTree = "<group>"; };
+		8E57D1211CF51E6300EDAF4A /* TransformerOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerOperators.swift; sourceTree = "<group>"; };
+		8E57D1221CF51E6300EDAF4A /* TransformerPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerPipeline.swift; sourceTree = "<group>"; };
+		8E57D1301CF51FDE00EDAF4A /* ProcuderOperatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcuderOperatorTests.swift; sourceTree = "<group>"; };
+		8E57D1321CF5235E00EDAF4A /* TransformerOperatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerOperatorTests.swift; sourceTree = "<group>"; };
 		8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
 		8EE644451CE7AEA500403EFC /* Pipeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pipeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE644481CE7AEA500403EFC /* Pipeline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pipeline.h; sourceTree = "<group>"; };
 		8EE6444A1CE7AEA500403EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EE6444F1CE7AEA500403EFC /* PipelineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PipelineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE644561CE7AEA500403EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8EE6445F1CE7AEB900403EFC /* ProducerPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducerPipeline.swift; sourceTree = "<group>"; };
 		8EE644631CE8600800403EFC /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		8EE644671CE8639500403EFC /* animals.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animals.json; sourceTree = "<group>"; };
-		8EE644691CE8D2BB00403EFC /* Transformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transformer.swift; sourceTree = "<group>"; };
-		8EE644721CE8FFFB00403EFC /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
-		8EE644741CE9011000403EFC /* Producer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Producer.swift; sourceTree = "<group>"; };
 		8EE644761CE9190900403EFC /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		8EE6447A1CE929EB00403EFC /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		8EF82E9A1CEAA745006FCF13 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
-		8EF82E9C1CEAC077006FCF13 /* ValueProducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueProducer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +118,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E57D1151CF51E6300EDAF4A /* Consumable */ = {
+			isa = PBXGroup;
+			children = (
+				8E57D1161CF51E6300EDAF4A /* Consumable.swift */,
+				8E57D1171CF51E6300EDAF4A /* ConsumableOperators.swift */,
+				8E57D1181CF51E6300EDAF4A /* ConsumablePipeline.swift */,
+				8E57D1191CF51E6300EDAF4A /* Consumer.swift */,
+			);
+			path = Consumable;
+			sourceTree = "<group>";
+		};
+		8E57D11A1CF51E6300EDAF4A /* Producer */ = {
+			isa = PBXGroup;
+			children = (
+				8E57D11B1CF51E6300EDAF4A /* Producer.swift */,
+				8E57D11C1CF51E6300EDAF4A /* ProducerOperators.swift */,
+				8E57D11D1CF51E6300EDAF4A /* ProducerPipeline.swift */,
+				8E57D11E1CF51E6300EDAF4A /* ValueProducer.swift */,
+			);
+			path = Producer;
+			sourceTree = "<group>";
+		};
+		8E57D11F1CF51E6300EDAF4A /* Transformer */ = {
+			isa = PBXGroup;
+			children = (
+				8E57D1201CF51E6300EDAF4A /* Transformer.swift */,
+				8E57D1211CF51E6300EDAF4A /* TransformerOperators.swift */,
+				8E57D1221CF51E6300EDAF4A /* TransformerPipeline.swift */,
+			);
+			path = Transformer;
+			sourceTree = "<group>";
+		};
 		8EE6443B1CE7AEA400403EFC = {
 			isa = PBXGroup;
 			children = (
@@ -130,18 +172,13 @@
 			isa = PBXGroup;
 			children = (
 				8EE644481CE7AEA500403EFC /* Pipeline.h */,
-				8EE644721CE8FFFB00403EFC /* Consumer.swift */,
-				8E8550A21CEE4CDD00720DC1 /* Consumable.swift */,
-				8E8550A61CEE5AC900720DC1 /* ConsumablePipeline.swift */,
+				8EF82E9A1CEAA745006FCF13 /* Operators.swift */,
 				8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */,
-				8EE644741CE9011000403EFC /* Producer.swift */,
-				8EE6445F1CE7AEB900403EFC /* ProducerPipeline.swift */,
-				8EE644691CE8D2BB00403EFC /* Transformer.swift */,
-				8E8550A41CEE5A9C00720DC1 /* TransformerPipeline.swift */,
-				8EF82E9C1CEAC077006FCF13 /* ValueProducer.swift */,
 				8EE644761CE9190900403EFC /* ErrorHandling.swift */,
 				8EE644631CE8600800403EFC /* Result.swift */,
-				8EF82E9A1CEAA745006FCF13 /* Operators.swift */,
+				8E57D1151CF51E6300EDAF4A /* Consumable */,
+				8E57D11A1CF51E6300EDAF4A /* Producer */,
+				8E57D11F1CF51E6300EDAF4A /* Transformer */,
 				8EE6444A1CE7AEA500403EFC /* Info.plist */,
 			);
 			path = Pipeline;
@@ -150,7 +187,6 @@
 		8EE644531CE7AEA500403EFC /* PipelineTests */ = {
 			isa = PBXGroup;
 			children = (
-				8E57D0ED1CF516FD00EDAF4A /* ConsumablePipelineTests.swift */,
 				8E57D0EE1CF516FD00EDAF4A /* ErrorHandlingTests.swift */,
 				8E57D0EF1CF516FD00EDAF4A /* HTTPClient.swift */,
 				8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */,
@@ -159,6 +195,9 @@
 				8E57D0F31CF516FD00EDAF4A /* NSBundlePipelines.swift */,
 				8E57D0F41CF516FD00EDAF4A /* NSFileManagerTransformers.swift */,
 				8E57D0F51CF516FD00EDAF4A /* OperatorTests.swift */,
+				8E57D10D1CF51A0200EDAF4A /* ConsumableOperatorTests.swift */,
+				8E57D1301CF51FDE00EDAF4A /* ProcuderOperatorTests.swift */,
+				8E57D1321CF5235E00EDAF4A /* TransformerOperatorTests.swift */,
 				8E57D0F61CF516FD00EDAF4A /* Parseable.swift */,
 				8E57D0F71CF516FD00EDAF4A /* RESTClient.swift */,
 				8E57D0F81CF516FD00EDAF4A /* RESTClientTests.swift */,
@@ -283,18 +322,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E57D12B1CF51E6300EDAF4A /* Transformer.swift in Sources */,
 				8EE644641CE8600800403EFC /* Result.swift in Sources */,
-				8EE644601CE7AEB900403EFC /* ProducerPipeline.swift in Sources */,
-				8E8550A31CEE4CDD00720DC1 /* Consumable.swift in Sources */,
+				8E57D1291CF51E6300EDAF4A /* ProducerPipeline.swift in Sources */,
 				8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */,
-				8E8550A71CEE5AC900720DC1 /* ConsumablePipeline.swift in Sources */,
+				8E57D1251CF51E6300EDAF4A /* ConsumablePipeline.swift in Sources */,
+				8E57D1281CF51E6300EDAF4A /* ProducerOperators.swift in Sources */,
 				8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */,
-				8EE644731CE8FFFB00403EFC /* Consumer.swift in Sources */,
-				8E8550A51CEE5A9C00720DC1 /* TransformerPipeline.swift in Sources */,
-				8EE644751CE9011000403EFC /* Producer.swift in Sources */,
 				8EE644771CE9190900403EFC /* ErrorHandling.swift in Sources */,
-				8EF82E9D1CEAC077006FCF13 /* ValueProducer.swift in Sources */,
-				8EE6446A1CE8D2BB00403EFC /* Transformer.swift in Sources */,
+				8E57D12A1CF51E6300EDAF4A /* ValueProducer.swift in Sources */,
+				8E57D1261CF51E6300EDAF4A /* Consumer.swift in Sources */,
+				8E57D1271CF51E6300EDAF4A /* Producer.swift in Sources */,
+				8E57D1241CF51E6300EDAF4A /* ConsumableOperators.swift in Sources */,
+				8E57D12D1CF51E6300EDAF4A /* TransformerPipeline.swift in Sources */,
+				8E57D1231CF51E6300EDAF4A /* Consumable.swift in Sources */,
+				8E57D12C1CF51E6300EDAF4A /* TransformerOperators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,11 +347,13 @@
 				8E57D1081CF516FD00EDAF4A /* RESTClientTests.swift in Sources */,
 				8E57D1031CF516FD00EDAF4A /* NSBundlePipelines.swift in Sources */,
 				8E57D1011CF516FD00EDAF4A /* JSONTransformers.swift in Sources */,
+				8E57D1331CF5235E00EDAF4A /* TransformerOperatorTests.swift in Sources */,
 				8E57D10B1CF516FD00EDAF4A /* Timer.swift in Sources */,
 				8E57D1021CF516FD00EDAF4A /* Logger.swift in Sources */,
-				8E57D0FD1CF516FD00EDAF4A /* ConsumablePipelineTests.swift in Sources */,
 				8E57D1091CF516FD00EDAF4A /* Threading.swift in Sources */,
 				8E57D1041CF516FD00EDAF4A /* NSFileManagerTransformers.swift in Sources */,
+				8E57D1311CF51FDE00EDAF4A /* ProcuderOperatorTests.swift in Sources */,
+				8E57D10E1CF51A0200EDAF4A /* ConsumableOperatorTests.swift in Sources */,
 				8E57D0FE1CF516FD00EDAF4A /* ErrorHandlingTests.swift in Sources */,
 				8E57D10A1CF516FD00EDAF4A /* ThreadingTests.swift in Sources */,
 				8E57D0FF1CF516FD00EDAF4A /* HTTPClient.swift in Sources */,
