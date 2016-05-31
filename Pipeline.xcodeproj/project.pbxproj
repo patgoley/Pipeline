@@ -36,6 +36,7 @@
 		8E57D12D1CF51E6300EDAF4A /* TransformerPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1221CF51E6300EDAF4A /* TransformerPipeline.swift */; };
 		8E57D1311CF51FDE00EDAF4A /* ProcuderOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1301CF51FDE00EDAF4A /* ProcuderOperatorTests.swift */; };
 		8E57D1331CF5235E00EDAF4A /* TransformerOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1321CF5235E00EDAF4A /* TransformerOperatorTests.swift */; };
+		8E57D1351CF52BA200EDAF4A /* TransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1341CF52BA200EDAF4A /* TransformerTests.swift */; };
 		8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */; };
 		8EE644491CE7AEA500403EFC /* Pipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EE644481CE7AEA500403EFC /* Pipeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8EE644501CE7AEA500403EFC /* Pipeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE644451CE7AEA500403EFC /* Pipeline.framework */; };
@@ -86,6 +87,7 @@
 		8E57D1221CF51E6300EDAF4A /* TransformerPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerPipeline.swift; sourceTree = "<group>"; };
 		8E57D1301CF51FDE00EDAF4A /* ProcuderOperatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcuderOperatorTests.swift; sourceTree = "<group>"; };
 		8E57D1321CF5235E00EDAF4A /* TransformerOperatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerOperatorTests.swift; sourceTree = "<group>"; };
+		8E57D1341CF52BA200EDAF4A /* TransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerTests.swift; sourceTree = "<group>"; };
 		8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
 		8EE644451CE7AEA500403EFC /* Pipeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pipeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE644481CE7AEA500403EFC /* Pipeline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pipeline.h; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				8E57D10D1CF51A0200EDAF4A /* ConsumableOperatorTests.swift */,
 				8E57D1301CF51FDE00EDAF4A /* ProcuderOperatorTests.swift */,
 				8E57D1321CF5235E00EDAF4A /* TransformerOperatorTests.swift */,
+				8E57D1341CF52BA200EDAF4A /* TransformerTests.swift */,
 				8E57D0F61CF516FD00EDAF4A /* Parseable.swift */,
 				8E57D0F71CF516FD00EDAF4A /* RESTClient.swift */,
 				8E57D0F81CF516FD00EDAF4A /* RESTClientTests.swift */,
@@ -361,6 +364,7 @@
 				8E57D1001CF516FD00EDAF4A /* JSONTests.swift in Sources */,
 				8E57D1071CF516FD00EDAF4A /* RESTClient.swift in Sources */,
 				8E57D1061CF516FD00EDAF4A /* Parseable.swift in Sources */,
+				8E57D1351CF52BA200EDAF4A /* TransformerTests.swift in Sources */,
 				8E57D10C1CF516FD00EDAF4A /* TimerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
