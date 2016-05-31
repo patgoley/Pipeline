@@ -89,6 +89,7 @@
 		8E57D1321CF5235E00EDAF4A /* TransformerOperatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerOperatorTests.swift; sourceTree = "<group>"; };
 		8E57D1341CF52BA200EDAF4A /* TransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerTests.swift; sourceTree = "<group>"; };
 		8E57D1361CFD566100EDAF4A /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		8E57D1371CFD611A00EDAF4A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
 		8EE644451CE7AEA500403EFC /* Pipeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pipeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE644481CE7AEA500403EFC /* Pipeline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pipeline.h; sourceTree = "<group>"; };
@@ -156,6 +157,7 @@
 		8EE6443B1CE7AEA400403EFC = {
 			isa = PBXGroup;
 			children = (
+				8E57D1371CFD611A00EDAF4A /* README.md */,
 				8E57D1361CFD566100EDAF4A /* .travis.yml */,
 				8EE644471CE7AEA500403EFC /* Pipeline */,
 				8EE644531CE7AEA500403EFC /* PipelineTests */,

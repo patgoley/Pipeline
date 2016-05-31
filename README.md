@@ -1,4 +1,4 @@
-# Pipeline
+# Pipeline [![Build Status](https://travis-ci.org/patgoley/Pipeline.svg?branch=master)](https://travis-ci.org/patgoley/Pipeline)
 
 Pipeline is a framework that facilitates functional programming in Swift. It chains together values, functions, and types that act like functions into "pipelines" that produce, transform, or consume data.
 
