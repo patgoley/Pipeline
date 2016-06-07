@@ -7,3 +7,5 @@ script:
 - xcodebuild -version
 - xcodebuild -showsdks
 - xcodebuild -project Pipeline.xcodeproj -scheme "Pipeline" -sdk iphonesimulator9.3 -destination "platform=iOS Simulator,OS=9.3,name=iPhone 6S Plus" -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c
+after_success:
+- bash <(curl -s https://codecov.io/bash)
