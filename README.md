@@ -1,5 +1,8 @@
-# Pipeline [![Build Status](https://travis-ci.org/patgoley/Pipeline.svg?branch=master)](https://travis-ci.org/patgoley/Pipeline) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+# Pipeline
 
+[![Build Status](https://travis-ci.org/patgoley/Pipeline.svg?branch=master)](https://travis-ci.org/patgoley/Pipeline) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
+ 
 Pipeline is a framework that facilitates functional programming in Swift. It chains together values, functions, and types that act like functions into "pipelines" that produce, transform, or consume data.
 
 There are three main protocols that underly the types in Pipeline. The first one we'll look at is `ConsumableType`. 
