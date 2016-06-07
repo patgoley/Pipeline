@@ -34,3 +34,6 @@ protocol TransformerType: ConsumerType, ConsumableType { }
 
 The goal of Pipeline is to allow you to express pieces of your application as one of these three types, and then string them together in various ways to create complex functionality. It strongly suggests that each type should do *exactly* one thing, which allows maximum reusability. 
 
+# License 
+
+Pipeline is available under the Apache 2 License. See the LICENSE file for more info.
