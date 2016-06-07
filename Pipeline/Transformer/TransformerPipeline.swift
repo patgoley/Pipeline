@@ -84,7 +84,7 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
     }
 }
 
-extension TransformerPipeline {
+public extension TransformerPipeline {
     
     convenience init(head: InputType -> OutputType) {
         

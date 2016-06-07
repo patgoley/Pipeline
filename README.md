@@ -22,7 +22,7 @@ protocol ConsumerType {
     
     associatedtype InputType
     
-    func consume(_: InputType)
+    func consume(_: InputType) -> Void
 }
 ```
 
