@@ -77,6 +77,51 @@ public func crashOnError<T>(result: Result<T>) -> T {
     }
 }
 
+final class ThrowingTransformer<T, U>: TransformerType {
+    
+    typealias InputType = T
+    
+    typealias OutputType = Result<U>
+    
+    var consumer: (OutputType -> Void)?
+    
+    let _transform: (T) throws -> U
+    
+    init(transform: (T) throws -> U) {
+        
+        self._transform = transform
+    }
+    
+    func consume(input: InputType) {
+        
+        guard let consumer = consumer else {
+            
+            return
+        }
+        
+        do {
+            
+            let result = try _transform(input)
+            
+            consumer(.Success(result))
+            
+        } catch let err {
+            
+            consumer(.Error(err))
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
