@@ -1,5 +1,5 @@
 //
-//  ErrorHandlingTests.swift
+//  HelperTests.swift
 //  Pipeline
 //
 //  Created by Patrick Goley on 5/20/16.
@@ -9,7 +9,36 @@
 import XCTest
 @testable import Pipeline
 
-class ErrorHandlingTests: XCTestCase {
+class HelperTests: XCTestCase {
+    
+    func testMap() {
+        
+        let string = "abc"
+        
+        let pipe = ValueProducer(string)
+            |> map() { $0.characters.count }
+            |> { count in
+                
+                XCTAssert(count == 3)
+        }
+        
+        pipe.produce()
+    }
+    
+    func testFilter() {
+        
+        let pipe = filter() { $0.characters.count == 3 }
+            |> { (string: String) in
+                
+                XCTAssert(string.characters.count == 3)
+        }
+        
+        pipe.consume("abc")
+        
+        pipe.consume("a")
+        
+        pipe.consume("abcd")
+    }
 
     func testGuardUnwrap() {
         
@@ -60,7 +89,7 @@ class ErrorHandlingTests: XCTestCase {
         
         let result: Result<String> = .Error(NSError(domain: "", code: 0, userInfo: nil))
         
-        let pipe = ValueProducer(result) |> swallowError() |> { _ in XCTAssert(false) }
+        let pipe = ValueProducer(result) |> swallowError(log: "found error") |> { _ in XCTAssert(false) }
         
         pipe.produce()
     }
