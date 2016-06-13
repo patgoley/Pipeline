@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E57D0FE1CF516FD00EDAF4A /* HelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0EE1CF516FD00EDAF4A /* HelperTests.swift */; };
+		8E57D0FE1CF516FD00EDAF4A /* ErrorHandlingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0EE1CF516FD00EDAF4A /* ErrorHandlingTests.swift */; };
 		8E57D1001CF516FD00EDAF4A /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */; };
 		8E57D1011CF516FD00EDAF4A /* JSONTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */; };
 		8E57D1021CF516FD00EDAF4A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F21CF516FD00EDAF4A /* Logger.swift */; };
@@ -55,7 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8E57D0EE1CF516FD00EDAF4A /* HelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperTests.swift; sourceTree = "<group>"; };
+		8E57D0EE1CF516FD00EDAF4A /* ErrorHandlingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandlingTests.swift; sourceTree = "<group>"; };
 		8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTransformers.swift; sourceTree = "<group>"; };
 		8E57D0F21CF516FD00EDAF4A /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 		8EE644531CE7AEA500403EFC /* PipelineTests */ = {
 			isa = PBXGroup;
 			children = (
-				8E57D0EE1CF516FD00EDAF4A /* HelperTests.swift */,
+				8E57D0EE1CF516FD00EDAF4A /* ErrorHandlingTests.swift */,
 				8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */,
 				8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */,
 				8E57D0F21CF516FD00EDAF4A /* Logger.swift */,
