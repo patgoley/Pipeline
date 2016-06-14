@@ -38,7 +38,7 @@
 		8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */; };
 		8EE644491CE7AEA500403EFC /* Pipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EE644481CE7AEA500403EFC /* Pipeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8EE644501CE7AEA500403EFC /* Pipeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE644451CE7AEA500403EFC /* Pipeline.framework */; };
-		8EE644641CE8600800403EFC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644631CE8600800403EFC /* Result.swift */; };
+		8EE644641CE8600800403EFC /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644631CE8600800403EFC /* ErrorHandling.swift */; };
 		8EE644681CE8639500403EFC /* animals.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE644671CE8639500403EFC /* animals.json */; };
 		8EE6447B1CE929EB00403EFC /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE6447A1CE929EB00403EFC /* user.json */; };
 		8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9A1CEAA745006FCF13 /* Operators.swift */; };
@@ -91,7 +91,7 @@
 		8EE6444A1CE7AEA500403EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EE6444F1CE7AEA500403EFC /* PipelineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PipelineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE644561CE7AEA500403EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8EE644631CE8600800403EFC /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		8EE644631CE8600800403EFC /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		8EE644671CE8639500403EFC /* animals.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animals.json; sourceTree = "<group>"; };
 		8EE6447A1CE929EB00403EFC /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
 		8EF82E9A1CEAA745006FCF13 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 				8EF82E9A1CEAA745006FCF13 /* Operators.swift */,
 				8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */,
 				8E5E7E2E1D09FB4B007A1B7E /* Helpers.swift */,
-				8EE644631CE8600800403EFC /* Result.swift */,
+				8EE644631CE8600800403EFC /* ErrorHandling.swift */,
 				8E57D1151CF51E6300EDAF4A /* Consumable */,
 				8E57D11A1CF51E6300EDAF4A /* Producer */,
 				8E57D11F1CF51E6300EDAF4A /* Transformer */,
@@ -321,7 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E57D12B1CF51E6300EDAF4A /* Transformer.swift in Sources */,
-				8EE644641CE8600800403EFC /* Result.swift in Sources */,
+				8EE644641CE8600800403EFC /* ErrorHandling.swift in Sources */,
 				8E57D1291CF51E6300EDAF4A /* ProducerPipeline.swift in Sources */,
 				8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */,
 				8E57D1251CF51E6300EDAF4A /* ConsumablePipeline.swift in Sources */,

@@ -9,6 +9,8 @@
 import XCTest
 @testable import Pipeline
 
+struct MockError: ErrorType { }
+
 class HelperTests: XCTestCase {
     
     func testMap() {
@@ -38,6 +40,44 @@ class HelperTests: XCTestCase {
         pipe.consume("a")
         
         pipe.consume("abcd")
+    }
+    
+    func testThrowingMap() {
+        
+        let pipe = map() { (str: String) -> Int in
+            
+            if str.characters.count == 3 {
+                
+                throw MockError()
+                
+            } else {
+                
+                return str.characters.count
+            }
+            
+        }
+        
+        pipe.consumer = { (result: Result<Int>) in
+            
+            switch result {
+                
+            case .Success(_): XCTFail()
+            default: break
+            }
+        }
+        
+        pipe.consume("abc")
+        
+        pipe.consumer = { (result: Result<Int>) in
+            
+            switch result {
+                
+            case .Error(_): XCTFail()
+            default: break
+            }
+        }
+        
+        pipe.consume("a")
     }
 
     func testGuardUnwrap() {

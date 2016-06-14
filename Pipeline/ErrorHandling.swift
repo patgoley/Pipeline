@@ -8,43 +8,28 @@
 
 import Foundation
 
-public func guardUnwrap<T>() -> OptionalFilterTransformer<T?, T> {
+/*
+ A type expressing the result of a process with potential error cases.
+ The value is either the resulting value or an ErrorType created in attempting
+ to produce the result.
+*/
+
+public enum Result<T> {
     
-    return OptionalFilterTransformer() { $0 }
+    public typealias ValueType = T
+    
+    case Success(T), Error(ErrorType)
 }
 
-public func guardUnwrap<T, U>(transform: T -> U?) -> OptionalFilterTransformer<T, U> {
-    
-    return OptionalFilterTransformer() { transform($0) }
-}
+/*
+ Unwraps a Result<T> value or catches the error,
+ optionally logs it, and halts execution of the Pipeline
+*/
 
-public func forceUnwrap<T>(input: T?) -> T {
-    
-    return input!
-}
-
-public func forceUnwrap<T, U>(transform: T -> U?) -> (T -> U) {
-    
-    return {
-        
-        transform($0)!
-    }
-}
-
-public func downCast<T, U>(toType: U.Type) -> OptionalFilterTransformer<T, U> {
-    
-    return OptionalFilterTransformer() { $0 as? U }
-}
-
-public func forceCast<T, U>(toType: U.Type) -> AnyTransformer<T, U> {
-    
-    return AnyTransformer() { $0 as! U }
-}
-
-public func swallowError<T>(log log: Bool = true) -> OptionalFilterTransformer<Result<T>, T> {
+public func swallowError<T>(log logMessage: String? = nil) -> OptionalFilterTransformer<Result<T>, T> {
     
     return OptionalFilterTransformer() {
-    
+        
         switch $0 {
             
         case .Success(let value):
@@ -53,15 +38,19 @@ public func swallowError<T>(log log: Bool = true) -> OptionalFilterTransformer<R
             
         case .Error(let err):
             
-            if log {
+            if let message = logMessage {
                 
-                print("Pipeline error: \(err)")
+                print("\n\(message)\nerror: \(err)")
             }
             
             return nil
         }
     }
 }
+
+/*
+ Unwraps a Result<T> value or causes a fatalError
+*/
 
 public func crashOnError<T>(result: Result<T>) -> T {
     
@@ -77,51 +66,25 @@ public func crashOnError<T>(result: Result<T>) -> T {
     }
 }
 
-final class ThrowingTransformer<T, U>: TransformerType {
+/*
+ A produces a transformer that encapsulates a throwing function. 
+ Produces a Result<T> which is either the result of the function 
+ or the ErrorType that was thrown.
+*/
+
+func map<T, U>(transform: (T) throws -> U) -> AnyTransformer<T, Result<U>> {
     
-    typealias InputType = T
-    
-    typealias OutputType = Result<U>
-    
-    var consumer: (OutputType -> Void)?
-    
-    let _transform: (T) throws -> U
-    
-    init(transform: (T) throws -> U) {
-        
-        self._transform = transform
-    }
-    
-    func consume(input: InputType) {
-        
-        guard let consumer = consumer else {
-            
-            return
-        }
+    return AnyTransformer() { input in
         
         do {
             
-            let result = try _transform(input)
+            let result = try transform(input)
             
-            consumer(.Success(result))
+            return .Success(result)
             
         } catch let err {
             
-            consumer(.Error(err))
+            return .Error(err)
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
