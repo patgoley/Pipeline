@@ -38,6 +38,24 @@ class ProducerOperatorTests: XCTestCase {
         pipe.produce()
     }
     
+    func testProducerPipelineTransformerType() {
+        
+        let anyProducer = AnyProducer(base: ValueProducer(123))
+        
+        let pipe = anyProducer
+            |> { (x: Int) -> Int in return x }
+            |> AnyTransformer() { (x: Int) -> Int in
+            
+                return x + 1
+            
+            } |> { (x: Int) in
+                
+                XCTAssert(x == 124)
+            }
+        
+        pipe.produce()
+    }
+    
     func testProducerConsumerFunction() {
         
         let pipe = ValueProducer(123) |> { x in

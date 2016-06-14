@@ -9,6 +9,11 @@
 import XCTest
 @testable import Pipeline
 
+struct Person {
+    
+    var name: String?
+}
+
 struct MockError: ErrorType { }
 
 class HelperTests: XCTestCase {
@@ -84,16 +89,42 @@ class HelperTests: XCTestCase {
         
         let string: String? = nil
         
-        let pipe = ValueProducer(string) |> guardUnwrap() |> { _ in XCTAssert(false) }
+        let pipe = ValueProducer(string)
+            |> guardUnwrap()
+            |> { _ in XCTAssert(false) }
         
         pipe.produce()
+    }
+    
+    func testGuardUnwrapNotNil() {
+        
+        let string: String? = "abc"
+        
+        let pipe = ValueProducer(string)
+            |> guardUnwrap()
+            |> { XCTAssert($0 == "abc") }
+        
+        pipe.produce()
+    }
+    
+    func testGuardUnwrapWithClosure() {
+        
+        let pipe = guardUnwrap() { (person: Person) in
+            
+            return person.name?.characters.count
+            
+        } |> { _ in XCTAssert(false) }
+        
+        pipe.consume(Person(name: nil))
     }
     
     func testForceUnwrap() {
         
         let string: String? = "123"
         
-        let pipe = ValueProducer(string) |> forceUnwrap |> { (x: String) in XCTAssert(x == "123") }
+        let pipe = ValueProducer(string)
+            |> forceUnwrap
+            |> { (x: String) in XCTAssert(x == "123") }
         
         pipe.produce()
     }
@@ -102,7 +133,9 @@ class HelperTests: XCTestCase {
         
         let string: String? = "123"
         
-        let pipe = ValueProducer(string) |> forceUnwrap { (str: String?) in str?.characters.count } |> { (x: Int) in x == 3  }
+        let pipe = ValueProducer(string)
+            |> forceUnwrap { (str: String?) in str?.characters.count }
+            |> { (x: Int) in x == 3  }
         
         pipe.produce()
     }
@@ -111,7 +144,9 @@ class HelperTests: XCTestCase {
         
         let string = "123"
         
-        let pipe = ValueProducer(string) |> downCast(Int.self) |> { _ in XCTAssert(false) }
+        let pipe = ValueProducer(string)
+            |> downCast(Int.self)
+            |> { _ in XCTAssert(false) }
         
         pipe.produce()
     }
@@ -120,16 +155,31 @@ class HelperTests: XCTestCase {
         
         let anyObject: AnyObject = NSNumber(int: 3)
         
-        let pipe = ValueProducer(anyObject) |> forceCast(NSNumber.self) |> { x in XCTAssert(x.intValue == 3) }
+        let pipe = ValueProducer(anyObject)
+            |> forceCast(NSNumber.self)
+            |> { x in XCTAssert(x.intValue == 3) }
         
         pipe.produce()
     }
     
     func testSwallowError() {
         
-        let result: Result<String> = .Error(NSError(domain: "", code: 0, userInfo: nil))
+        let result: Result<String> = .Error(MockError())
         
-        let pipe = ValueProducer(result) |> swallowError(log: "found error") |> { _ in XCTAssert(false) }
+        let pipe = ValueProducer(result)
+            |> swallowError(log: "found error")
+            |> { _ in XCTAssert(false) }
+        
+        pipe.produce()
+    }
+    
+    func testSwallowErrorSuccess() {
+        
+        let result: Result<String> = .Success("abc")
+        
+        let pipe = ValueProducer(result)
+            |> swallowError(log: "found error")
+            |> { (str: String) in XCTAssert(str == "abc") }
         
         pipe.produce()
     }
