@@ -18,6 +18,11 @@ public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType -> U) -> Transf
     return TransformerPipeline(head: lhs).then(rhs)
 }
 
+public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType throws -> U) -> TransformerPipeline<T.InputType, Result<U>>  {
+    
+    return TransformerPipeline(head: lhs).then(rhs)
+}
+
 public func |> <T: TransformerType, S, U where T.InputType == U>(lhs: S -> U, rhs: T) -> TransformerPipeline<S, T.OutputType>  {
     
     let transformer = AnyTransformer(transform: lhs)

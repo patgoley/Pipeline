@@ -49,7 +49,11 @@ class HelperTests: XCTestCase {
     
     func testThrowingMap() {
         
-        let pipe = map() { (str: String) -> Int in
+        let pipe = AnyTransformer<String, String>() { str in
+            
+            return str
+        
+        } |> { (str: String) -> Int in
             
             if str.characters.count == 3 {
                 
@@ -59,7 +63,6 @@ class HelperTests: XCTestCase {
                 
                 return str.characters.count
             }
-            
         }
         
         pipe.consumer = { (result: Result<Int>) in

@@ -68,7 +68,9 @@ class ProducerOperatorTests: XCTestCase {
     
     func testProducerPipelineConsumerType() {
         
-        let pipe = ValueProducer(123) |> { return $0 } |> AnyConsumer() { x in
+        let pipe = ValueProducer(123)
+            |> { return $0 }
+            |> AnyConsumer() { x in
             
             XCTAssert(x == 123)
         }
