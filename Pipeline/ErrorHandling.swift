@@ -67,14 +67,14 @@ public func crashOnError<T>(result: Result<T>) -> T {
 }
 
 /*
- A produces a transformer that encapsulates a throwing function. 
- Produces a Result<T> which is either the result of the function 
+ Produces a function that returns the result of a throwing function.
+ Produces a Result<T> which is either the resulting value of the function
  or the ErrorType that was thrown.
 */
 
-func map<T, U>(transform: (T) throws -> U) -> AnyTransformer<T, Result<U>> {
+func map<T, U>(transform: (T) throws -> U) -> (T) -> Result<U> {
     
-    return AnyTransformer() { input in
+    return { input in
         
         do {
             

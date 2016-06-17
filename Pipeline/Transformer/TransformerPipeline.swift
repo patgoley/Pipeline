@@ -71,7 +71,9 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
     
     public func then<NewOutput>(transform: U throws -> NewOutput) -> TransformerPipeline<InputType, Result<NewOutput>> {
         
-        let transformer = map(transform)
+        let resultFunction = map(transform)
+        
+        let transformer = AnyTransformer(transform: resultFunction)
         
         tail.consumer = transformer.consume
         
