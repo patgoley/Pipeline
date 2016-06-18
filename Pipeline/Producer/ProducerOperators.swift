@@ -21,7 +21,7 @@ public func |> <P: ProducerType, U>(lhs: P, rhs: P.OutputType -> U) -> ProducerP
     return pipe.then(rhs)
 }
 
-public func |> <O, C where C: TransformerType, O == C.InputType>(lhs: ProducerPipeline<O>, rhs: C) -> ProducerPipeline<C.OutputType>  {
+public func |> <O, T where T: TransformerType, O == T.InputType>(lhs: ProducerPipeline<O>, rhs: T) -> ProducerPipeline<T.OutputType>  {
     
     return lhs.then(rhs)
 }
