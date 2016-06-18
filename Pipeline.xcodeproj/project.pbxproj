@@ -46,6 +46,8 @@
 		8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9A1CEAA745006FCF13 /* Operators.swift */; };
 		8EF8DF3B1D15B26D005BA467 /* Splitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8DF3A1D15B26D005BA467 /* Splitter.swift */; };
 		8EF8DF3D1D15B3E1005BA467 /* SplitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8DF3C1D15B3E1005BA467 /* SplitterTests.swift */; };
+		8EF8DF3F1D15C20D005BA467 /* Join.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8DF3E1D15C20D005BA467 /* Join.swift */; };
+		8EF8DF411D15C7B0005BA467 /* JoinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8DF401D15C7B0005BA467 /* JoinTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +105,8 @@
 		8EF82E9A1CEAA745006FCF13 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		8EF8DF3A1D15B26D005BA467 /* Splitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splitter.swift; sourceTree = "<group>"; };
 		8EF8DF3C1D15B3E1005BA467 /* SplitterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitterTests.swift; sourceTree = "<group>"; };
+		8EF8DF3E1D15C20D005BA467 /* Join.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Join.swift; sourceTree = "<group>"; };
+		8EF8DF401D15C7B0005BA467 /* JoinTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +190,7 @@
 				8EF72F191D14E039009B921F /* Execution.swift */,
 				8EE644631CE8600800403EFC /* ErrorHandling.swift */,
 				8EF8DF3A1D15B26D005BA467 /* Splitter.swift */,
+				8EF8DF3E1D15C20D005BA467 /* Join.swift */,
 				8E57D1151CF51E6300EDAF4A /* Consumable */,
 				8E57D11A1CF51E6300EDAF4A /* Producer */,
 				8E57D11F1CF51E6300EDAF4A /* Transformer */,
@@ -202,6 +207,7 @@
 				8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */,
 				8EF72F1B1D14E0A4009B921F /* ExecutionTests.swift */,
 				8EF8DF3C1D15B3E1005BA467 /* SplitterTests.swift */,
+				8EF8DF401D15C7B0005BA467 /* JoinTests.swift */,
 				8E57D0F21CF516FD00EDAF4A /* Logger.swift */,
 				8E57D0F31CF516FD00EDAF4A /* NSBundlePipelines.swift */,
 				8E57D0F41CF516FD00EDAF4A /* NSFileManagerTransformers.swift */,
@@ -337,6 +343,7 @@
 				8E57D1291CF51E6300EDAF4A /* ProducerPipeline.swift in Sources */,
 				8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */,
 				8E57D1251CF51E6300EDAF4A /* ConsumablePipeline.swift in Sources */,
+				8EF8DF3F1D15C20D005BA467 /* Join.swift in Sources */,
 				8E5E7E2F1D09FB4B007A1B7E /* Helpers.swift in Sources */,
 				8E57D1281CF51E6300EDAF4A /* ProducerOperators.swift in Sources */,
 				8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */,
@@ -371,6 +378,7 @@
 				8E57D1001CF516FD00EDAF4A /* JSONTests.swift in Sources */,
 				8E57D1061CF516FD00EDAF4A /* Parseable.swift in Sources */,
 				8E57D1351CF52BA200EDAF4A /* TransformerTests.swift in Sources */,
+				8EF8DF411D15C7B0005BA467 /* JoinTests.swift in Sources */,
 				8E57D10C1CF516FD00EDAF4A /* TimerTests.swift in Sources */,
 				8EF8DF3D1D15B3E1005BA467 /* SplitterTests.swift in Sources */,
 				8E85D3801D0F8F2400B26697 /* HelperTests.swift in Sources */,
