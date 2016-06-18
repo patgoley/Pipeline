@@ -41,6 +41,8 @@
 		8EE644641CE8600800403EFC /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644631CE8600800403EFC /* ErrorHandling.swift */; };
 		8EE644681CE8639500403EFC /* animals.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE644671CE8639500403EFC /* animals.json */; };
 		8EE6447B1CE929EB00403EFC /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EE6447A1CE929EB00403EFC /* user.json */; };
+		8EF72F1A1D14E039009B921F /* Execution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF72F191D14E039009B921F /* Execution.swift */; };
+		8EF72F1C1D14E0A4009B921F /* ExecutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF72F1B1D14E0A4009B921F /* ExecutionTests.swift */; };
 		8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9A1CEAA745006FCF13 /* Operators.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +96,8 @@
 		8EE644631CE8600800403EFC /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		8EE644671CE8639500403EFC /* animals.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animals.json; sourceTree = "<group>"; };
 		8EE6447A1CE929EB00403EFC /* user.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
+		8EF72F191D14E039009B921F /* Execution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Execution.swift; sourceTree = "<group>"; };
+		8EF72F1B1D14E0A4009B921F /* ExecutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionTests.swift; sourceTree = "<group>"; };
 		8EF82E9A1CEAA745006FCF13 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,6 +179,7 @@
 				8EF82E9A1CEAA745006FCF13 /* Operators.swift */,
 				8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */,
 				8E5E7E2E1D09FB4B007A1B7E /* Helpers.swift */,
+				8EF72F191D14E039009B921F /* Execution.swift */,
 				8EE644631CE8600800403EFC /* ErrorHandling.swift */,
 				8E57D1151CF51E6300EDAF4A /* Consumable */,
 				8E57D11A1CF51E6300EDAF4A /* Producer */,
@@ -190,6 +195,7 @@
 				8E85D37F1D0F8F2400B26697 /* HelperTests.swift */,
 				8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */,
 				8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */,
+				8EF72F1B1D14E0A4009B921F /* ExecutionTests.swift */,
 				8E57D0F21CF516FD00EDAF4A /* Logger.swift */,
 				8E57D0F31CF516FD00EDAF4A /* NSBundlePipelines.swift */,
 				8E57D0F41CF516FD00EDAF4A /* NSFileManagerTransformers.swift */,
@@ -334,6 +340,7 @@
 				8E57D1241CF51E6300EDAF4A /* ConsumableOperators.swift in Sources */,
 				8E57D12D1CF51E6300EDAF4A /* TransformerPipeline.swift in Sources */,
 				8E57D1231CF51E6300EDAF4A /* Consumable.swift in Sources */,
+				8EF72F1A1D14E039009B921F /* Execution.swift in Sources */,
 				8E57D12C1CF51E6300EDAF4A /* TransformerOperators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E57D1031CF516FD00EDAF4A /* NSBundlePipelines.swift in Sources */,
+				8EF72F1C1D14E0A4009B921F /* ExecutionTests.swift in Sources */,
 				8E57D1011CF516FD00EDAF4A /* JSONTransformers.swift in Sources */,
 				8E57D1331CF5235E00EDAF4A /* TransformerOperatorTests.swift in Sources */,
 				8E57D10B1CF516FD00EDAF4A /* Timer.swift in Sources */,
