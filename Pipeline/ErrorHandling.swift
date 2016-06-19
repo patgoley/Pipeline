@@ -28,9 +28,9 @@ public enum Result<T> {
 
 public func swallowError<T>(log logMessage: String? = nil) -> OptionalFilterTransformer<Result<T>, T> {
     
-    return OptionalFilterTransformer() {
+    return OptionalFilterTransformer() { result in
         
-        switch $0 {
+        switch result {
             
         case .Success(let value):
             
@@ -42,6 +42,42 @@ public func swallowError<T>(log logMessage: String? = nil) -> OptionalFilterTran
                 
                 print("\n\(message)\nerror: \(err)")
             }
+            
+            return nil
+        }
+    }
+}
+
+/*
+ Unwraps a Result<T> value or catches the error and
+ logs it with a message
+ */
+
+public func logError<T>(message: String) -> OptionalFilterTransformer<Result<T>, T> {
+    
+    return onError() { err in
+        
+        print("\(message)\n\(err)")
+    }
+}
+
+/*
+ Unwraps a Result<T> value or pass the error to a closure
+ */
+
+public func onError<T>(handler: (ErrorType) -> Void) -> OptionalFilterTransformer<Result<T>, T> {
+    
+    return OptionalFilterTransformer() { result in
+        
+        switch result {
+            
+        case .Success(let value):
+            
+            return value
+            
+        case .Error(let err):
+            
+            handler(err)
             
             return nil
         }

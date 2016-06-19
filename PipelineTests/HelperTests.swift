@@ -176,6 +176,24 @@ class HelperTests: XCTestCase {
         pipe.produce()
     }
     
+    func testOnError() {
+        
+        let result: Result<String> = .Error(MockError())
+        
+        let expt = expectationWithDescription("error")
+        
+        let pipe = ValueProducer(result) |> onError() { err in
+                
+                XCTAssert(err is MockError)
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
     func testSwallowErrorSuccess() {
         
         let result: Result<String> = .Success("abc")
