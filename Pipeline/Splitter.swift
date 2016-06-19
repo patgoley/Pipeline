@@ -34,8 +34,21 @@ public func split<C: ConsumerType>(consumers: C...) -> Splitter<C.InputType> {
     return Splitter(consumers: consumers)
 }
 
+public func split<I>(consumerFunctions: (I) -> Void...) -> Splitter<I> {
+    
+    let consumers = consumerFunctions.map(AnyConsumer.init)
+    
+    return Splitter(consumers: consumers)
+}
+
 public func split<C: ConsumerType>(consumers: [C]) -> Splitter<C.InputType> {
     
     return Splitter(consumers: consumers)
 }
 
+public func split<I>(consumerFunctions: [(I) -> Void]) -> Splitter<I> {
+    
+    let consumers = consumerFunctions.map(AnyConsumer.init)
+    
+    return Splitter(consumers: consumers)
+}

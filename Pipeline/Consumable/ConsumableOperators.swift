@@ -23,6 +23,11 @@ public func |> <S: ConsumableType, C: ConsumerType where S.OutputType == C.Input
     return ConsumablePipeline(head: lhs).finally(rhs)
 }
 
+public func |> <C: ConsumableType>(lhs: C, rhs: C.OutputType -> Void) -> Pipeline  {
+    
+    return ConsumablePipeline(head: lhs).finally(rhs)
+}
+
 public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ConsumablePipeline<O>, rhs: C) -> Pipeline  {
     
     return lhs.finally(rhs)
