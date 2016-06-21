@@ -125,7 +125,8 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTransformerFunctionConsumerFunction() {
         
-        let pipe = { (x: Int) in return "\(x)" } |> { (x: String) in
+        let pipe = { (x: Int) in return "\(x)" }
+            |> { (x: String) in
             
             XCTAssert(x == "321")
         }

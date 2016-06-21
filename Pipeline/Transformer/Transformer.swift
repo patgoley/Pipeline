@@ -80,8 +80,49 @@ public final class FilterTransformer<T>: TransformerType  {
 }
 
 /*
- A transformer that filters attempts to unwrap optional values and pass
- along a non-optional value. If nil is encountered, the execution of the
+ A function that attempts to unwrap and optional and apply a transform.
+ Returns nil if nil is encountered. This mirrors the effect of optional
+ chaining in dot notation. For example:
+ 
+ `person.employer?.name` results in `String?`
+ 
+ `() -> Employer? |> optionalMap(Employer -> String)` results in `() -> S?`
+ 
+ */
+
+func optionalMap<T, U>(transform: T -> U) -> T? -> U? {
+    
+    return { input in
+        
+        if let value = input {
+            
+            return transform(value)
+        }
+        
+        return nil
+    }
+}
+
+func optionalMap<T: TransformerType, U, V where T.InputType == U, T.OutputType == V>(transformer: T) -> AsyncTransformer<U?, V?> {
+    
+    return AsyncTransformer() { input, consumer in
+        
+        if let value = input {
+            
+            transformer.consumer = consumer
+            
+            transformer.consume(value)
+            
+        } else {
+            
+            consumer(nil)
+        }
+    }
+}
+
+/*
+ A transformer that attempts to unwrap optionals and pass along
+ the unwrapped valued. If nil is encountered, the execution of the
  Pipeline ends (no value is passed to the consumer).
 */
 

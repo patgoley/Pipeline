@@ -25,6 +25,20 @@ public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: S.OutputType throws -
     return ConsumablePipeline(head: lhs).then(resultFunction)
 }
 
+public func |> <S: ConsumableType, V, NewOutput where S.OutputType == Optional<V>>(lhs: S, rhs: V -> NewOutput) -> ConsumablePipeline<NewOutput?>  {
+    
+    let transformer = optionalMap(rhs)
+    
+    return ConsumablePipeline(head: lhs).then(transformer)
+}
+
+public func |> <S: ConsumableType, V, T: TransformerType where S.OutputType == Optional<V>, V == T.InputType>(lhs: S, rhs: T) -> ConsumablePipeline<T.OutputType?>  {
+    
+    let transformer = optionalMap(rhs)
+    
+    return ConsumablePipeline(head: lhs).then(transformer)
+}
+
 public func |> <S: ConsumableType, C: ConsumerType where S.OutputType == C.InputType>(lhs: S, rhs: C) -> Pipeline  {
     
     return ConsumablePipeline(head: lhs).finally(rhs)

@@ -125,4 +125,98 @@ class ConsumableOperatorTests: XCTestCase {
         
         producer.produce()
     }
+    
+    func testConsumeableOptionalMap() {
+        
+        let producer = ThunkProducer<Int?>() { return nil }
+        
+        let expt = expectationWithDescription("nil")
+        
+        let pipe = producer |> { (int: Int) in int + 5 }
+        
+        pipe.consumer = { (x: Int?) in
+            
+            XCTAssertNil(x)
+            
+            expt.fulfill()
+        }
+        
+        producer.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testConsumeableOptionalMapWithValue() {
+        
+        let producer = ThunkProducer<Int?>() { return 123 }
+        
+        let expt = expectationWithDescription("value")
+        
+        let pipe = producer |> { (int: Int) in int + 5 }
+        
+        pipe.consumer = { (x: Int?) in
+            
+            if let val = x {
+                
+                XCTAssert(val == 128)
+                
+            } else {
+                
+                XCTFail()
+            }
+            
+            expt.fulfill()
+        }
+        
+        producer.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testConsumeableTransformerOptionalMap() {
+        
+        let producer = ThunkProducer<Int?>() { return nil }
+        
+        let expt = expectationWithDescription("nil")
+        
+        let pipe = producer |> AnyTransformer() { (int: Int) in int + 5 }
+        
+        pipe.consumer = { (x: Int?) in
+            
+            XCTAssertNil(x)
+            
+            expt.fulfill()
+        }
+        
+        producer.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testConsumeableTransformerOptionalMapWithValue() {
+        
+        let producer = ThunkProducer<Int?>() { return 123 }
+        
+        let expt = expectationWithDescription("value")
+        
+        let pipe = producer |> AnyTransformer() { (int: Int) in int + 5 }
+        
+        pipe.consumer = { (x: Int?) in
+            
+            if let val = x {
+                
+                XCTAssert(val == 128)
+                
+            } else {
+                
+                XCTFail()
+            }
+            
+            expt.fulfill()
+        }
+        
+        producer.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
 }
