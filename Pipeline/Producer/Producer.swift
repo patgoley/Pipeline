@@ -47,4 +47,31 @@ public final class AnyProducer<T>: ProducerType {
     }
 }
 
+final class AsyncProducer<T>: ProducerType {
+    
+    typealias OutputType = T
+    
+    var consumer: (T -> Void)?
+    
+    let _produce: (T -> Void) -> Void
+    
+    init(produce: (T -> Void) -> Void) {
+        
+        _produce = produce
+    }
+    
+    func produce() {
+        
+        guard let consumer = self.consumer else {
+            
+            return
+        }
+        
+        _produce() { output in
+            
+            consumer(output)
+        }
+    }
+}
+
 
