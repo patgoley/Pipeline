@@ -18,6 +18,13 @@ public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType -> U) -> Transf
     return TransformerPipeline(head: lhs).then(rhs)
 }
 
+public func |> <T: TransformerType, U>(lhs: T, rhs: (T.OutputType, U -> Void) -> Void) -> TransformerPipeline<T.InputType, U>  {
+    
+    let asyncTransformer = AsyncTransformer(execute: rhs)
+    
+    return TransformerPipeline(head: lhs).then(asyncTransformer)
+}
+
 public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType throws -> U) -> TransformerPipeline<T.InputType, Result<U>>  {
     
     return TransformerPipeline(head: lhs).then(rhs)
@@ -40,6 +47,13 @@ public func |> <I, O, C>(lhs: TransformerPipeline<I, O>, rhs: O -> C) -> Transfo
     return lhs.then(rhs)
 }
 
+public func |> <I, O, C>(lhs: TransformerPipeline<I, O>, rhs: (O, C -> Void) -> Void) -> TransformerPipeline<I, C>  {
+    
+    let asyncTransformer = AsyncTransformer(execute: rhs)
+    
+    return lhs.then(asyncTransformer)
+}
+
 public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: TransformerPipeline<I, O>, rhs: C) -> AnyConsumer<I>  {
     
     return lhs.finally(rhs)
@@ -58,6 +72,29 @@ public func |> <I, O>(lhs: TransformerPipeline<I, O>, rhs: O -> Void) -> AnyCons
 public func |> <S, U, V>(lhs: S -> U, rhs: U -> V) -> TransformerPipeline<S, V>  {
     
     return TransformerPipeline(head: lhs).then(rhs)
+}
+
+public func |> <S, U, V>(lhs: (S, U -> Void) -> Void, rhs: U -> V) -> TransformerPipeline<S, V>  {
+    
+    let asyncTransformer = AsyncTransformer(execute: lhs)
+    
+    return TransformerPipeline(head: asyncTransformer).then(rhs)
+}
+
+public func |> <S, U, V>(lhs: S -> U, rhs: (U, V -> Void) -> Void) -> TransformerPipeline<S, V>  {
+    
+    let asyncTransformer = AsyncTransformer(execute: rhs)
+    
+    return TransformerPipeline(head: lhs).then(asyncTransformer)
+}
+
+public func |> <S, U, V>(lhs: (S, U -> Void) -> Void, rhs: (U, V -> Void) -> Void) -> TransformerPipeline<S, V>  {
+    
+    let leftTransformer = AsyncTransformer(execute: lhs)
+    
+    let rightTransformer = AsyncTransformer(execute: rhs)
+    
+    return TransformerPipeline(head: leftTransformer).then(rightTransformer)
 }
 
 public func |> <I, O>(lhs: I -> O, rhs: O -> Void) -> AnyConsumer<I>  {
