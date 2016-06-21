@@ -176,6 +176,55 @@ class HelperTests: XCTestCase {
         pipe.produce()
     }
     
+    func testSwallowErrorSuccess() {
+        
+        let result: Result<String> = .Success("abc")
+        
+        let expt = expectationWithDescription("error")
+        
+        let pipe = ValueProducer(result)
+            |> swallowError(log: "found error")
+            |> { (str: String) in
+                
+                XCTAssert(str == "abc")
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testLogError() {
+        
+        let result: Result<String> = .Error(MockError())
+        
+        let pipe = ValueProducer(result)
+            |> logError("found error")
+            |> { _ in XCTAssert(false) }
+        
+        pipe.produce()
+    }
+    
+    func testLogErrorSuccess() {
+        
+        let result: Result<String> = .Success("abc")
+        
+        let expt = expectationWithDescription("error")
+        
+        let pipe = ValueProducer(result)
+            |> logError("found error")
+            |> { (str: String) in
+                
+                XCTAssert(str == "abc")
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
     func testOnError() {
         
         let result: Result<String> = .Error(MockError())
@@ -187,6 +236,10 @@ class HelperTests: XCTestCase {
                 XCTAssert(err is MockError)
                 
                 expt.fulfill()
+            
+        } |> { (str: String) in
+            
+            XCTFail()
         }
         
         pipe.produce()
@@ -194,14 +247,67 @@ class HelperTests: XCTestCase {
         waitForExpectationsWithTimeout(0.1, handler: nil)
     }
     
-    func testSwallowErrorSuccess() {
+    func testOnErrorSuccess() {
         
-        let result: Result<String> = .Success("abc")
+        let result: Result<String> = .Success("success")
         
-        let pipe = ValueProducer(result)
-            |> swallowError(log: "found error")
-            |> { (str: String) in XCTAssert(str == "abc") }
+        let expt = expectationWithDescription("error")
+        
+        let pipe = ValueProducer(result) |> onError() { err in
+            
+            XCTFail()
+            
+        } |> { (str: String) in
+                
+            XCTAssert(str == "success")
+            
+            expt.fulfill()
+        }
         
         pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testOnNil() {
+        
+        let optional: String? = nil
+        
+        let expt = expectationWithDescription("nil")
+        
+        let pipe = ValueProducer(optional) |> onNil() {
+            
+            expt.fulfill()
+            
+        } |> { (str: String) in
+                
+            XCTFail()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testOnNilSome() {
+        
+        let optional: String? = "some"
+        
+        let expt = expectationWithDescription("nil")
+        
+        let pipe = ValueProducer(optional) |> onNil() {
+            
+            XCTFail()
+            
+        } |> { (str: String) in
+            
+            XCTAssert(str == "some")
+            
+            expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
     }
 }
