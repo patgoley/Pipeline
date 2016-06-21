@@ -69,7 +69,41 @@ class ConsumableOperatorTests: XCTestCase {
         
         let consumable = AnyConsumable(base: producer)
         
-        let _ = consumable |> { return $0 } |> AnyConsumer() { x in
+        let pipe = ConsumablePipeline(head: consumable)
+        
+        let _ = pipe |> { return $0 } |> AnyTransformer() { $0 } |> AnyConsumer() { x in
+            
+            XCTAssert(x == 123)
+        }
+        
+        producer.produce()
+    }
+    
+    func testConsumeablePipelineConsumerFunction() {
+        
+        let producer = ThunkProducer() { return 123 }
+        
+        let consumable = AnyConsumable(base: producer)
+        
+        let pipe = ConsumablePipeline(head: consumable)
+        
+        let _ = pipe |> { return $0 } |> AnyConsumer() { x in
+            
+            XCTAssert(x == 123)
+        }
+        
+        producer.produce()
+    }
+    
+    func testConsumeablePipelineTransformerType() {
+        
+        let producer = ThunkProducer() { return 123 }
+        
+        let consumable = AnyConsumable(base: producer)
+        
+        let pipe = ConsumablePipeline(head: consumable)
+        
+        let _ = pipe |> AnyTransformer() { $0 } |> AnyConsumer() { x in
             
             XCTAssert(x == 123)
         }
@@ -110,20 +144,6 @@ class ConsumableOperatorTests: XCTestCase {
         producer.produce()
         
         waitForExpectationsWithTimeout(0.1, handler: nil)
-    }
-    
-    func testConsumeablePipelineConsumerFunction() {
-        
-        let producer = ThunkProducer() { return 123 }
-        
-        let consumable = AnyConsumable(base: producer)
-        
-        let _ = consumable |> { return $0 } |> { x in
-            
-            XCTAssert(x == 123)
-        }
-        
-        producer.produce()
     }
     
     func testConsumeableOptionalMap() {

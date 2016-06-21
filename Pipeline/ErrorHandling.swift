@@ -108,13 +108,36 @@ public func crashOnError<T>(result: Result<T>) -> T {
  or the ErrorType that was thrown.
 */
 
-func map<T, U>(transform: (T) throws -> U) -> (T) -> Result<U> {
+public func map<T, U>(transform: (T) throws -> U) -> (T) -> Result<U> {
     
     return { input in
         
         do {
             
             let result = try transform(input)
+            
+            return .Success(result)
+            
+        } catch let err {
+            
+            return .Error(err)
+        }
+    }
+}
+
+/*
+ Produces a function that returns the result of a throwing function.
+ Produces a Result<T> which is either the resulting value of the function
+ or the ErrorType that was thrown.
+ */
+
+public func map<U>(produce: () throws -> U) -> () -> Result<U> {
+    
+    return { input in
+        
+        do {
+            
+            let result = try produce()
             
             return .Success(result)
             
