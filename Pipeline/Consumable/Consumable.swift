@@ -38,3 +38,20 @@ public final class AnyConsumable<T>: ConsumableType {
         }
     }
 }
+
+public final class AsyncConsumable<T>: ConsumableType {
+    
+    public typealias OutputType = T
+    
+    public var consumer: (T -> Void)?
+    
+    public init(start: ((T) -> Void) -> Void) {
+        
+        let listen = { (value: T) -> Void in
+            
+            self.consumer?(value)
+        }
+        
+        start(listen)
+    }
+}
