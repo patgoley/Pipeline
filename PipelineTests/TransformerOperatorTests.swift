@@ -143,4 +143,32 @@ class TransformerOperatorTests: XCTestCase {
         
         pipe.consume(inputValue)
     }
+    
+    func testThrowingFunctionTransformerType() {
+        
+        let throwingProducer: () throws -> String = {
+            
+            throw MockError()
+        }
+            
+        let pipe = throwingProducer
+            |> AnyTransformer() { (result: Result<String>) -> String in
+                
+            switch result {
+                
+            case .Success(let str):
+                XCTFail()
+                return str
+            default: break
+            }
+                
+            return ""
+                
+        } |> { (str: String) in
+                    
+            print(str)
+        }
+        
+        pipe.produce()
+    }
 }

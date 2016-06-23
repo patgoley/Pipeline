@@ -137,4 +137,109 @@ class ErrorHandlingTests: XCTestCase {
         
         waitForExpectationsWithTimeout(0.1, handler: nil)
     }
+    
+    func testResolveErrorSuccess() {
+        
+        let result: Result<String> = .Success("success")
+        
+        let expt = expectationWithDescription("error")
+        
+        let pipe = ValueProducer(result)
+            |> resolveError() { err in
+                
+                XCTFail()
+                
+                return "error"
+                
+            } |> { (str: String) in
+                
+                XCTAssert(str == "success")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testMapThrowToResult() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let throwingFunc: () throws -> String = {
+            
+            throw MockError()
+        }
+        
+        let pipe = map(throwingFunc)
+            |> resolveError() { err in
+                
+                return "resolved"
+                
+            } |> { (str: String) in
+                
+                XCTAssert(str == "resolved")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testThrowingProducerFunction() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let throwingFunc: () throws -> String = {
+            
+            throw MockError()
+        }
+        
+        let pipe = throwingFunc
+            |> resolveError() { err in
+                
+                return "resolved"
+                
+            } |> { (str: String) in
+                
+                XCTAssert(str == "resolved")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testConsumablePipelineThrowingFunction() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let throwingFunc: String throws -> String = { str in
+            
+            throw MockError()
+        }
+        
+        let pipe = { return "abc" }
+            |> { (str: String) in return str }
+            |> throwingFunc
+            |> resolveError() { (err: ErrorType) in
+                
+                return "resolved"
+                
+            } |> { (str: String) in
+                
+                XCTAssert(str == "resolved")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
 }

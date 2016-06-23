@@ -185,6 +185,28 @@ class HelperTests: XCTestCase {
         waitForExpectationsWithTimeout(0.1, handler: nil)
     }
     
+    func testOnNilSome() {
+        
+        let optional: String? = "some"
+        
+        let expt = expectationWithDescription("nil")
+        
+        let pipe = ValueProducer(optional) |> onNil() {
+            
+            XCTFail()
+            
+            } |> { (str: String) in
+                
+                XCTAssert(str == "some")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
     func testResolveNil() {
         
         let optional: String? = nil
@@ -205,21 +227,24 @@ class HelperTests: XCTestCase {
         waitForExpectationsWithTimeout(0.1, handler: nil)
     }
     
-    func testOnNilSome() {
+    func testResolveNilSome() {
         
-        let optional: String? = "some"
+        let optional: String? = "abc"
         
-        let expt = expectationWithDescription("nil")
+        let expt = expectationWithDescription("some")
         
-        let pipe = ValueProducer(optional) |> onNil() {
-            
-            XCTFail()
-            
-        } |> { (str: String) in
-            
-            XCTAssert(str == "some")
-            
-            expt.fulfill()
+        let pipe = ValueProducer(optional)
+            |> resolveNil() {
+                
+                XCTFail()
+                
+                return ""
+                
+            } |> { (str: String) in
+                
+                XCTAssert(str == "abc")
+                
+                expt.fulfill()
         }
         
         pipe.produce()
