@@ -79,33 +79,6 @@ public func |> <V, T>(lhs: () throws -> V, rhs: Result<V> -> T) -> ProducerPipel
     return ProducerPipeline(head: producer).then(rhs)
 }
 
-// optional chaining
-
-public func |> <P: ProducerType, V, NewOutput where P.OutputType == Optional<V>>(lhs: P, rhs: V -> NewOutput) -> ProducerPipeline<NewOutput?>  {
-    
-    let mappedTransform = optionalMap(rhs)
-    
-    return ProducerPipeline(head: lhs).then(mappedTransform)
-}
-
-public func |> <V, T: TransformerType where V == T.InputType>(lhs: () -> V?, rhs: T) -> ProducerPipeline<T.OutputType?>  {
-    
-    let producer = ThunkProducer(thunk: lhs)
-    
-    let mappedTransformer = optionalMap(rhs)
-    
-    return ProducerPipeline(head: producer).then(mappedTransformer)
-}
-
-public func |> <V, T>(lhs: () -> V?, rhs: V -> T) -> ProducerPipeline<T?>  {
-    
-    let thunkProducer = ThunkProducer(thunk: lhs)
-    
-    let mappedTransform = optionalMap(rhs)
-    
-    return ProducerPipeline(head: thunkProducer).then(mappedTransform)
-}
-
 // finally
 
 public func |> <P: ProducerType>(lhs: P, rhs: P.OutputType -> Void) -> Producible  {

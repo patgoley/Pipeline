@@ -85,6 +85,29 @@ public func onError<T>(handler: (ErrorType) -> Void) -> OptionalFilterTransforme
 }
 
 /*
+ Unwraps a Result<T> value or passes the error to a closure that
+ should resolve the error and provide a value in place of the error
+ that occurred.
+ */
+
+public func resolveError<T>(resolve: (ErrorType) -> T) -> (Result<T>) -> T {
+    
+    return { result in
+
+        switch result {
+
+        case .Success(let value):
+
+            return value
+
+        case .Error(let err):
+
+            return resolve(err)
+        }
+    }
+}
+
+/*
  Unwraps a Result<T> value or causes a fatalError
 */
 

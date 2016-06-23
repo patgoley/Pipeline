@@ -152,7 +152,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectationWithDescription("nil")
         
-        let pipe = producer |> { (int: Int) in int + 5 }
+        let pipe = producer |> optionalMap({ (int: Int) in int + 5 })
         
         pipe.consumer = { (x: Int?) in
             
@@ -172,7 +172,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectationWithDescription("value")
         
-        let pipe = producer |> { (int: Int) in int + 5 }
+        let pipe = producer |> optionalMap({ (int: Int) in int + 5 })
         
         pipe.consumer = { (x: Int?) in
             
@@ -199,7 +199,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectationWithDescription("nil")
         
-        let pipe = producer |> AnyTransformer() { (int: Int) in int + 5 }
+        let pipe = producer |> optionalMap(AnyTransformer() { (int: Int) in int + 5 })
         
         pipe.consumer = { (x: Int?) in
             
@@ -219,7 +219,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectationWithDescription("value")
         
-        let pipe = producer |> AnyTransformer() { (int: Int) in int + 5 }
+        let pipe = producer |> optionalMap(AnyTransformer() { (int: Int) in int + 5 })
         
         pipe.consumer = { (x: Int?) in
             
