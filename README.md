@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/patgoley/Pipeline.svg?branch=master)](https://travis-ci.org/patgoley/Pipeline) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)]()
 
  
-Pipeline is a framework for functional programming Swift. It chains together values, functions, and objects that act like functions into "pipelines" that produce, transform, or consume data. Objects! Isn't that functional heresy? It can be, but there's no reason we can't have objects that are just as pure and wonderful as functions. This is possible through a few simple protocols provided by Pipeline. Each one cooresponds to an equivalent function type, and Pipeline generally treats the two as interchangable. It's less important how we implement things (with functions or objects), and more important that we think in terms of **input** and **output**.
+Pipeline is a framework that empowers functional programming in Swift. It chains together values, functions, and objects that act like functions into "pipelines" that produce, transform, or consume data. 
+
+Objects! Isn't that functional heresy? It can be, but there's no reason we can't have objects that are just as pure and wonderful as functions. This is possible through a few simple protocols provided by Pipeline. Each one cooresponds to an equivalent function type, and Pipeline generally treats the two as interchangable. It's less important how we implement things (with functions or objects), and more important that we think in terms of **input** and **output**.
 
 Let's take a look at the first of our protocols, `ConsumableType`. 
 
