@@ -18,6 +18,13 @@ public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: S.OutputType -> NewOu
     return ConsumablePipeline(head: lhs).then(rhs)
 }
 
+public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: S.OutputType throws -> NewOutput) -> ConsumablePipeline<Result<NewOutput>>  {
+    
+    let resultFunction = map(rhs)
+    
+    return ConsumablePipeline(head: lhs).then(resultFunction)
+}
+
 public func |> <S: ConsumableType, C: ConsumerType where S.OutputType == C.InputType>(lhs: S, rhs: C) -> Pipeline  {
     
     return ConsumablePipeline(head: lhs).finally(rhs)

@@ -38,6 +38,27 @@ public func guardUnwrap<T>() -> OptionalFilterTransformer<T?, T> {
 }
 
 /*
+ Unwraps optional values and invokes a closure when a nil value is encountered
+ */
+
+public func onNil<T>(handler: () -> Void) -> OptionalFilterTransformer<T?, T> {
+    
+    return OptionalFilterTransformer() { (value: T?) in
+        
+        if let val = value {
+            
+            return val
+            
+        } else {
+            
+            handler()
+            
+            return nil
+        }
+    }
+}
+
+/*
  Unwraps optional values returned from a closure and filters out any nil values.
  Useful for unwrapping optional values produced through optional chaining. 
  

@@ -20,7 +20,9 @@ public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType -> U) -> Transf
 
 public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType throws -> U) -> TransformerPipeline<T.InputType, Result<U>>  {
     
-    return TransformerPipeline(head: lhs).then(rhs)
+    let resultFunction = map(rhs)
+    
+    return TransformerPipeline(head: lhs).then(resultFunction)
 }
 
 public func |> <T: TransformerType, S, U where T.InputType == U>(lhs: S -> U, rhs: T) -> TransformerPipeline<S, T.OutputType>  {
