@@ -122,7 +122,7 @@ class ErrorHandlingTests: XCTestCase {
         let expt = expectationWithDescription("error")
         
         let pipe = ValueProducer(result)
-            |> resolveError() { err in
+            |> resolveError() {
                 
                 return "resolved"
                 
@@ -145,13 +145,61 @@ class ErrorHandlingTests: XCTestCase {
         let expt = expectationWithDescription("error")
         
         let pipe = ValueProducer(result)
-            |> resolveError() { err in
+            |> resolveError() {
                 
                 XCTFail()
                 
                 return "error"
                 
             } |> { (str: String) in
+                    
+                    XCTAssert(str == "success")
+                    
+                    expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testResolveErrorProducer() {
+        
+        let result: Result<String> = .Error(MockError())
+        
+        let expt = expectationWithDescription("error")
+        
+        let pipe = ValueProducer(result)
+            |> resolveError(ThunkProducer<String>() {
+                
+                return "resolved"
+                
+            }) |> { (str: String) in
+                
+                XCTAssert(str == "resolved")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testResolveErrorProducerSuccess() {
+        
+        let result: Result<String> = .Success("success")
+        
+        let expt = expectationWithDescription("error")
+        
+        let pipe = ValueProducer(result)
+            |> resolveError(ThunkProducer<String>() {
+                
+                XCTFail()
+                
+                return "error"
+                
+            }) |> { (str: String) in
                 
                 XCTAssert(str == "success")
                 
@@ -174,60 +222,6 @@ class ErrorHandlingTests: XCTestCase {
         
         let pipe = map(throwingFunc)
             |> resolveError() { err in
-                
-                return "resolved"
-                
-            } |> { (str: String) in
-                
-                XCTAssert(str == "resolved")
-                
-                expt.fulfill()
-        }
-        
-        pipe.produce()
-        
-        waitForExpectationsWithTimeout(0.1, handler: nil)
-    }
-    
-    func testThrowingProducerFunction() {
-        
-        let expt = expectationWithDescription("error")
-        
-        let throwingFunc: () throws -> String = {
-            
-            throw MockError()
-        }
-        
-        let pipe = throwingFunc
-            |> resolveError() { err in
-                
-                return "resolved"
-                
-            } |> { (str: String) in
-                
-                XCTAssert(str == "resolved")
-                
-                expt.fulfill()
-        }
-        
-        pipe.produce()
-        
-        waitForExpectationsWithTimeout(0.1, handler: nil)
-    }
-    
-    func testConsumablePipelineThrowingFunction() {
-        
-        let expt = expectationWithDescription("error")
-        
-        let throwingFunc: String throws -> String = { str in
-            
-            throw MockError()
-        }
-        
-        let pipe = { return "abc" }
-            |> { (str: String) in return str }
-            |> throwingFunc
-            |> resolveError() { (err: ErrorType) in
                 
                 return "resolved"
                 

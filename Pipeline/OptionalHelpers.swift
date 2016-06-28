@@ -54,27 +54,6 @@ public func forceUnwrap<T, U>(transform: T -> U?) -> (T -> U) {
 }
 
 /*
- Unwraps optional values and invokes a closure when a nil value is encountered
- */
-
-public func onNil<T>(handler: () -> Void) -> OptionalFilterTransformer<T?, T> {
-    
-    return OptionalFilterTransformer() { (value: T?) in
-        
-        if let val = value {
-            
-            return val
-            
-        } else {
-            
-            handler()
-            
-            return nil
-        }
-    }
-}
-
-/*
  Unwraps a Result<T> value or passes the error to a closure that
  should resolve the error and provide a value in place of the error
  that occurred.
@@ -91,6 +70,23 @@ public func resolveNil<T>(resolve: () -> T) -> T? -> T {
         } else {
             
             return resolve()
+        }
+    }
+}
+
+public func resolveNil<P: ProducerType, V where P.OutputType == V>(resolve: P) -> AsyncTransformer<V?, V> {
+    
+    return AsyncTransformer<V?, V>() { (input: V?, consumer: V -> Void) in
+        
+        if let value = input {
+            
+            consumer(value)
+            
+        } else {
+            
+            resolve.consumer = consumer
+            
+            resolve.produce()
         }
     }
 }

@@ -146,6 +146,41 @@ class ConsumableOperatorTests: XCTestCase {
         waitForExpectationsWithTimeout(0.1, handler: nil)
     }
     
+    func testConsumeablePipelineThrowingFunction() {
+        
+        let producer = ThunkProducer() { return 123 }
+        
+        let consumable = AnyConsumable(base: producer)
+        
+        let expt = expectationWithDescription("error")
+        
+        let _ = consumable |> AnyTransformer<Int,Int>() { x in return x } |> { (x: Int) -> String in
+            
+            if x == 123 {
+                
+                throw MockError()
+            }
+            
+            return ""
+            
+            } |> { result in
+                
+                switch result {
+                case .Error(let err):
+                    
+                    XCTAssert(err is MockError)
+                    
+                    expt.fulfill()
+                    
+                default: XCTFail()
+                }
+        }
+        
+        producer.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
     func testConsumeableOptionalMap() {
         
         let producer = ThunkProducer<Int?>() { return nil }

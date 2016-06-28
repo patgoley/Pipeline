@@ -85,24 +85,47 @@ public func onError<T>(handler: (ErrorType) -> Void) -> OptionalFilterTransforme
 }
 
 /*
- Unwraps a Result<T> value or passes the error to a closure that
- should resolve the error and provide a value in place of the error
- that occurred.
+ Unwraps a Result<T> value or allows a closure to provide a value to fall 
+ back on in case of errors.
  */
 
-public func resolveError<T>(resolve: (ErrorType) -> T) -> (Result<T>) -> T {
+public func resolveError<T>(resolve: () -> T) -> (Result<T>) -> T {
     
     return { result in
-
+        
         switch result {
-
+            
         case .Success(let value):
-
+            
             return value
+            
+        case .Error(_):
+            
+            return resolve()
+        }
+    }
+}
 
-        case .Error(let err):
+/*
+ Unwraps a Result<T> value or allows a ProducerType to provide a value
+ to fall back on in case of errors.
+ */
 
-            return resolve(err)
+public func resolveError<P: ProducerType, V where P.OutputType == V>(resolve: P) -> AsyncTransformer<Result<V>, V> {
+    
+    return AsyncTransformer() { result, consumer in
+        
+        switch result {
+            
+        case .Success(let value):
+            
+             consumer(value)
+            
+        case .Error(_):
+            
+            resolve.consumer = consumer
+            
+            resolve.produce()
         }
     }
 }

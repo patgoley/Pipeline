@@ -165,48 +165,6 @@ class HelperTests: XCTestCase {
         pipe.produce()
     }
     
-    func testOnNil() {
-        
-        let optional: String? = nil
-        
-        let expt = expectationWithDescription("nil")
-        
-        let pipe = ValueProducer(optional) |> onNil() {
-            
-            expt.fulfill()
-            
-        } |> { (str: String) in
-                
-            XCTFail()
-        }
-        
-        pipe.produce()
-        
-        waitForExpectationsWithTimeout(0.1, handler: nil)
-    }
-    
-    func testOnNilSome() {
-        
-        let optional: String? = "some"
-        
-        let expt = expectationWithDescription("nil")
-        
-        let pipe = ValueProducer(optional) |> onNil() {
-            
-            XCTFail()
-            
-            } |> { (str: String) in
-                
-                XCTAssert(str == "some")
-                
-                expt.fulfill()
-        }
-        
-        pipe.produce()
-        
-        waitForExpectationsWithTimeout(0.1, handler: nil)
-    }
-    
     func testResolveNil() {
         
         let optional: String? = nil
@@ -241,6 +199,51 @@ class HelperTests: XCTestCase {
                 return ""
                 
             } |> { (str: String) in
+                
+                XCTAssert(str == "abc")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testResolveNilProducer() {
+        
+        let optional: String? = nil
+        
+        let expt = expectationWithDescription("nil")
+        
+        let pipe = ValueProducer(optional)
+            |> resolveNil(ThunkProducer() { return "abc" })
+            |> { (str: String) in
+                
+                XCTAssert(str == "abc")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testResolveNilProducerSome() {
+        
+        let optional: String? = "abc"
+        
+        let expt = expectationWithDescription("some")
+        
+        let pipe = ValueProducer(optional)
+            |> resolveNil(ThunkProducer() {
+                
+                XCTFail()
+                
+                return ""
+                
+            }) |> { (str: String) in
                 
                 XCTAssert(str == "abc")
                 
