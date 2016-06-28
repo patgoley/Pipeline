@@ -38,6 +38,24 @@ class ProducerOperatorTests: XCTestCase {
         pipe.produce()
     }
     
+    func testProducerPipelineTransformerType() {
+        
+        let anyProducer = AnyProducer(base: ValueProducer(123))
+        
+        let pipe = anyProducer
+            |> { (x: Int) -> Int in return x }
+            |> AnyTransformer() { (x: Int) -> Int in
+            
+                return x + 1
+            
+            } |> { (x: Int) in
+                
+                XCTAssert(x == 124)
+            }
+        
+        pipe.produce()
+    }
+    
     func testProducerConsumerFunction() {
         
         let pipe = ValueProducer(123) |> { x in
@@ -50,11 +68,94 @@ class ProducerOperatorTests: XCTestCase {
     
     func testProducerPipelineConsumerType() {
         
-        let pipe = ValueProducer(123) |> { return $0 } |> AnyConsumer() { x in
+        let pipe = ValueProducer(123)
+            |> { return $0 }
+            |> AnyConsumer() { x in
             
             XCTAssert(x == 123)
         }
         
         pipe.produce()
+    }
+    
+    func testThrowingProducerFunction() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let throwingFunc: () throws -> String = {
+            
+            throw MockError()
+        }
+        
+        let pipe = throwingFunc
+            |> resolveError() { err in
+                
+                return "resolved"
+                
+            } |> { (str: String) in
+                
+                XCTAssert(str == "resolved")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testProducerThrowingFunction() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let throwingFunc: String throws -> String = { str in
+            
+            throw MockError()
+        }
+        
+        let pipe = ThunkProducer() { return "abc" }
+            |> throwingFunc
+            |> resolveError() {
+                
+                return "resolved"
+                
+            } |> { (str: String) in
+                
+                XCTAssert(str == "resolved")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testProducerPipelineThrowingFunction() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let throwingFunc: String throws -> String = { str in
+            
+            throw MockError()
+        }
+        
+        let pipe = { return "abc" }
+            |> { (str: String) in return str }
+            |> throwingFunc
+            |> resolveError() {
+                
+                return "resolved"
+                
+            } |> { (str: String) in
+                
+                XCTAssert(str == "resolved")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
     }
 }
