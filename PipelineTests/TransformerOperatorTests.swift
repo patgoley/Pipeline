@@ -95,6 +95,34 @@ class TransformerOperatorTests: XCTestCase {
         pipe.consume(inputValue)
     }
     
+    func testTwoTransformerTypes() {
+        
+        let pipe = AnyTransformer() { (x: Int) in return x + 5 }
+            |> AnyTransformer() { (x: Int) in return "\(x)" }
+            |> { (x: String) in
+            
+            XCTAssert(x == "326")
+        }
+        
+        pipe.consume(inputValue)
+    }
+    
+    func testTransformerPipelineTransformerType() {
+        
+        let head = AnyTransformer() { (x: Int) in return x + 5 }
+        
+        let pipe = TransformerPipeline(head: head)
+        
+        let finalPipe = pipe
+            |> AnyTransformer() { (x: Int) in return "\(x)" }
+            |> { (x: String) in
+            
+            XCTAssert(x == "326")
+        }
+        
+        finalPipe.consume(inputValue)
+    }
+    
     func testTransformerFunctionConsumerFunction() {
         
         let pipe = { (x: Int) in return "\(x)" } |> { (x: String) in

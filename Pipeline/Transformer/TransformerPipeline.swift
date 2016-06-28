@@ -69,6 +69,17 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
         return TransformerPipeline<InputType, NewOutput>(head: head, tail: transform)
     }
     
+    public func then<NewOutput>(transform: U throws -> NewOutput) -> TransformerPipeline<InputType, Result<NewOutput>> {
+        
+        let resultFunction = map(transform)
+        
+        let transformer = AnyTransformer(transform: resultFunction)
+        
+        tail.consumer = transformer.consume
+        
+        return TransformerPipeline<InputType, Result<NewOutput>>(head: head, tail: transformer)
+    }
+    
     public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> AnyConsumer<InputType> {
         
         self.consumer = consumer.consume
