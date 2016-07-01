@@ -25,6 +25,16 @@ public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: S.OutputType throws -
     return ConsumablePipeline(head: lhs).then(resultFunction)
 }
 
+public func |> <T: TransformerType>(lhs: ConsumablePipeline<T.InputType>, rhs: T) -> ConsumablePipeline<T.OutputType>  {
+    
+    return lhs.then(rhs)
+}
+
+public func |> <T, U>(lhs: ConsumablePipeline<T>, rhs: T -> U) -> ConsumablePipeline<U>  {
+    
+    return lhs.then(rhs)
+}
+
 public func |> <S: ConsumableType, C: ConsumerType where S.OutputType == C.InputType>(lhs: S, rhs: C) -> Pipeline  {
     
     return ConsumablePipeline(head: lhs).finally(rhs)

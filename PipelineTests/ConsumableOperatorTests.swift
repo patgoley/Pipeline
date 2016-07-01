@@ -112,15 +112,35 @@ class ConsumableOperatorTests: XCTestCase {
         waitForExpectationsWithTimeout(0.1, handler: nil)
     }
     
-    func testConsumeablePipelineConsumerFunction() {
+    func testConsumeablePipelineTransformerFunction() {
         
         let producer = ThunkProducer() { return 123 }
         
         let consumable = AnyConsumable(base: producer)
         
-        let _ = consumable |> { return $0 } |> { x in
+        let _ = consumable
+            |> AnyTransformer<Int, Int>() { return $0 }
+            |> { return $0 }
+            |> { (x: Int) in
             
             XCTAssert(x == 123)
+        }
+        
+        producer.produce()
+    }
+    
+    func testConsumeablePipelineTransformerType() {
+        
+        let producer = ThunkProducer() { return 123 }
+        
+        let consumable = AnyConsumable(base: producer)
+        
+        let _ = consumable
+            |> AnyTransformer<Int, Int>() { return $0 }
+            |> AnyTransformer<Int, Int>() { return $0 }
+            |> { (x: Int) in
+                
+                XCTAssert(x == 123)
         }
         
         producer.produce()
