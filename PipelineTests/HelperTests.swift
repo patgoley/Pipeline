@@ -137,7 +137,7 @@ class HelperTests: XCTestCase {
         let string: String? = "123"
         
         let pipe = ValueProducer(string)
-            |> forceUnwrap { (str: String?) in str?.characters.count }
+            |> forceUnwrap { (str: String?) in return str?.characters.count }
             |> { (x: Int) in x == 3  }
         
         pipe.produce()

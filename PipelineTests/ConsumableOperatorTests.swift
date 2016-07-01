@@ -17,7 +17,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let consumable = AnyConsumable(base: producer)
         
-        let pipe = consumable |> AnyTransformer() { x in
+        let pipe = consumable |> AnyTransformer<Int, Int>() { (x: Int) in
             
             return x + 5
         }
@@ -32,11 +32,11 @@ class ConsumableOperatorTests: XCTestCase {
     
     func testConsumeableTransformerFunction() {
         
-        let producer = ThunkProducer() { return 123 }
+        let producer = ThunkProducer<Int>() { return 123 }
         
-        let consumable = AnyConsumable(base: producer)
+        let consumable = AnyConsumable<Int>(base: producer)
         
-        let pipe = consumable |> { x in
+        let pipe = consumable |> { (x: Int) -> Int in
             
             return x + 5
         }
@@ -51,11 +51,11 @@ class ConsumableOperatorTests: XCTestCase {
     
     func testConsumeableConsumerType() {
         
-        let producer = ThunkProducer() { return 123 }
+        let producer = ThunkProducer<Int>() { return 123 }
         
-        let consumable = AnyConsumable(base: producer)
+        let consumable = AnyConsumable<Int>(base: producer)
         
-        let _ = consumable |> AnyConsumer() { x in
+        let _ = consumable |> AnyConsumer<Int>() { (x: Int) in
             
             XCTAssert(x == 123)
         }
@@ -65,13 +65,16 @@ class ConsumableOperatorTests: XCTestCase {
     
     func testConsumeablePipelineConsumerType() {
         
-        let producer = ThunkProducer() { return 123 }
+        let producer = ThunkProducer<Int>() { return 123 }
         
-        let consumable = AnyConsumable(base: producer)
+        let consumable = AnyConsumable<Int>(base: producer)
         
-        let pipe = ConsumablePipeline(head: consumable)
+        let pipe = ConsumablePipeline<Int>(head: consumable)
         
-        let _ = pipe |> { return $0 } |> AnyTransformer() { $0 } |> AnyConsumer() { x in
+        let _ = pipe
+            |> integerIdentity
+            |> AnyTransformer<Int, Int>(transform: integerIdentity)
+            |> AnyConsumer<Int>() { x in
             
             XCTAssert(x == 123)
         }
@@ -81,13 +84,15 @@ class ConsumableOperatorTests: XCTestCase {
     
     func testConsumeablePipelineConsumerFunction() {
         
-        let producer = ThunkProducer() { return 123 }
+        let producer = ThunkProducer<Int>() { return 123 }
         
-        let consumable = AnyConsumable(base: producer)
+        let consumable = AnyConsumable<Int>(base: producer)
         
-        let pipe = ConsumablePipeline(head: consumable)
+        let pipe = ConsumablePipeline<Int>(head: consumable)
         
-        let _ = pipe |> { return $0 } |> AnyConsumer() { x in
+        let _ = pipe
+            |> integerIdentity
+            |> AnyConsumer<Int>() { (x: Int) in
             
             XCTAssert(x == 123)
         }
@@ -97,13 +102,13 @@ class ConsumableOperatorTests: XCTestCase {
     
     func testConsumeableThrowingFunction() {
         
-        let producer = ThunkProducer() { return 123 }
+        let producer = ThunkProducer<Int>() { return 123 }
         
-        let consumable = AnyConsumable(base: producer)
+        let consumable = AnyConsumable<Int>(base: producer)
         
         let expt = expectationWithDescription("error")
         
-        let _ = consumable |> { (x: Int) -> String in
+        let _ = consumable |> { (x: Int) throws -> String in
             
                 if x == 123 {
                     
@@ -112,7 +117,7 @@ class ConsumableOperatorTests: XCTestCase {
                 
                 return ""
             
-            } |> { result in
+            } |> { (result: Result<String>) in
                 
                 switch result {
                 case .Error(let err):
@@ -132,13 +137,15 @@ class ConsumableOperatorTests: XCTestCase {
     
     func testConsumeablePipelineThrowingFunction() {
         
-        let producer = ThunkProducer() { return 123 }
+        let producer = ThunkProducer<Int>() { return 123 }
         
-        let consumable = AnyConsumable(base: producer)
+        let consumable = AnyConsumable<Int>(base: producer)
         
         let expt = expectationWithDescription("error")
         
-        let _ = consumable |> AnyTransformer<Int,Int>() { x in return x } |> { (x: Int) -> String in
+        let _ = consumable
+            |> AnyTransformer<Int,Int>(transform: integerIdentity)
+            |> { (x: Int) throws -> String in
             
             if x == 123 {
                 
@@ -147,7 +154,7 @@ class ConsumableOperatorTests: XCTestCase {
             
             return ""
             
-            } |> { result in
+            } |> { (result: Result<String>) -> Void in
                 
                 switch result {
                 case .Error(let err):
@@ -158,7 +165,7 @@ class ConsumableOperatorTests: XCTestCase {
                     
                 default: XCTFail()
                 }
-        }
+            }
         
         producer.produce()
         
@@ -167,13 +174,13 @@ class ConsumableOperatorTests: XCTestCase {
     
     func testConsumeablePipelineThrowingTransformerFunction() {
         
-        let producer = ThunkProducer() { return 123 }
+        let producer = ThunkProducer<Int>() { return 123 }
         
-        let consumable = AnyConsumable(base: producer)
+        let consumable = AnyConsumable<Int>(base: producer)
         
         let _ = consumable
-            |> AnyTransformer<Int, Int>() { return $0 }
-            |> { (x: Int) in return x }
+            |> AnyTransformer<Int, Int>(transform: integerIdentity)
+            |> integerIdentity
             |> { (x: Int) throws -> Int in
                 
                 throw MockError()
@@ -192,13 +199,13 @@ class ConsumableOperatorTests: XCTestCase {
     
     func testConsumeablePipelineTransformerType() {
         
-        let producer = ThunkProducer() { return 123 }
+        let producer = ThunkProducer<Int>() { return 123 }
         
-        let consumable = AnyConsumable(base: producer)
+        let consumable = AnyConsumable<Int>(base: producer)
         
         let _ = consumable
-            |> AnyTransformer<Int, Int>() { return $0 }
-            |> AnyTransformer<Int, Int>() { return $0 }
+            |> AnyTransformer<Int, Int>(transform: integerIdentity)
+            |> AnyTransformer<Int, Int>(transform: integerIdentity)
             |> { (x: Int) in
                 
                 XCTAssert(x == 123)
@@ -213,7 +220,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectationWithDescription("nil")
         
-        let pipe = producer |> optionalMap({ (int: Int) in int + 5 })
+        let pipe = producer |> optionalMap({ (int: Int) -> Int in int + 5 })
         
         pipe.consumer = { (x: Int?) in
             
@@ -233,7 +240,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectationWithDescription("value")
         
-        let pipe = producer |> optionalMap({ (int: Int) in int + 5 })
+        let pipe = producer |> optionalMap({ (int: Int) -> Int in int + 5 })
         
         pipe.consumer = { (x: Int?) in
             
@@ -260,7 +267,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectationWithDescription("nil")
         
-        let pipe = producer |> optionalMap(AnyTransformer() { (int: Int) in int + 5 })
+        let pipe = producer |> optionalMap(AnyTransformer<Int, Int>() { (int: Int) -> Int in int + 5 })
         
         pipe.consumer = { (x: Int?) in
             
@@ -280,7 +287,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectationWithDescription("value")
         
-        let pipe = producer |> optionalMap(AnyTransformer() { (int: Int) in int + 5 })
+        let pipe = producer |> optionalMap(AnyTransformer<Int, Int>() { (int: Int) -> Int in int + 5 })
         
         pipe.consumer = { (x: Int?) in
             

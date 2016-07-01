@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E56E6D31D2613FD009182DF /* TestMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E56E6D21D2613FD009182DF /* TestMocks.swift */; };
 		8E57D1001CF516FD00EDAF4A /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */; };
 		8E57D1011CF516FD00EDAF4A /* JSONTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */; };
 		8E57D1021CF516FD00EDAF4A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F21CF516FD00EDAF4A /* Logger.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8E56E6D21D2613FD009182DF /* TestMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMocks.swift; sourceTree = "<group>"; };
 		8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTransformers.swift; sourceTree = "<group>"; };
 		8E57D0F21CF516FD00EDAF4A /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				8EE644671CE8639500403EFC /* animals.json */,
 				8EE6447A1CE929EB00403EFC /* user.json */,
 				8EE644561CE7AEA500403EFC /* Info.plist */,
+				8E56E6D21D2613FD009182DF /* TestMocks.swift */,
 			);
 			path = PipelineTests;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				8E57D1331CF5235E00EDAF4A /* TransformerOperatorTests.swift in Sources */,
 				8E57D10B1CF516FD00EDAF4A /* Timer.swift in Sources */,
 				8E57D1021CF516FD00EDAF4A /* Logger.swift in Sources */,
+				8E56E6D31D2613FD009182DF /* TestMocks.swift in Sources */,
 				8E57D1091CF516FD00EDAF4A /* Threading.swift in Sources */,
 				8E57D1041CF516FD00EDAF4A /* NSFileManagerTransformers.swift in Sources */,
 				8E57D1311CF51FDE00EDAF4A /* ProducerOperatorTests.swift in Sources */,
