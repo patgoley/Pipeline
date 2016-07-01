@@ -46,7 +46,7 @@ public func |> <Input, NewOutput>(lhs: ConsumablePipeline<Input>, rhs: Input thr
     return lhs.then(resultFunction)
 }
 
-// Finally
+// finally
 
 public func |> <S: ConsumableType, C: ConsumerType where S.OutputType == C.InputType>(lhs: S, rhs: C) -> Pipeline  {
     

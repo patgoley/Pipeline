@@ -33,6 +33,24 @@ public func |> <V, T>(lhs: () -> V, rhs: V -> T) -> ProducerPipeline<T>  {
     return ProducerPipeline(head: thunkProducer).then(rhs)
 }
 
+public func |> <V, T: TransformerType where T.InputType == Result<V>>(lhs: () throws -> V, rhs: T) -> ProducerPipeline<T.OutputType>  {
+    
+    let throwingProduce = map(lhs)
+    
+    let producer = ThunkProducer(thunk: throwingProduce)
+    
+    return ProducerPipeline(head: producer).then(rhs)
+}
+
+public func |> <V, T>(lhs: () throws -> V, rhs: Result<V> -> T) -> ProducerPipeline<T>  {
+    
+    let throwingProduce = map(lhs)
+    
+    let producer = ThunkProducer(thunk: throwingProduce)
+    
+    return ProducerPipeline(head: producer).then(rhs)
+}
+
 // Chaining
 
 public func |> <O, T where T: TransformerType, O == T.InputType>(lhs: ProducerPipeline<O>, rhs: T) -> ProducerPipeline<T.OutputType>  {
@@ -57,6 +75,13 @@ public func |> <Input, NewOutput>(lhs: ProducerPipeline<Input>, rhs: Input throw
 public func |> <P: ProducerType, C: ConsumerType where C.InputType == P.OutputType>(lhs: P, rhs: C) -> Producible  {
     
     return ProducerPipeline(head: lhs).finally(rhs)
+}
+
+public func |> <P: ProducerType, U>(lhs: P, rhs: P.OutputType throws -> U) -> ProducerPipeline<Result<U>>  {
+    
+    let throwingTransform = map(rhs)
+    
+    return ProducerPipeline(head: lhs).then(throwingTransform)
 }
 
 public func |> <P: ProducerType>(lhs: P, rhs: P.OutputType -> Void) -> Producible  {

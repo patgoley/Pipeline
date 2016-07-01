@@ -58,32 +58,28 @@ public func |> <I, O, C>(lhs: TransformerPipeline<I, O>, rhs: O throws -> C) -> 
 
 // Finally
 
-public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: TransformerPipeline<I, O>, rhs: C) -> AnyConsumer<I>  {
-    
-    return lhs.finally(rhs)
-}
-
 public func |> <T: TransformerType>(lhs: T, rhs: T.OutputType -> Void) -> AnyConsumer<T.InputType>  {
     
     return TransformerPipeline(head: lhs).finally(rhs)
 }
 
-public func |> <I, O>(lhs: TransformerPipeline<I, O>, rhs: O -> Void) -> AnyConsumer<I>  {
+public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: I -> O, rhs: C) -> AnyConsumer<I>  {
     
-    return lhs.finally(rhs)
+    return TransformerPipeline(head: lhs).finally(rhs)
 }
 
 public func |> <I, O>(lhs: I -> O, rhs: O -> Void) -> AnyConsumer<I>  {
     
-    let pipeline = TransformerPipeline(head: lhs)
-    
-    return pipeline.finally(rhs)
+    return TransformerPipeline(head: lhs).finally(rhs)
 }
 
-public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: I -> O, rhs: C) -> AnyConsumer<I>  {
+public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: TransformerPipeline<I, O>, rhs: C) -> AnyConsumer<I>  {
     
-    let pipeline = TransformerPipeline(head: lhs)
+    return lhs.finally(rhs)
+}
+
+public func |> <I, O>(lhs: TransformerPipeline<I, O>, rhs: O -> Void) -> AnyConsumer<I>  {
     
-    return pipeline.finally(rhs)
+    return lhs.finally(rhs)
 }
 
