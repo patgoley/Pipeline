@@ -77,4 +77,30 @@ class ProducerOperatorTests: XCTestCase {
         
         pipe.produce()
     }
+    
+    func testProducerPipelineThrowingTransformerFunction() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let pipe = ValueProducer(123)
+            |> { return $0 }
+            |> { (x: Int) throws -> Int in
+                
+                throw MockError()
+                
+        } |> { (result: Result<Int>) in
+        
+            switch result {
+                
+            case .Success: XCTFail()
+            default: break
+            }
+            
+            expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
 }

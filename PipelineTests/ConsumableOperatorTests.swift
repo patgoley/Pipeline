@@ -129,6 +129,31 @@ class ConsumableOperatorTests: XCTestCase {
         producer.produce()
     }
     
+    func testConsumeablePipelineThrowingTransformerFunction() {
+        
+        let producer = ThunkProducer() { return 123 }
+        
+        let consumable = AnyConsumable(base: producer)
+        
+        let _ = consumable
+            |> AnyTransformer<Int, Int>() { return $0 }
+            |> { (x: Int) in return x }
+            |> { (x: Int) throws -> Int in
+                
+                throw MockError()
+                
+            } |> { (result: Result<Int>) in
+               
+                switch result{
+                    
+                case .Success(_): XCTFail()
+                default: break
+                }
+            }
+        
+        producer.produce()
+    }
+    
     func testConsumeablePipelineTransformerType() {
         
         let producer = ThunkProducer() { return 123 }

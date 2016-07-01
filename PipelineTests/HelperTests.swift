@@ -53,7 +53,7 @@ class HelperTests: XCTestCase {
             
             return str
         
-        } |> { (str: String) -> Int in
+        } |> { (str: String) throws -> Int in
             
             if str.characters.count == 3 {
                 
