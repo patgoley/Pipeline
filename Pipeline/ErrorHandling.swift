@@ -85,6 +85,52 @@ public func onError<T>(handler: (ErrorType) -> Void) -> OptionalFilterTransforme
 }
 
 /*
+ Unwraps a Result<T> value or allows a closure to provide a value to fall 
+ back on in case of errors.
+ */
+
+public func resolveError<T>(resolve: () -> T) -> (Result<T>) -> T {
+    
+    return { result in
+        
+        switch result {
+            
+        case .Success(let value):
+            
+            return value
+            
+        case .Error(_):
+            
+            return resolve()
+        }
+    }
+}
+
+/*
+ Unwraps a Result<T> value or allows a ProducerType to provide a value
+ to fall back on in case of errors.
+ */
+
+public func resolveError<P: ProducerType, V where P.OutputType == V>(resolve: P) -> AsyncTransformer<Result<V>, V> {
+    
+    return AsyncTransformer() { result, consumer in
+        
+        switch result {
+            
+        case .Success(let value):
+            
+             consumer(value)
+            
+        case .Error(_):
+            
+            resolve.consumer = consumer
+            
+            resolve.produce()
+        }
+    }
+}
+
+/*
  Unwraps a Result<T> value or causes a fatalError
 */
 
@@ -108,13 +154,36 @@ public func crashOnError<T>(result: Result<T>) -> T {
  or the ErrorType that was thrown.
 */
 
-func map<T, U>(transform: (T) throws -> U) -> (T) -> Result<U> {
+public func map<T, U>(transform: (T) throws -> U) -> (T) -> Result<U> {
     
     return { input in
         
         do {
             
             let result = try transform(input)
+            
+            return .Success(result)
+            
+        } catch let err {
+            
+            return .Error(err)
+        }
+    }
+}
+
+/*
+ Produces a function that returns the result of a throwing function.
+ Produces a Result<T> which is either the resulting value of the function
+ or the ErrorType that was thrown.
+ */
+
+public func map<U>(produce: () throws -> U) -> () -> Result<U> {
+    
+    return { input in
+        
+        do {
+            
+            let result = try produce()
             
             return .Success(result)
             

@@ -18,12 +18,35 @@ public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: S.OutputType -> NewOu
     return ConsumablePipeline(head: lhs).then(rhs)
 }
 
+// pipeline chaining
+
+public func |> <U, T: TransformerType where U == T.InputType>(lhs: ConsumablePipeline<U>, rhs: T) -> ConsumablePipeline<T.OutputType>  {
+    
+    return lhs.then(rhs)
+}
+
+public func |> <U, NewOutput>(lhs: ConsumablePipeline<U>, rhs: U -> NewOutput) -> ConsumablePipeline<NewOutput>  {
+    
+    return lhs.then(rhs)
+}
+
+// throwing
+
 public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: S.OutputType throws -> NewOutput) -> ConsumablePipeline<Result<NewOutput>>  {
     
     let resultFunction = map(rhs)
     
     return ConsumablePipeline(head: lhs).then(resultFunction)
 }
+
+public func |> <U, NewOutput>(lhs: ConsumablePipeline<U>, rhs: U throws -> NewOutput) -> ConsumablePipeline<Result<NewOutput>>  {
+    
+    let resultFunction = map(rhs)
+    
+    return lhs.then(resultFunction)
+}
+
+// finally
 
 public func |> <S: ConsumableType, C: ConsumerType where S.OutputType == C.InputType>(lhs: S, rhs: C) -> Pipeline  {
     

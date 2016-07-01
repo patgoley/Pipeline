@@ -77,4 +77,85 @@ class ProducerOperatorTests: XCTestCase {
         
         pipe.produce()
     }
+    
+    func testThrowingProducerFunction() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let throwingFunc: () throws -> String = {
+            
+            throw MockError()
+        }
+        
+        let pipe = throwingFunc
+            |> resolveError() { err in
+                
+                return "resolved"
+                
+            } |> { (str: String) in
+                
+                XCTAssert(str == "resolved")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testProducerThrowingFunction() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let throwingFunc: String throws -> String = { str in
+            
+            throw MockError()
+        }
+        
+        let pipe = ThunkProducer() { return "abc" }
+            |> throwingFunc
+            |> resolveError() {
+                
+                return "resolved"
+                
+            } |> { (str: String) in
+                
+                XCTAssert(str == "resolved")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testProducerPipelineThrowingFunction() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let throwingFunc: String throws -> String = { str in
+            
+            throw MockError()
+        }
+        
+        let pipe = { return "abc" }
+            |> { (str: String) in return str }
+            |> throwingFunc
+            |> resolveError() {
+                
+                return "resolved"
+                
+            } |> { (str: String) in
+                
+                XCTAssert(str == "resolved")
+                
+                expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
 }
