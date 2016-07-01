@@ -24,16 +24,16 @@ public final class AnyTransformer<T, U>: TransformerType  {
     
     public typealias OutputType = U
     
-    public var consumer: (U -> Void)?
+    public var consumer: (OutputType -> Void)?
     
-    public let transform: T -> U
+    public let transform: InputType -> OutputType
     
-    public init(transform: T -> U) {
+    public init(transform: InputType -> OutputType) {
         
         self.transform = transform
     }
     
-    public func consume(input: T) {
+    public func consume(input: InputType) {
         
         guard let consumer = self.consumer else {
             
@@ -59,16 +59,16 @@ public final class FilterTransformer<T>: TransformerType  {
     
     public typealias OutputType = T
     
-    public var consumer: (T -> Void)?
+    public var consumer: (OutputType -> Void)?
     
-    public let condition: T -> Bool
+    public let condition: InputType -> Bool
     
-    public init(condition: T -> Bool) {
+    public init(condition: InputType -> Bool) {
         
         self.condition = condition
     }
     
-    public func consume(input: T) {
+    public func consume(input: InputType) {
         
         guard let consumer = self.consumer where condition(input) else {
                 
@@ -91,16 +91,16 @@ public final class OptionalFilterTransformer<T, U>: TransformerType  {
     
     public typealias OutputType = U
     
-    public var consumer: (U -> Void)?
+    public var consumer: (OutputType -> Void)?
     
-    public let transform: T -> U?
+    public let transform: InputType -> OutputType?
     
-    public init(transform: T -> U?) {
+    public init(transform: InputType -> OutputType?) {
         
         self.transform = transform
     }
     
-    public func consume(input: T) {
+    public func consume(input: InputType) {
         
         guard let consumer = self.consumer,
                   result = transform(input) else {
@@ -125,16 +125,16 @@ public final class PassThroughTransformer<T>: TransformerType  {
     
     public typealias OutputType = T
     
-    public var consumer: (T -> Void)?
+    public var consumer: (OutputType -> Void)?
     
-    public let observe: T -> Void
+    public let observe: InputType -> Void
     
-    public init(observe: T -> Void) {
+    public init(observe: InputType -> Void) {
         
         self.observe = observe
     }
     
-    public func consume(input: T) {
+    public func consume(input: InputType) {
         
         observe(input)
         
@@ -154,16 +154,16 @@ public final class AsyncTransformer<T, U>: TransformerType  {
     
     public typealias OutputType = U
     
-    public var consumer: (U -> Void)?
+    public var consumer: (OutputType -> Void)?
     
-    public let execute: (T, (U -> Void)) -> Void
+    public let execute: (InputType, (OutputType -> Void)) -> Void
     
-    public init(execute: (T, (U -> Void)) -> Void) {
+    public init(execute: (InputType, (OutputType -> Void)) -> Void) {
         
         self.execute = execute
     }
     
-    public func consume(input: T) {
+    public func consume(input: InputType) {
         
         guard let consumer = self.consumer else {
             
