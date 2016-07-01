@@ -8,6 +8,8 @@
 
 import Foundation
 
+// Creation
+
 public func |> <T: TransformerType, U: TransformerType where T.OutputType == U.InputType>(lhs: T, rhs: U) -> TransformerPipeline<T.InputType, U.OutputType>  {
     
     return TransformerPipeline(head: lhs).then(rhs)
@@ -18,17 +20,24 @@ public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType -> U) -> Transf
     return TransformerPipeline(head: lhs).then(rhs)
 }
 
-public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType throws -> U) -> TransformerPipeline<T.InputType, Result<U>>  {
+public func |> <T: TransformerType, S, U where T.InputType == U>(lhs: S -> U, rhs: T) -> TransformerPipeline<S, T.OutputType>  {
     
     return TransformerPipeline(head: lhs).then(rhs)
 }
 
-public func |> <T: TransformerType, S, U where T.InputType == U>(lhs: S -> U, rhs: T) -> TransformerPipeline<S, T.OutputType>  {
+public func |> <S, U, V>(lhs: S -> U, rhs: U -> V) -> TransformerPipeline<S, V>  {
     
-    let transformer = AnyTransformer(transform: lhs)
-    
-    return TransformerPipeline(head: transformer).then(rhs)
+    return TransformerPipeline(head: lhs).then(rhs)
 }
+
+public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType throws -> U) -> TransformerPipeline<T.InputType, Result<U>>  {
+    
+    let resultFunction = map(rhs)
+    
+    return TransformerPipeline(head: lhs).then(resultFunction)
+}
+
+// Chaining
 
 public func |> <I, O, U where U: TransformerType, O == U.InputType>(lhs: TransformerPipeline<I, O>, rhs: U) -> TransformerPipeline<I, U.OutputType>  {
     
@@ -40,37 +49,37 @@ public func |> <I, O, C>(lhs: TransformerPipeline<I, O>, rhs: O -> C) -> Transfo
     return lhs.then(rhs)
 }
 
-public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: TransformerPipeline<I, O>, rhs: C) -> AnyConsumer<I>  {
+public func |> <I, O, C>(lhs: TransformerPipeline<I, O>, rhs: O throws -> C) -> TransformerPipeline<I, Result<C>>  {
     
-    return lhs.finally(rhs)
+    let resultFunction = map(rhs)
+    
+    return lhs.then(resultFunction)
 }
+
+// Finally
 
 public func |> <T: TransformerType>(lhs: T, rhs: T.OutputType -> Void) -> AnyConsumer<T.InputType>  {
     
     return TransformerPipeline(head: lhs).finally(rhs)
 }
 
-public func |> <I, O>(lhs: TransformerPipeline<I, O>, rhs: O -> Void) -> AnyConsumer<I>  {
+public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: I -> O, rhs: C) -> AnyConsumer<I>  {
     
-    return lhs.finally(rhs)
-}
-
-public func |> <S, U, V>(lhs: S -> U, rhs: U -> V) -> TransformerPipeline<S, V>  {
-    
-    return TransformerPipeline(head: lhs).then(rhs)
+    return TransformerPipeline(head: lhs).finally(rhs)
 }
 
 public func |> <I, O>(lhs: I -> O, rhs: O -> Void) -> AnyConsumer<I>  {
     
-    let pipeline = TransformerPipeline(head: lhs)
-    
-    return pipeline.finally(rhs)
+    return TransformerPipeline(head: lhs).finally(rhs)
 }
 
-public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: I -> O, rhs: C) -> AnyConsumer<I>  {
+public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: TransformerPipeline<I, O>, rhs: C) -> AnyConsumer<I>  {
     
-    let pipeline = TransformerPipeline(head: lhs)
+    return lhs.finally(rhs)
+}
+
+public func |> <I, O>(lhs: TransformerPipeline<I, O>, rhs: O -> Void) -> AnyConsumer<I>  {
     
-    return pipeline.finally(rhs)
+    return lhs.finally(rhs)
 }
 

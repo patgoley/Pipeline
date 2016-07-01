@@ -125,7 +125,8 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTransformerFunctionConsumerFunction() {
         
-        let pipe = { (x: Int) in return "\(x)" } |> { (x: String) in
+        let pipe = { (x: Int) in return "\(x)" }
+            |> { (x: String) in
             
             XCTAssert(x == "321")
         }
@@ -141,5 +142,65 @@ class TransformerOperatorTests: XCTestCase {
         }
         
         pipe.consume(inputValue)
+    }
+    
+    func testTransformerPipelineThrowingFunction() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let pipe = { (str: String) in return str }
+            |> AnyTransformer<String, String>() { str in return str }
+            |> { (str: String) throws -> Int in
+            
+                if str.characters.count == 3 {
+                    
+                    throw MockError()
+                    
+                } else {
+                    
+                    return str.characters.count
+                }
+                
+            } |> { (result: Result<Int>) in
+                
+                switch result {
+                case .Success(_): XCTFail()
+                default: break
+                }
+                
+                expt.fulfill()
+            }
+        
+        pipe.consume("abc")
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
+    func testThrowingFunctionTransformerType() {
+        
+        let throwingProducer: () throws -> String = {
+            
+            throw MockError()
+        }
+            
+        let pipe = throwingProducer
+            |> AnyTransformer() { (result: Result<String>) -> String in
+                
+            switch result {
+                
+            case .Success(let str):
+                XCTFail()
+                return str
+            default: break
+            }
+                
+            return ""
+                
+        } |> { (str: String) in
+                    
+            print(str)
+        }
+        
+        pipe.produce()
     }
 }
