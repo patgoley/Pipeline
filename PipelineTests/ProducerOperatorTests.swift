@@ -13,12 +13,12 @@ class ProducerOperatorTests: XCTestCase {
     
     func testProducerTransformerType() {
         
-        let pipe = { return 123 } |> AnyTransformer() { x in
+        let pipe = { () -> Int in return 123 } |> AnyTransformer<Int, Int>() { (x: Int) in
             
             return x + 5
         }
         
-        pipe.consumer = { x in
+        pipe.consumer = { (x: Int) in
             
             XCTAssert(x == 128)
         }
@@ -28,9 +28,9 @@ class ProducerOperatorTests: XCTestCase {
     
     func testProducerConsumerType() {
         
-        let anyProducer = AnyProducer(base: ValueProducer(123))
+        let anyProducer = AnyProducer<Int>(base: ValueProducer<Int>(123))
         
-        let pipe = anyProducer |> AnyConsumer() { x in
+        let pipe = anyProducer |> AnyConsumer<Int>() { (x: Int) in
             
             XCTAssert(x == 123)
         }
@@ -40,11 +40,11 @@ class ProducerOperatorTests: XCTestCase {
     
     func testProducerPipelineTransformerType() {
         
-        let anyProducer = AnyProducer(base: ValueProducer(123))
+        let anyProducer = AnyProducer<Int>(base: ValueProducer<Int>(123))
         
         let pipe = anyProducer
-            |> { (x: Int) -> Int in return x }
-            |> AnyTransformer() { (x: Int) -> Int in
+            |> integerIdentity
+            |> AnyTransformer<Int, Int>() { (x: Int) -> Int in
             
                 return x + 1
             
@@ -58,7 +58,7 @@ class ProducerOperatorTests: XCTestCase {
     
     func testProducerConsumerFunction() {
         
-        let pipe = ValueProducer(123) |> { x in
+        let pipe = ValueProducer<Int>(123) |> { (x: Int) in
             
             XCTAssert(x == 123)
         }
@@ -68,14 +68,40 @@ class ProducerOperatorTests: XCTestCase {
     
     func testProducerPipelineConsumerType() {
         
-        let pipe = ValueProducer(123)
-            |> { return $0 }
-            |> AnyConsumer() { x in
+        let pipe = ValueProducer<Int>(123)
+            |> integerIdentity
+            |> AnyConsumer<Int>() { (x: Int) in
             
             XCTAssert(x == 123)
         }
         
         pipe.produce()
+    }
+    
+    func testProducerPipelineThrowingTransformerFunction() {
+        
+        let expt = expectationWithDescription("error")
+        
+        let pipe = ValueProducer<Int>(123)
+            |> integerIdentity
+            |> { (x: Int) throws -> Int in
+                
+                throw MockError()
+                
+        } |> { (result: Result<Int>) in
+        
+            switch result {
+                
+            case .Success: XCTFail()
+            default: break
+            }
+            
+            expt.fulfill()
+        }
+        
+        pipe.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
     }
     
     func testThrowingProducerFunction() {
@@ -88,7 +114,7 @@ class ProducerOperatorTests: XCTestCase {
         }
         
         let pipe = throwingFunc
-            |> resolveError() { err in
+            |> resolveError() { () -> String in
                 
                 return "resolved"
                 
@@ -113,13 +139,13 @@ class ProducerOperatorTests: XCTestCase {
             throw MockError()
         }
         
-        let pipe = ThunkProducer() { return "abc" }
+        let pipe = ThunkProducer<String>() { return "abc" }
             |> throwingFunc
-            |> resolveError() {
+            |> resolveError() { () -> String in
                 
                 return "resolved"
                 
-            } |> { (str: String) in
+            } |> { (str: String) -> Void in
                 
                 XCTAssert(str == "resolved")
                 
@@ -141,7 +167,7 @@ class ProducerOperatorTests: XCTestCase {
         }
         
         let pipe = { return "abc" }
-            |> { (str: String) in return str }
+            |> stringIdentity
             |> throwingFunc
             |> resolveError() {
                 
