@@ -22,9 +22,9 @@ class HelperTests: XCTestCase {
         
         let string = "abc"
         
-        let pipe = ValueProducer(string)
-            |> map() { $0.characters.count }
-            |> { count in
+        let pipe = ValueProducer<String>(string)
+            |> map() { (str: String) -> Int in str.characters.count }
+            |> { (count: Int) in
                 
                 XCTAssert(count == 3)
         }
@@ -34,7 +34,7 @@ class HelperTests: XCTestCase {
     
     func testFilter() {
         
-        let pipe = filter() { $0.characters.count == 3 }
+        let pipe = filter() { (str: String) -> Bool in str.characters.count == 3 }
             |> { (string: String) in
                 
                 XCTAssert(string.characters.count == 3)
@@ -92,7 +92,7 @@ class HelperTests: XCTestCase {
         
         let string: String? = nil
         
-        let pipe = ValueProducer(string)
+        let pipe = ValueProducer<String?>(string)
             |> guardUnwrap()
             |> { _ in XCTAssert(false) }
         
@@ -103,20 +103,20 @@ class HelperTests: XCTestCase {
         
         let string: String? = "abc"
         
-        let pipe = ValueProducer(string)
+        let pipe = ValueProducer<String?>(string)
             |> guardUnwrap()
-            |> { XCTAssert($0 == "abc") }
+            |> { (str: String) in XCTAssert(str == "abc") }
         
         pipe.produce()
     }
     
     func testGuardUnwrapWithClosure() {
         
-        let pipe = guardUnwrap() { (person: Person) in
+        let pipe = guardUnwrap() { (person: Person) -> Int? in
             
             return person.name?.characters.count
             
-        } |> { _ in XCTAssert(false) }
+            } |> { (x: Int) in XCTAssert(false) }
         
         pipe.consume(Person(name: nil))
     }
@@ -125,7 +125,7 @@ class HelperTests: XCTestCase {
         
         let string: String? = "123"
         
-        let pipe = ValueProducer(string)
+        let pipe = ValueProducer<String?>(string)
             |> forceUnwrap
             |> { (x: String) in XCTAssert(x == "123") }
         
@@ -136,8 +136,8 @@ class HelperTests: XCTestCase {
         
         let string: String? = "123"
         
-        let pipe = ValueProducer(string)
-            |> forceUnwrap { (str: String?) in return str?.characters.count }
+        let pipe = ValueProducer<String?>(string)
+            |> forceUnwrap { (str: String?) -> Int? in return str?.characters.count }
             |> { (x: Int) in x == 3  }
         
         pipe.produce()
@@ -147,9 +147,9 @@ class HelperTests: XCTestCase {
         
         let string = "123"
         
-        let pipe = ValueProducer(string)
+        let pipe = ValueProducer<String>(string)
             |> downCast(Int.self)
-            |> { _ in XCTAssert(false) }
+            |> { (x: Int) in XCTAssert(false) }
         
         pipe.produce()
     }
@@ -158,9 +158,9 @@ class HelperTests: XCTestCase {
         
         let anyObject: AnyObject = NSNumber(int: 3)
         
-        let pipe = ValueProducer(anyObject)
+        let pipe = ValueProducer<AnyObject>(anyObject)
             |> forceCast(NSNumber.self)
-            |> { x in XCTAssert(x.intValue == 3) }
+            |> { (x: NSNumber) in XCTAssert(x.intValue == 3) }
         
         pipe.produce()
     }
@@ -171,8 +171,8 @@ class HelperTests: XCTestCase {
         
         let expt = expectationWithDescription("nil")
         
-        let pipe = ValueProducer(optional)
-            |> resolveNil() { return "abc" }
+        let pipe = ValueProducer<String?>(optional)
+            |> resolveNil() { () -> String in return "abc" }
             |> { (str: String) in
                 
             XCTAssert(str == "abc")
@@ -191,8 +191,8 @@ class HelperTests: XCTestCase {
         
         let expt = expectationWithDescription("some")
         
-        let pipe = ValueProducer(optional)
-            |> resolveNil() {
+        let pipe = ValueProducer<String?>(optional)
+            |> resolveNil() { () -> String in
                 
                 XCTFail()
                 
@@ -216,8 +216,8 @@ class HelperTests: XCTestCase {
         
         let expt = expectationWithDescription("nil")
         
-        let pipe = ValueProducer(optional)
-            |> resolveNil(ThunkProducer() { return "abc" })
+        let pipe = ValueProducer<String?>(optional)
+            |> resolveNil(ThunkProducer<String>() { return "abc" })
             |> { (str: String) in
                 
                 XCTAssert(str == "abc")
@@ -236,8 +236,8 @@ class HelperTests: XCTestCase {
         
         let expt = expectationWithDescription("some")
         
-        let pipe = ValueProducer(optional)
-            |> resolveNil(ThunkProducer() {
+        let pipe = ValueProducer<String?>(optional)
+            |> resolveNil(ThunkProducer<String>() {
                 
                 XCTFail()
                 
