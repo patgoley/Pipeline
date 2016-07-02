@@ -9,12 +9,28 @@
 import Foundation
 
 /*
- Stops the flow of values down the pipeline unless a condition is met
+ Stops the flow of values down the pipeline if a condition is not met.
+ That is, values that result in false from the condition will not be
+ passed to the consumer.
 */
 
 public func filter<T>(condition: (T) -> Bool) -> FilterTransformer<T> {
     
     return FilterTransformer(condition: condition)
+}
+
+/*
+ Stops the flow of values down the pipeline if a condition is met.
+ That is, values that result in true from the condition will not be
+ passed to the consumer.
+ */
+
+public func unless<T>(condition: (T) -> Bool) -> FilterTransformer<T> {
+    
+    return FilterTransformer() { (value: T) in
+        
+        return !condition(value)
+    }
 }
 
 /*
