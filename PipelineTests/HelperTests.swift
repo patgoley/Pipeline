@@ -47,6 +47,21 @@ class HelperTests: XCTestCase {
         pipe.consume("abcd")
     }
     
+    func testUnless() {
+        
+        let pipe = unless() { (str: String) -> Bool in str.characters.count == 3 }
+            |> { (string: String) in
+                
+                XCTAssert(string.characters.count != 3)
+        }
+        
+        pipe.consume("abc")
+        
+        pipe.consume("a")
+        
+        pipe.consume("abcd")
+    }
+    
     func testThrowingMap() {
         
         let pipe = AnyTransformer<String, String>() { str in
