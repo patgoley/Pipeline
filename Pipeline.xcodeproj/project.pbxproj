@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E3157F61D281BAD00292851 /* EagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3157F51D281BAD00292851 /* EagerTests.swift */; };
 		8E56E6D31D2613FD009182DF /* TestMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E56E6D21D2613FD009182DF /* TestMocks.swift */; };
 		8E57D1001CF516FD00EDAF4A /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */; };
 		8E57D1011CF516FD00EDAF4A /* JSONTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8E3157F51D281BAD00292851 /* EagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EagerTests.swift; sourceTree = "<group>"; };
 		8E56E6D21D2613FD009182DF /* TestMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMocks.swift; sourceTree = "<group>"; };
 		8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTransformers.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				8EDF35E91D1BAA180099FB91 /* ErrorHandlingTests.swift */,
 				8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */,
 				8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */,
+				8E3157F51D281BAD00292851 /* EagerTests.swift */,
 				8EF72F1B1D14E0A4009B921F /* ExecutionTests.swift */,
 				8EF8DF3C1D15B3E1005BA467 /* SplitterTests.swift */,
 				8EF8DF401D15C7B0005BA467 /* JoinTests.swift */,
@@ -375,6 +378,7 @@
 			files = (
 				8E57D1031CF516FD00EDAF4A /* NSBundlePipelines.swift in Sources */,
 				8EF72F1C1D14E0A4009B921F /* ExecutionTests.swift in Sources */,
+				8E3157F61D281BAD00292851 /* EagerTests.swift in Sources */,
 				8E57D1011CF516FD00EDAF4A /* JSONTransformers.swift in Sources */,
 				8E57D1331CF5235E00EDAF4A /* TransformerOperatorTests.swift in Sources */,
 				8E57D10B1CF516FD00EDAF4A /* Timer.swift in Sources */,
