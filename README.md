@@ -94,23 +94,15 @@ let getObjectPipeline = requestforURL |> HTTPClient() |> dataFromResponse |> JSO
 //getObjectPipeline is TransformerPipeline<NSURL, [String, AnyObject]>
 ```
 
-So after chaining these components together, we end up with a `TransformerPipeline`. This pipeline is nothing special really, just `TransformerType` that takes in an `NSURL` and ultimately produces a `[String: AnyObject]`, using the functions and object we strung together to create it. We can use it just like any transformer:
+So after chaining these components together, we end up with a `TransformerPipeline`. This pipeline is nothing special really, just `TransformerType` that takes in an `NSURL` and ultimately produces a `[String: AnyObject]`, using the functions and object we strung together to create it. Let's use this pipeline to get some JSON from Reddit.
 
 ``` swift
-getObjectPipeline.consumer = { (json: [String: AnyObject]) in
 
-    print("Houston we have some json! \(json)")
-}
-
-let url = NSURL(string: "http://json-api.com/get-some-object")
-
-getObjectPipeline.consume(url)
-
-// or the short hand version
+let url = NSURL(string: "https://www.reddit.com/r/science.json")
 
 getObjectPipeline.consume(url) { json in 
 
-    print("much json \(json)")
+    print("science subreddit object: \(json)")
 }
 
 ```
