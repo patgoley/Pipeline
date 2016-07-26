@@ -13,7 +13,7 @@ class ExecutionTests: XCTestCase {
     
     func testProduceWithCompletion() {
         
-        let pipe = { return 123 } |> AnyTransformer() { x in
+        let pipe = { return 123 } |> AnyTransformer<Int, Int>() { x in
             
             return x + 5
         }
@@ -46,4 +46,42 @@ class ExecutionTests: XCTestCase {
         
         waitForExpectationsWithTimeout(0.1, handler: nil)
     }
+    
+    func testPipelineProduceWithRetainsSelf() {
+        
+        let pipe = { return 123 }
+            |> asyncBackgroundThread()
+            |> delay(1)
+            |> ensureMainThread()
+            |> AnyTransformer<Int, Int>() { x in
+            
+            return x + 5
+        }
+        
+        pipe.produce() { x in
+            
+            XCTAssert(x == 128)
+        }
+    }
+    
+    func testPipelineConsumeRetainsSelf() {
+        
+        let expt = expectationWithDescription("execution")
+        
+        let pipe = { (x: Int) in return x + 5 }
+            |> asyncBackgroundThread()
+            |> delay(1)
+            |> ensureMainThread()
+            |> { (x: Int) in return "\(x)" }
+        
+        pipe.consume(321) { (x: String) in
+            
+            XCTAssert(x == "326")
+        }
+    }
+}
+
+final class TestConsumable {
+    
+    
 }

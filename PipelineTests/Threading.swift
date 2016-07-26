@@ -37,3 +37,23 @@ func asyncBackgroundThread<T>(priority: dispatch_queue_priority_t = DISPATCH_QUE
         }
     }
 }
+
+func delay<T>(seconds: NSTimeInterval, queue: dispatch_queue_t = dispatch_get_main_queue()) -> AsyncTransformer<T, T> {
+    
+    return AsyncTransformer() { input, consumer in
+        
+        _delay(seconds) {
+            
+            consumer(input)
+        }
+    }
+}
+
+private func _delay(delay:Double, closure:()->()) {
+    dispatch_after(
+        dispatch_time(
+            DISPATCH_TIME_NOW,
+            Int64(delay * Double(NSEC_PER_SEC))
+        ),
+        dispatch_get_main_queue(), closure)
+}

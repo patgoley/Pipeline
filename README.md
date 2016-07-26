@@ -5,7 +5,7 @@
  
 Pipeline is a framework that empowers functional programming in Swift. It chains together values, functions, and objects that act like functions into "pipelines" that produce, transform, or consume data. 
 
-Objects! Isn't that functional heresy? It can be, but there's no reason we can't have objects that are just as pure and wonderful as functions. This is possible through a few simple protocols provided by Pipeline. Each one corresponds to an equivalent function type, and Pipeline generally treats the two as interchangeable. It's less important how we implement things (with functions or objects), and more important that we think in terms of **input** and **output**.
+Objects! Isn't that functional heresy? Not necessarily. There's no reason we can't have objects that are just as pure and wonderful as functions. This is possible through a few simple protocols provided by Pipeline. Each one corresponds to an equivalent function type, and Pipeline generally treats the two as interchangeable. It's less important how we implement things (with functions or objects), and more important that we think in terms of **input** and **output**.
 
 Let's take a look at the first of our protocols, `ConsumableType`. 
 
