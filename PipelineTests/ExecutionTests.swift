@@ -66,8 +66,6 @@ class ExecutionTests: XCTestCase {
     
     func testPipelineConsumeRetainsSelf() {
         
-        let expt = expectationWithDescription("execution")
-        
         let pipe = { (x: Int) in return x + 5 }
             |> asyncBackgroundThread()
             |> delay(1)

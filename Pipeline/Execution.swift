@@ -13,25 +13,15 @@ public extension ProducerType {
     
     func produce(consumer: (OutputType) -> Void) {
         
-        if let originalConsumer = self.consumer {
+        let originalConsumer = self.consumer
             
-            self.consumer = { value in
-                
-                originalConsumer(value)
-                
-                consumer(value)
-                
-                self.consumer = originalConsumer
-            }
+        self.consumer = { value in
             
-        } else {
+            originalConsumer?(value)
             
-            self.consumer = { value in
-                
-                consumer(value)
-                
-                self.consumer = nil
-            }
+            consumer(value)
+            
+            self.consumer = originalConsumer
         }
         
         self.consumer = consumer
@@ -44,25 +34,15 @@ public extension TransformerType {
     
     func consume(value: InputType, consumer: (OutputType) -> Void) {
         
-        if let originalConsumer = self.consumer {
+        let originalConsumer = self.consumer
             
-            self.consumer = { value in
-                
-                originalConsumer(value)
-                
-                consumer(value)
-                
-                self.consumer = originalConsumer
-            }
+        self.consumer = { value in
             
-        } else {
+            originalConsumer?(value)
             
-            self.consumer = { value in
-                
-                consumer(value)
-                
-                self.consumer = nil
-            }
+            consumer(value)
+            
+            self.consumer = originalConsumer
         }
         
         consume(value)
