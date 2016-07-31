@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8E3157F61D281BAD00292851 /* EagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3157F51D281BAD00292851 /* EagerTests.swift */; };
-		8E40C8441D46F61300F5B6AB /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40C8431D46F61300F5B6AB /* Consumer.swift */; };
-		8E40C8481D46F64800F5B6AB /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40C8451D46F64800F5B6AB /* Consumable.swift */; };
-		8E40C8491D46F64800F5B6AB /* ConsumableOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40C8461D46F64800F5B6AB /* ConsumableOperators.swift */; };
-		8E40C84A1D46F64800F5B6AB /* ConsumablePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40C8471D46F64800F5B6AB /* ConsumablePipeline.swift */; };
 		8E56E6D31D2613FD009182DF /* TestMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E56E6D21D2613FD009182DF /* TestMocks.swift */; };
 		8E57D1001CF516FD00EDAF4A /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */; };
 		8E57D1011CF516FD00EDAF4A /* JSONTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */; };
@@ -25,13 +21,9 @@
 		8E57D10B1CF516FD00EDAF4A /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0FB1CF516FD00EDAF4A /* Timer.swift */; };
 		8E57D10C1CF516FD00EDAF4A /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0FC1CF516FD00EDAF4A /* TimerTests.swift */; };
 		8E57D10E1CF51A0200EDAF4A /* ConsumableOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D10D1CF51A0200EDAF4A /* ConsumableOperatorTests.swift */; };
-		8E57D1271CF51E6300EDAF4A /* Producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D11B1CF51E6300EDAF4A /* Producer.swift */; };
-		8E57D1281CF51E6300EDAF4A /* ProducerOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D11C1CF51E6300EDAF4A /* ProducerOperators.swift */; };
-		8E57D1291CF51E6300EDAF4A /* ProducerPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D11D1CF51E6300EDAF4A /* ProducerPipeline.swift */; };
 		8E57D12A1CF51E6300EDAF4A /* ValueProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D11E1CF51E6300EDAF4A /* ValueProducer.swift */; };
 		8E57D12B1CF51E6300EDAF4A /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1201CF51E6300EDAF4A /* Transformer.swift */; };
 		8E57D12C1CF51E6300EDAF4A /* TransformerOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1211CF51E6300EDAF4A /* TransformerOperators.swift */; };
-		8E57D12D1CF51E6300EDAF4A /* TransformerPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1221CF51E6300EDAF4A /* TransformerPipeline.swift */; };
 		8E57D1311CF51FDE00EDAF4A /* ProducerOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1301CF51FDE00EDAF4A /* ProducerOperatorTests.swift */; };
 		8E57D1331CF5235E00EDAF4A /* TransformerOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1321CF5235E00EDAF4A /* TransformerOperatorTests.swift */; };
 		8E57D1351CF52BA200EDAF4A /* TransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1341CF52BA200EDAF4A /* TransformerTests.swift */; };
@@ -66,10 +58,6 @@
 
 /* Begin PBXFileReference section */
 		8E3157F51D281BAD00292851 /* EagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EagerTests.swift; sourceTree = "<group>"; };
-		8E40C8431D46F61300F5B6AB /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
-		8E40C8451D46F64800F5B6AB /* Consumable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
-		8E40C8461D46F64800F5B6AB /* ConsumableOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumableOperators.swift; sourceTree = "<group>"; };
-		8E40C8471D46F64800F5B6AB /* ConsumablePipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumablePipeline.swift; sourceTree = "<group>"; };
 		8E56E6D21D2613FD009182DF /* TestMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMocks.swift; sourceTree = "<group>"; };
 		8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTransformers.swift; sourceTree = "<group>"; };
@@ -83,13 +71,9 @@
 		8E57D0FB1CF516FD00EDAF4A /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		8E57D0FC1CF516FD00EDAF4A /* TimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
 		8E57D10D1CF51A0200EDAF4A /* ConsumableOperatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumableOperatorTests.swift; sourceTree = "<group>"; };
-		8E57D11B1CF51E6300EDAF4A /* Producer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Producer.swift; sourceTree = "<group>"; };
-		8E57D11C1CF51E6300EDAF4A /* ProducerOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducerOperators.swift; sourceTree = "<group>"; };
-		8E57D11D1CF51E6300EDAF4A /* ProducerPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducerPipeline.swift; sourceTree = "<group>"; };
 		8E57D11E1CF51E6300EDAF4A /* ValueProducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueProducer.swift; sourceTree = "<group>"; };
 		8E57D1201CF51E6300EDAF4A /* Transformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transformer.swift; sourceTree = "<group>"; };
 		8E57D1211CF51E6300EDAF4A /* TransformerOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerOperators.swift; sourceTree = "<group>"; };
-		8E57D1221CF51E6300EDAF4A /* TransformerPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerPipeline.swift; sourceTree = "<group>"; };
 		8E57D1301CF51FDE00EDAF4A /* ProducerOperatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducerOperatorTests.swift; sourceTree = "<group>"; };
 		8E57D1321CF5235E00EDAF4A /* TransformerOperatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerOperatorTests.swift; sourceTree = "<group>"; };
 		8E57D1341CF52BA200EDAF4A /* TransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerTests.swift; sourceTree = "<group>"; };
@@ -139,7 +123,6 @@
 		8E40C8421D46F61300F5B6AB /* Consumer */ = {
 			isa = PBXGroup;
 			children = (
-				8E40C8431D46F61300F5B6AB /* Consumer.swift */,
 			);
 			path = Consumer;
 			sourceTree = "<group>";
@@ -147,12 +130,6 @@
 		8E57D11A1CF51E6300EDAF4A /* Producer */ = {
 			isa = PBXGroup;
 			children = (
-				8E40C8451D46F64800F5B6AB /* Consumable.swift */,
-				8E40C8461D46F64800F5B6AB /* ConsumableOperators.swift */,
-				8E40C8471D46F64800F5B6AB /* ConsumablePipeline.swift */,
-				8E57D11B1CF51E6300EDAF4A /* Producer.swift */,
-				8E57D11C1CF51E6300EDAF4A /* ProducerOperators.swift */,
-				8E57D11D1CF51E6300EDAF4A /* ProducerPipeline.swift */,
 				8E57D11E1CF51E6300EDAF4A /* ValueProducer.swift */,
 			);
 			path = Producer;
@@ -163,7 +140,6 @@
 			children = (
 				8E57D1201CF51E6300EDAF4A /* Transformer.swift */,
 				8E57D1211CF51E6300EDAF4A /* TransformerOperators.swift */,
-				8E57D1221CF51E6300EDAF4A /* TransformerPipeline.swift */,
 			);
 			path = Transformer;
 			sourceTree = "<group>";
@@ -352,21 +328,13 @@
 			files = (
 				8E57D12B1CF51E6300EDAF4A /* Transformer.swift in Sources */,
 				8EE644641CE8600800403EFC /* ErrorHandling.swift in Sources */,
-				8E40C8481D46F64800F5B6AB /* Consumable.swift in Sources */,
-				8E57D1291CF51E6300EDAF4A /* ProducerPipeline.swift in Sources */,
 				8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */,
 				8EF8DF3F1D15C20D005BA467 /* Join.swift in Sources */,
-				8E40C8441D46F61300F5B6AB /* Consumer.swift in Sources */,
 				8ECB98781D1BA523005C5EBE /* OptionalHelpers.swift in Sources */,
 				8E5E7E2F1D09FB4B007A1B7E /* Helpers.swift in Sources */,
-				8E57D1281CF51E6300EDAF4A /* ProducerOperators.swift in Sources */,
-				8E40C8491D46F64800F5B6AB /* ConsumableOperators.swift in Sources */,
 				8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */,
 				8E57D12A1CF51E6300EDAF4A /* ValueProducer.swift in Sources */,
-				8E57D1271CF51E6300EDAF4A /* Producer.swift in Sources */,
-				8E57D12D1CF51E6300EDAF4A /* TransformerPipeline.swift in Sources */,
 				8EF8DF3B1D15B26D005BA467 /* Splitter.swift in Sources */,
-				8E40C84A1D46F64800F5B6AB /* ConsumablePipeline.swift in Sources */,
 				8EF72F1A1D14E039009B921F /* Execution.swift in Sources */,
 				8E57D12C1CF51E6300EDAF4A /* TransformerOperators.swift in Sources */,
 			);

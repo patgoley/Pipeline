@@ -74,7 +74,7 @@ public func resolveNil<T>(resolve: () -> T) -> T? -> T {
     }
 }
 
-public func resolveNil<P: ProducerType, V where P.OutputType == V>(resolve: P) -> AsyncTransformer<V?, V> {
+public func resolveNil<T: TransformerType, V where T.InputType == Void, T.OutputType == V>(resolve: T) -> AsyncTransformer<V?, V> {
     
     return AsyncTransformer<V?, V>() { (input: V?, consumer: V -> Void) in
         

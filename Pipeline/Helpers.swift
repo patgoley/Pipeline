@@ -33,17 +33,6 @@ public func unless<T>(condition: (T) -> Bool) -> FilterTransformer<T> {
     }
 }
 
-/*
- Maps a value to another value and passes it down the pipeline. While 
- the transform function could be used directly, this makes the intent
- explicit, making the code more readable and expressive.
-*/
-
-public func map<T, U>(transform: (T) -> U) -> AnyTransformer<T, U> {
-    
-    return AnyTransformer(transform: transform)
-}
-
 
 /*
  Attemtps to cast incoming values to the given type, filtering out values
@@ -60,8 +49,11 @@ public func downCast<T, U>(toType: U.Type) -> OptionalFilterTransformer<T, U> {
  that fail to cast.
  */
 
-public func forceCast<T, U>(toType: U.Type) -> AnyTransformer<T, U> {
+public func forceCast<T, U>(toType: U.Type) -> (T) -> U {
     
-    return AnyTransformer() { $0 as! U }
+    return { value in
+        
+        return value as! U
+    }
 }
 

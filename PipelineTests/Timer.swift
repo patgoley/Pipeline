@@ -9,7 +9,9 @@
 import Foundation
 import Pipeline
 
-public final class Timer: ProducerType {
+public final class Timer: TransformerType {
+    
+    public typealias InputType = Void
     
     public typealias OutputType = NSDate
     
@@ -28,6 +30,11 @@ public final class Timer: ProducerType {
         self.interval = interval
         
         self.repeats = repeats
+    }
+    
+    public func consume(_: Void) {
+        
+        tick()
     }
     
     public func start() {

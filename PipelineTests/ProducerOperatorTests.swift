@@ -28,7 +28,7 @@ class ProducerOperatorTests: XCTestCase {
     
     func testProducerConsumerType() {
         
-        let anyProducer = AnyProducer<Int>(base: ValueProducer<Int>(123))
+        let anyProducer = AnyTransformer(base: ValueProducer<Int>(123))
         
         let pipe = anyProducer |> AnyConsumer<Int>() { (x: Int) in
             

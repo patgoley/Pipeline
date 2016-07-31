@@ -9,9 +9,11 @@
 import Foundation
 
 
-public final class Splitter<T>: ConsumerType {
+public final class Splitter<T>: TransformerType {
     
     public typealias InputType = T
+    
+    public typealias OutputType = Void
     
     let consumers: [AnyConsumer<T>]
     

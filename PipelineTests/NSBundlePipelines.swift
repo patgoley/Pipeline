@@ -12,7 +12,7 @@ import Pipeline
 
 public extension NSBundle {
     
-    func loadResource(name: String, fileExtension: String) -> ProducerPipeline<NSData> {
+    func loadResource(name: String, fileExtension: String) -> Pipeline<Void, NSData> {
         
         return { () -> NSURL? in return self.URLForResource(name, withExtension: fileExtension) }
             |> forceUnwrap

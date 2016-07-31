@@ -9,7 +9,57 @@
 import Foundation
 
 
-public protocol TransformerType: ConsumerType, ConsumableType { }
+public protocol TransformerType: class {
+    
+    associatedtype InputType
+    
+    associatedtype OutputType
+    
+    var consumer: (OutputType -> Void)? { get set }
+    
+    func consume(input: InputType)
+}
+
+/*
+ A type erasure class for TransformerType. Users of this class
+ only need to provide the function for transforming values,
+ AnyTransformer implements TransformerType and uses the provided
+ function for transforming values.
+ */
+
+public final class AnyTransformer<T, U>: TransformerType  {
+    
+    public typealias InputType = T
+    
+    public typealias OutputType = U
+    
+    public var consumer: (OutputType -> Void)? {
+        
+        didSet {
+            
+            _setConsumer(consumer)
+        }
+    }
+    
+    private let _consume: (InputType) -> Void
+    
+    private let _setConsumer: (OutputType -> Void)? -> Void
+    
+    public init<Base: TransformerType where Base.InputType == T, Base.OutputType == U>(base: Base) {
+        
+        _consume = base.consume
+        
+        _setConsumer = { consumer in
+            
+            base.consumer = consumer
+        }
+    }
+    
+    public func consume(input: InputType) {
+
+        _consume(input)
+    }
+}
 
 /*
  A type erasure class for TransformerType. Users of this class
@@ -18,7 +68,7 @@ public protocol TransformerType: ConsumerType, ConsumableType { }
  function for transforming values.
 */
 
-public final class AnyTransformer<T, U>: TransformerType  {
+public final class ThunkTransformer<T, U>: TransformerType  {
     
     public typealias InputType = T
     

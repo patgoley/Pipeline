@@ -9,7 +9,9 @@
 import Foundation
 
 
-public final class ValueProducer<T>: ProducerType {
+public final class ValueProducer<T>: TransformerType {
+    
+    public typealias InputType = Void
     
     let value: T
     
@@ -20,13 +22,20 @@ public final class ValueProducer<T>: ProducerType {
         self.value = value
     }
     
+    public func consume(_: Void) {
+        
+        consumer?(value)
+    }
+    
     public func produce() {
         
         consumer?(value)
     }
 }
 
-public final class ThunkProducer<T>: ProducerType {
+public final class ThunkProducer<T>: TransformerType {
+    
+    public typealias InputType = Void
     
     let thunk: () -> T
     
@@ -37,7 +46,7 @@ public final class ThunkProducer<T>: ProducerType {
         self.thunk = thunk
     }
     
-    public func produce() {
+    public func consume(_: Void) {
         
         if let consumer = consumer {
             
@@ -47,3 +56,4 @@ public final class ThunkProducer<T>: ProducerType {
         }
     }
 }
+

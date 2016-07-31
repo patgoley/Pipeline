@@ -111,7 +111,7 @@ public func resolveError<T>(resolve: () -> T) -> (Result<T>) -> T {
  to fall back on in case of errors.
  */
 
-public func resolveError<P: ProducerType, V where P.OutputType == V>(resolve: P) -> AsyncTransformer<Result<V>, V> {
+public func resolveError<T: TransformerType, V where T.InputType == Void, T.OutputType == V>(resolve: T) -> AsyncTransformer<Result<V>, V> {
     
     return AsyncTransformer() { result, consumer in
         

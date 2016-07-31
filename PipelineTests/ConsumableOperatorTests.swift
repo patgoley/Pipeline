@@ -15,9 +15,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let producer = ThunkProducer() { return 123 }
         
-        let consumable = AnyConsumable(base: producer)
-        
-        let pipe = consumable |> AnyTransformer<Int, Int>() { (x: Int) in
+        let pipe = producer |> ThunkTransformer<Int, Int>() { (x: Int) in
             
             return x + 5
         }
@@ -34,7 +32,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let producer = ThunkProducer<Int>() { return 123 }
         
-        let consumable = AnyConsumable<Int>(base: producer)
+        let consumable = AnyTransformer<Void, Int>(base: producer)
         
         let pipe = consumable |> { (x: Int) -> Int in
             

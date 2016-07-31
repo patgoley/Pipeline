@@ -9,7 +9,14 @@
 import Foundation
 
 
-public final class Join<T, U>: ConsumableType {
+public final class Join<T, U>: TransformerType {
+    
+    public typealias InputType = T
+    
+    public func consume(input: InputType) {
+        
+        fatalError()
+    }
     
     public typealias OutputType = (T?, U?)
     
@@ -32,13 +39,20 @@ public final class Join<T, U>: ConsumableType {
     }
 }
 
-public final class ThreeJoin<T, U, V>: ConsumableType {
+public final class ThreeJoin<T, U, V>: TransformerType {
+    
+    public typealias InputType = T
     
     public typealias OutputType = (T?, U?, V?)
     
     private var latestValues: (first: T?, second: U?, third: V?) = (nil, nil, nil)
     
     public var consumer: (OutputType -> Void)?
+    
+    public func consume(input: InputType) {
+        
+        fatalError()
+    }
     
     public func consumeFirst(input: T) {
         
@@ -62,7 +76,7 @@ public final class ThreeJoin<T, U, V>: ConsumableType {
     }
 }
 
-public func join<C: ConsumableType, S: ConsumableType>(first: C, second: S) -> Join<C.OutputType, S.OutputType> {
+public func join<C: TransformerType, S: TransformerType>(first: C, second: S) -> Join<C.OutputType, S.OutputType> {
     
     let join = Join<C.OutputType, S.OutputType>()
     
@@ -72,7 +86,7 @@ public func join<C: ConsumableType, S: ConsumableType>(first: C, second: S) -> J
     return join
 }
 
-public func join<C: ConsumableType, S: ConsumableType, M: ConsumableType>(first: C, second: S, third: M) -> ThreeJoin<C.OutputType, S.OutputType, M.OutputType> {
+public func join<C: TransformerType, S: TransformerType, M: TransformerType>(first: C, second: S, third: M) -> ThreeJoin<C.OutputType, S.OutputType, M.OutputType> {
     
     let join = ThreeJoin<C.OutputType, S.OutputType, M.OutputType>()
     

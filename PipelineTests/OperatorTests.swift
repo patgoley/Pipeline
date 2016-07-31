@@ -15,7 +15,7 @@ class OperatorTests: XCTestCase {
         
         // won't compile if |> precedence is lower than =
         
-        let pipe: Pipeline
+        let pipe: Pipeline<Void, String>
         
         pipe = ValueProducer("123") |> AnyTransformer<String, String>() { x in return x }
         
