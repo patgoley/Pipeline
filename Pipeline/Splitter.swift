@@ -3,7 +3,7 @@
 //  Pipeline
 //
 //  Created by Patrick Goley on 6/18/16.
-//  Copyright © 2016 arbiter. All rights reserved.
+//  Copyright © 2016 patgoley. All rights reserved.
 //
 
 import Foundation
