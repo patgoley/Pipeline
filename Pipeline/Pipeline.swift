@@ -18,7 +18,7 @@ public final class Pipeline<T, U>: TransformerType {
     
     public typealias OutputType = U
     
-    public var consumer: (OutputType -> Void)? {
+    public var consumer: ((OutputType) -> Void)? {
         
         didSet {
             
@@ -26,26 +26,25 @@ public final class Pipeline<T, U>: TransformerType {
         }
     }
     
+    private let _consume: (InputType) -> Void
+    
     private let _setConsumer: (OutputType -> Void)? -> Void
-    
-    private let head: AnyConsumer<InputType>
-    
-    private let tail: AnyConsumable<OutputType>
     
     public convenience init<Head: TransformerType where Head.InputType == InputType, Head.OutputType == OutputType>(head: Head) {
         
-        let headConsumer = AnyConsumer(base: head)
+        let consume = { (value: InputType) in
+            
+            head.consume(value)
+        }
         
-        self.init(head: headConsumer, tail: head)
+        self.init(consume: consume, tail: head)
     }
     
-    private init<Tail: TransformerType where Tail.OutputType == OutputType>(head: AnyConsumer<InputType>, tail: Tail) {
+    private init<Tail: TransformerType where Tail.OutputType == OutputType>(consume: (InputType) -> Void, tail: Tail) {
         
-        self.head = head
+        _consume = consume
         
-        self.tail = AnyConsumable(base: tail)
-        
-        _setConsumer = { consumer in
+        _setConsumer = { (consumer: ((OutputType) -> Void)?) in
             
             tail.consumer = consumer
         }
@@ -54,25 +53,24 @@ public final class Pipeline<T, U>: TransformerType {
     
     public func consume(input: InputType) {
         
-        head.consume(input)
+        _consume(input)
     }
     
     func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> Pipeline<InputType, Transform.OutputType> {
         
-        tail.consumer = transformer.consume
+        consumer = transformer.consume
         
-        return Pipeline<InputType, Transform.OutputType>(head: head, tail: transformer)
+        return Pipeline<InputType, Transform.OutputType>(consume: consume, tail: transformer)
     }
     
-    public func then<NewOutput>(transformer: U -> NewOutput) -> Pipeline<InputType, NewOutput> {
+    public func then<NewOutput>(transform: U -> NewOutput) -> Pipeline<InputType, NewOutput> {
         
-        let transform = ThunkTransformer(transform: transformer)
+        let transformer = ThunkTransformer(transform: transform)
         
-        tail.consumer = transform.consume
+        consumer = transformer.consume
         
-        return Pipeline<InputType, NewOutput>(head: head, tail: transform)
+        return Pipeline<InputType, NewOutput>(consume: consume, tail: transformer)
     }
-
 }
 
 public extension Pipeline {
