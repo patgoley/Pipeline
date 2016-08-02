@@ -33,27 +33,3 @@ public final class ValueProducer<T>: TransformerType {
     }
 }
 
-public final class ThunkProducer<T>: TransformerType {
-    
-    public typealias InputType = Void
-    
-    let thunk: () -> T
-    
-    public var consumer: (T -> Void)?
-    
-    public init(thunk: () -> T) {
-        
-        self.thunk = thunk
-    }
-    
-    public func consume(_: Void) {
-        
-        if let consumer = consumer {
-            
-            let value = thunk()
-            
-            consumer(value)
-        }
-    }
-}
-
