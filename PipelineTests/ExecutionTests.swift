@@ -13,7 +13,7 @@ class ExecutionTests: XCTestCase {
     
     func testProduceWithCompletion() {
         
-        let pipe = { return 123 } |> AnyTransformer<Int, Int>() { x in
+        let pipe = { return 123 } |> ThunkTransformer<Int, Int>() { x in
             
             return x + 5
         }
@@ -53,7 +53,7 @@ class ExecutionTests: XCTestCase {
             |> asyncBackgroundThread()
             |> delay(1)
             |> ensureMainThread()
-            |> AnyTransformer<Int, Int>() { x in
+            |> ThunkTransformer<Int, Int>() { x in
             
             return x + 5
         }

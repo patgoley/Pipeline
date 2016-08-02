@@ -67,6 +67,11 @@ public final class Timer: TransformerType {
             target()
         }
     }
+    
+    deinit {
+        
+        print("yep")
+    }
 }
 
 

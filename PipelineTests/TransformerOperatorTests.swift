@@ -15,7 +15,7 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTransformerConsumerFunction() {
         
-        let pipe = AnyTransformer() { (x: Int) in return x + 5 } |> { (x: Int) in
+        let pipe = ThunkTransformer() { (x: Int) in return x + 5 } |> { (x: Int) in
             
             XCTAssert(x == 326)
         }
@@ -25,9 +25,9 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTransformerTypeTransformerFunction() {
         
-        let pipe = AnyTransformer() { (x: Int) in return x + 5 } |> { (x: Int) in return x * 2 }
+        let pipe = ThunkTransformer() { (x: Int) in return x + 5 } |> { (x: Int) in return x * 2 }
         
-        pipe.finally { x in
+        pipe.then { x in
                 
             XCTAssert(x == 652)
         }
@@ -37,7 +37,7 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTransformerPipelineTransformerFunction() {
         
-        let pipe = AnyTransformer() { (x: Int) in return x + 5 } |> { (x: Int) in return x * 2 }
+        let pipe = ThunkTransformer() { (x: Int) in return x + 5 } |> { (x: Int) in return x * 2 }
         
         let finalPipe = pipe |> { (x: Int) in return x + 1 }
         
@@ -51,9 +51,9 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTransformerFunctionTransformerType() {
         
-        let pipe = { (x: Int) in return x + 5 } |> AnyTransformer() { (x: Int) in return x * 2 }
+        let pipe = { (x: Int) in return x + 5 } |> ThunkTransformer() { (x: Int) in return x * 2 }
         
-        pipe.finally { x in
+        pipe.then { x in
             
             XCTAssert(x == 652)
         }
@@ -63,9 +63,9 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTransformerPipelineConsumerType() {
         
-        let pipe = AnyTransformer() { (x: Int) in return x + 5 } |> { (x: Int) in return x * 2 }
+        let pipe = ThunkTransformer() { (x: Int) in return x + 5 } |> { (x: Int) in return x * 2 }
         
-        let _ = pipe |> AnyConsumer() { x in
+        let _ = pipe |> ThunkTransformer() { x in
             
             XCTAssert(x == 652)
         }
@@ -75,7 +75,7 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTransformerPipelineConsumerFunction() {
         
-        let pipe = AnyTransformer() { return $0 + 5 } |> { return $0 * 2 }
+        let pipe = ThunkTransformer() { return $0 + 5 } |> { return $0 * 2 }
         
         let _ = pipe |> { (x: Int) in
             
@@ -97,8 +97,8 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTwoTransformerTypes() {
         
-        let pipe = AnyTransformer() { (x: Int) in return x + 5 }
-            |> AnyTransformer() { (x: Int) in return "\(x)" }
+        let pipe = ThunkTransformer() { (x: Int) in return x + 5 }
+            |> ThunkTransformer() { (x: Int) in return "\(x)" }
             |> { (x: String) in
             
             XCTAssert(x == "326")
@@ -109,12 +109,12 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTransformerPipelineTransformerType() {
         
-        let head = AnyTransformer() { (x: Int) in return x + 5 }
+        let head = ThunkTransformer() { (x: Int) in return x + 5 }
         
-        let pipe = TransformerPipeline(head: head)
+        let pipe = Pipeline(head: head)
         
         let finalPipe = pipe
-            |> AnyTransformer() { (x: Int) in return "\(x)" }
+            |> ThunkTransformer() { (x: Int) in return "\(x)" }
             |> { (x: String) in
             
             XCTAssert(x == "326")
@@ -136,71 +136,11 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTransformerFunctionConsumerType() {
         
-        let pipe = { (x: Int) in return "\(x)" } |> AnyConsumer() { (x: String) in
+        let pipe = { (x: Int) in return "\(x)" } |> ThunkTransformer() { (x: String) in
             
             XCTAssert(x == "321")
         }
         
         pipe.consume(inputValue)
-    }
-    
-    func testTransformerPipelineThrowingFunction() {
-        
-        let expt = expectationWithDescription("error")
-        
-        let pipe = { (str: String) in return str }
-            |> AnyTransformer<String, String>() { str in return str }
-            |> { (str: String) throws -> Int in
-            
-                if str.characters.count == 3 {
-                    
-                    throw MockError()
-                    
-                } else {
-                    
-                    return str.characters.count
-                }
-                
-            } |> { (result: Result<Int>) in
-                
-                switch result {
-                case .Success(_): XCTFail()
-                default: break
-                }
-                
-                expt.fulfill()
-            }
-        
-        pipe.consume("abc")
-        
-        waitForExpectationsWithTimeout(0.1, handler: nil)
-    }
-    
-    func testThrowingFunctionTransformerType() {
-        
-        let throwingProducer: () throws -> String = {
-            
-            throw MockError()
-        }
-            
-        let pipe = throwingProducer
-            |> AnyTransformer() { (result: Result<String>) -> String in
-                
-            switch result {
-                
-            case .Success(let str):
-                XCTFail()
-                return str
-            default: break
-            }
-                
-            return ""
-                
-        } |> { (str: String) in
-                    
-            print(str)
-        }
-        
-        pipe.produce()
     }
 }

@@ -10,49 +10,59 @@ import Foundation
 
 // Creation
 
+/*
+ TransformerType, TransformerType
+*/
+
 public func |> <T: TransformerType, U: TransformerType where T.OutputType == U.InputType>(lhs: T, rhs: U) -> Pipeline<T.InputType, U.OutputType>  {
     
     return Pipeline(head: lhs).then(rhs)
 }
+
+/*
+ TransformerType, transform function
+*/
 
 public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType -> U) -> Pipeline<T.InputType, U>  {
     
     return Pipeline(head: lhs).then(rhs)
 }
 
-public func |> <T: TransformerType, S, U where T.InputType == U>(lhs: S -> U, rhs: T) -> Pipeline<S, T.OutputType>  {
+/*
+ transform function, TransformerType
+*/
+
+public func |> <T: TransformerType, U, V where T.InputType == V>(lhs: U -> V, rhs: T) -> Pipeline<U, T.OutputType>  {
     
     return Pipeline(head: lhs).then(rhs)
 }
+
+/*
+ transform function, transform function
+*/
 
 public func |> <S, U, V>(lhs: S -> U, rhs: U -> V) -> Pipeline<S, V>  {
     
     return Pipeline(head: lhs).then(rhs)
 }
 
-public func |> <T: TransformerType, U>(lhs: T, rhs: T.OutputType throws -> U) -> Pipeline<T.InputType, Result<U>>  {
-    
-    let resultFunction = map(rhs)
-    
-    return Pipeline(head: lhs).then(resultFunction)
-}
 
 // Chaining
 
-public func |> <I, O, U where U: TransformerType, O == U.InputType>(lhs: Pipeline<I, O>, rhs: U) -> Pipeline<I, U.OutputType>  {
+/* 
+ Pipeline, TransformerType
+*/
+
+public func |> <I, O, T where T: TransformerType, O == T.InputType>(lhs: Pipeline<I, O>, rhs: T) -> Pipeline<I, T.OutputType>  {
     
     return lhs.then(rhs)
 }
+
+/*
+ Pipeline, transform function
+*/
 
 public func |> <I, O, C>(lhs: Pipeline<I, O>, rhs: O -> C) -> Pipeline<I, C>  {
     
     return lhs.then(rhs)
 }
-
-public func |> <I, O, C>(lhs: Pipeline<I, O>, rhs: O throws -> C) -> Pipeline<I, Result<C>>  {
-    
-    let resultFunction = map(rhs)
-    
-    return lhs.then(resultFunction)
-}
-

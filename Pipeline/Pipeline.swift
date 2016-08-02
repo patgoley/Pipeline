@@ -9,11 +9,7 @@
 import Foundation
 
 /*
- An empty type that is returned once a Pipeline has been fully
- constructed. This means the Pipeline begins with a ConsumableType
- and ends with a ConsumerType, which disallows any futher composition.
- The creator of the Pipeline should retain it as long as it needs to 
- function.
+ A type that is constructed from composing any combination of TransformerTypes or functions 
 */
 
 public final class Pipeline<T, U>: TransformerType {
@@ -22,59 +18,61 @@ public final class Pipeline<T, U>: TransformerType {
     
     public typealias OutputType = U
     
-    public var consumer: (OutputType -> Void)?
-    
-    private let _consume: (InputType) -> Void
+    public var consumer: (OutputType -> Void)? {
+        
+        didSet {
+            
+            _setConsumer(consumer)
+        }
+    }
     
     private let _setConsumer: (OutputType -> Void)? -> Void
     
+    private let head: AnyConsumer<InputType>
+    
+    private let tail: AnyConsumable<OutputType>
+    
     public convenience init<Head: TransformerType where Head.InputType == InputType, Head.OutputType == OutputType>(head: Head) {
         
-        let setConsumer = { consumer in
-         
-            head.consumer = consumer
-        }
+        let headConsumer = AnyConsumer(base: head)
         
-        self.init(consume: head.consume, setConsumer: setConsumer)
+        self.init(head: headConsumer, tail: head)
     }
     
-    public init(consume: (InputType) -> Void, setConsumer: (OutputType -> Void)? -> Void) {
+    private init<Tail: TransformerType where Tail.OutputType == OutputType>(head: AnyConsumer<InputType>, tail: Tail) {
         
-        _consume = consume
+        self.head = head
         
-        _setConsumer = setConsumer
+        self.tail = AnyConsumable(base: tail)
+        
+        _setConsumer = { consumer in
+            
+            tail.consumer = consumer
+        }
     }
+
     
     public func consume(input: InputType) {
         
-        _consume(input)
+        head.consume(input)
     }
     
     func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> Pipeline<InputType, Transform.OutputType> {
         
-        _setConsumer(transformer.consume)
+        tail.consumer = transformer.consume
         
-        let setConsumer = { consumer in
-            
-            transformer.consumer = consumer
-        }
-        
-        return Pipeline<InputType, Transform.OutputType>(consume: _consume, setConsumer: setConsumer)
+        return Pipeline<InputType, Transform.OutputType>(head: head, tail: transformer)
     }
     
-    public func then<NewOutput>(transform: U -> NewOutput) -> Pipeline<InputType, NewOutput> {
+    public func then<NewOutput>(transformer: U -> NewOutput) -> Pipeline<InputType, NewOutput> {
         
-        let transformer = ThunkTransformer(transform: transform)
+        let transform = ThunkTransformer(transform: transformer)
         
-        _setConsumer(transformer.consume)
+        tail.consumer = transform.consume
         
-        let setConsumer = { consumer in
-            
-            transformer.consumer = consumer
-        }
-        
-        return Pipeline<InputType, NewOutput>(consume: _consume, setConsumer: setConsumer)
+        return Pipeline<InputType, NewOutput>(head: head, tail: transform)
     }
+
 }
 
 public extension Pipeline {

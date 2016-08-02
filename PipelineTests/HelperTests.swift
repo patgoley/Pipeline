@@ -18,20 +18,6 @@ struct MockError: ErrorType { }
 
 class HelperTests: XCTestCase {
     
-    func testMap() {
-        
-        let string = "abc"
-        
-        let pipe = ValueProducer<String>(string)
-            |> map() { (str: String) -> Int in str.characters.count }
-            |> { (count: Int) in
-                
-                XCTAssert(count == 3)
-        }
-        
-        pipe.produce()
-    }
-    
     func testFilter() {
         
         let pipe = filter() { (str: String) -> Bool in str.characters.count == 3 }
@@ -60,47 +46,6 @@ class HelperTests: XCTestCase {
         pipe.consume("a")
         
         pipe.consume("abcd")
-    }
-    
-    func testThrowingMap() {
-        
-        let pipe = AnyTransformer<String, String>() { str in
-            
-            return str
-        
-        } |> { (str: String) throws -> Int in
-            
-            if str.characters.count == 3 {
-                
-                throw MockError()
-                
-            } else {
-                
-                return str.characters.count
-            }
-        }
-        
-        pipe.consumer = { (result: Result<Int>) in
-            
-            switch result {
-                
-            case .Success(_): XCTFail()
-            default: break
-            }
-        }
-        
-        pipe.consume("abc")
-        
-        pipe.consumer = { (result: Result<Int>) in
-            
-            switch result {
-                
-            case .Error(_): XCTFail()
-            default: break
-            }
-        }
-        
-        pipe.consume("a")
     }
 
     func testGuardUnwrap() {

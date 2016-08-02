@@ -11,18 +11,18 @@ import Foundation
 
 public final class Join<T, U>: TransformerType {
     
-    public typealias InputType = T
-    
-    public func consume(input: InputType) {
-        
-        fatalError()
-    }
+    public typealias InputType = Void
     
     public typealias OutputType = (T?, U?)
     
     private var latestValues: (first: T?, second: U?) = (nil, nil)
     
     public var consumer: (OutputType -> Void)?
+    
+    public func consume(_: Void) {
+        
+        consumer?(latestValues)
+    }
     
     public func consumeFirst(input: T) {
     
@@ -41,7 +41,7 @@ public final class Join<T, U>: TransformerType {
 
 public final class ThreeJoin<T, U, V>: TransformerType {
     
-    public typealias InputType = T
+    public typealias InputType = Void
     
     public typealias OutputType = (T?, U?, V?)
     
@@ -49,9 +49,9 @@ public final class ThreeJoin<T, U, V>: TransformerType {
     
     public var consumer: (OutputType -> Void)?
     
-    public func consume(input: InputType) {
+    public func consume(_: Void) {
         
-        fatalError()
+        consumer?(latestValues)
     }
     
     public func consumeFirst(input: T) {

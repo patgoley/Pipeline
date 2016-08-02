@@ -13,8 +13,8 @@ class JoinTests: XCTestCase {
     
     func testTwoJoin() {
         
-        let intTransformer = AnyTransformer<Int, Int>() { (x: Int) in return x }
-        let stringTransformer = AnyTransformer<String, String>() { (str: String) in return str }
+        let intTransformer = ThunkTransformer<Int, Int>() { (x: Int) in return x }
+        let stringTransformer = ThunkTransformer<String, String>() { (str: String) in return str }
         
         let joinedPipeline = join(intTransformer, second: stringTransformer)
         
@@ -35,9 +35,9 @@ class JoinTests: XCTestCase {
     
     func testThreeJoin() {
         
-        let intTransformer = AnyTransformer<Int, Int>() { (x: Int) in return x }
-        let stringTransformer = AnyTransformer<String, String>() { (str: String) in return str }
-        let doubleTransformer = AnyTransformer<Double, Double>() { (x: Double) in return x }
+        let intTransformer = ThunkTransformer<Int, Int>() { (x: Int) in return x }
+        let stringTransformer = ThunkTransformer<String, String>() { (str: String) in return str }
+        let doubleTransformer = ThunkTransformer<Double, Double>() { (x: Double) in return x }
         
         let joinedPipeline = join(intTransformer, second: stringTransformer, third: doubleTransformer)
         

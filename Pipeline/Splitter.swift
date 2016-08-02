@@ -13,13 +13,20 @@ public final class Splitter<T>: TransformerType {
     
     public typealias InputType = T
     
-    public typealias OutputType = Void
+    public typealias OutputType = T
     
     let consumers: [AnyConsumer<T>]
     
-    init<C: ConsumerType where C.InputType == T>(consumers: [C]) {
+    public var consumer: (InputType -> Void)?
+    
+    init<Transformer: TransformerType where Transformer.InputType == T>(transformers: [Transformer]) {
         
-        self.consumers = consumers.map(AnyConsumer.init)
+        self.consumers = transformers.map(AnyConsumer.init)
+    }
+    
+    init(consumers: [AnyConsumer<T>]) {
+        
+        self.consumers = consumers
     }
     
     public func consume(input: InputType) {
@@ -28,12 +35,14 @@ public final class Splitter<T>: TransformerType {
             
             consumer.consume(input)
         }
+        
+        consumer?(input)
     }
 }
 
-public func split<C: ConsumerType>(consumers: C...) -> Splitter<C.InputType> {
+public func split<T: TransformerType>(transformers: T...) -> Splitter<T.InputType> {
     
-    return Splitter(consumers: consumers)
+    return Splitter(transformers: transformers)
 }
 
 public func split<I>(consumerFunctions: (I) -> Void...) -> Splitter<I> {
@@ -43,9 +52,9 @@ public func split<I>(consumerFunctions: (I) -> Void...) -> Splitter<I> {
     return Splitter(consumers: consumers)
 }
 
-public func split<C: ConsumerType>(consumers: [C]) -> Splitter<C.InputType> {
+public func split<T: TransformerType>(transformers: [T]) -> Splitter<T.InputType> {
     
-    return Splitter(consumers: consumers)
+    return Splitter(transformers: transformers)
 }
 
 public func split<I>(consumerFunctions: [(I) -> Void]) -> Splitter<I> {

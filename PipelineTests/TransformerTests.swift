@@ -19,28 +19,4 @@ class TransformerTests: XCTestCase {
         
         pipe.produce()
     }
-    
-    func testAnyTransformerNoConsumer() {
-        
-        let transformer = AnyTransformer<String, String>() { (x: String) in
-            
-            XCTAssert(false)
-            
-            return x + "4"
-        }
-        
-        transformer.consume("123")
-    }
-    
-    func testAsyncTransformerNoConsumer() {
-        
-        let transformer = AsyncTransformer() { (x: String, consumer: String -> Void) in
-            
-            XCTAssert(false)
-            
-            consumer(x + "4")
-        }
-        
-        transformer.consume("123")
-    }
 }

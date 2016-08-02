@@ -11,11 +11,11 @@ import Pipeline
 
 class EagerTests: XCTestCase {
 
-    func testEagerTransformerIsEager() {
+    func testThunkTransformerIsEager() {
         
         let expt = expectationWithDescription("success")
         
-        let transformer = EagerTransformer<Int, String>() { (x: Int) in
+        let transformer = ThunkTransformer<Int, String>() { (x: Int) in
             
             expt.fulfill()
             
@@ -25,17 +25,5 @@ class EagerTests: XCTestCase {
         transformer.consume(123)
         
         waitForExpectationsWithTimeout(0.1, handler: nil)
-    }
-    
-    func testAnyTransformerIsLazy() {
-        
-        let transformer = AnyTransformer<Int, String>() { (x: Int) in
-            
-            XCTFail()
-            
-            return "\(x)"
-        }
-        
-        transformer.consume(123)
     }
 }

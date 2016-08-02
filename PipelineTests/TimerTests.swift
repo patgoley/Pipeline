@@ -19,7 +19,7 @@ class TimerTests: XCTestCase {
         
         var count = 0
         
-        let _ = timer
+        let pipeline = timer
             |> logToConsole
             |> { _ in
             
@@ -27,7 +27,7 @@ class TimerTests: XCTestCase {
             
             count += 1
             
-            if count == 2 {
+            if count == 1 {
                 
                 timerExpectation.fulfill()
             }

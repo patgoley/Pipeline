@@ -15,9 +15,9 @@ public protocol TransformerType: class {
     
     associatedtype OutputType
     
-    var consumer: (OutputType -> Void)? { get set }
-    
     func consume(input: InputType)
+    
+    var consumer: (OutputType -> Void)? { get set }
 }
 
 /*
@@ -85,14 +85,9 @@ public final class ThunkTransformer<T, U>: TransformerType  {
     
     public func consume(input: InputType) {
         
-        guard let consumer = self.consumer else {
-            
-            return
-        }
-        
         let result = transform(input)
         
-        consumer(result)
+        consumer?(result)
     }
 }
 
@@ -215,41 +210,10 @@ public final class AsyncTransformer<T, U>: TransformerType  {
     
     public func consume(input: InputType) {
         
-        guard let consumer = self.consumer else {
-            
-            return
+        execute(input) { [weak self] (value: OutputType) in
+         
+            self?.consumer?(value)
         }
-        
-        execute(input, consumer)
-    }
-}
-
-/*
- A version of AnyTransformer that always executes it's transform
- even if no consumer is listening to receive the result. This is 
- useful for operations that generate an ignorable result.
-*/
-
-public final class EagerTransformer<T, U>: TransformerType {
-    
-    public typealias InputType = T
-    
-    public typealias OutputType = U
-    
-    public var consumer: (OutputType -> Void)?
-    
-    public let transform: InputType -> OutputType
-    
-    public init(transform: InputType -> OutputType) {
-        
-        self.transform = transform
-    }
-    
-    public func consume(input: InputType) {
-        
-        let result = transform(input)
-        
-        consumer?(result)
     }
 }
 
