@@ -92,23 +92,29 @@ class SplitterTests: XCTestCase {
         
         let exptA = expectationWithDescription("consumer a")
         
-        let consumerA = { (x: Int) in
+        let consumerA = ThunkTransformer() { (x: Int) -> Int in
             
             XCTAssert(x == 123)
             
             exptA.fulfill()
+            
+            return x
         }
         
         let exptB = expectationWithDescription("consumer b")
         
-        let consumerB = { (x: Int) in
+        let consumerB = ThunkTransformer() { (x: Int) -> String in
             
             XCTAssert(x == 123)
             
             exptB.fulfill()
+            
+            return "\(x)"
         }
         
-        let pipe = ValueProducer(123) |> split(consumerA, consumerB)
+        let consumers: [AnyConsumer<Int>] = [AnyConsumer(base: consumerA), AnyConsumer(base: consumerB)]
+        
+        let pipe = ValueProducer(123) |> split(consumers)
         
         pipe.produce()
         

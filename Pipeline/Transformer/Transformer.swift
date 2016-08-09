@@ -9,22 +9,14 @@
 import Foundation
 
 
-public protocol TransformerType: class {
+public protocol TransformerType: ProducerType, ConsumerType {
     
-    associatedtype InputType
-    
-    associatedtype OutputType
-    
-    func consume(input: InputType)
-    
-    var consumer: (OutputType -> Void)? { get set }
+
 }
 
 /*
- A type erasure class for TransformerType. Users of this class
- only need to provide the function for transforming values,
- AnyTransformer implements TransformerType and uses the provided
- function for transforming values.
+ A type erasure class for TransformerType. This can be used to abstract
+ any implementation of TransformerType.
  */
 
 public final class AnyTransformer<T, U>: TransformerType  {
@@ -62,10 +54,7 @@ public final class AnyTransformer<T, U>: TransformerType  {
 }
 
 /*
- A type erasure class for TransformerType. Users of this class
- only need to provide the function for transforming values,
- AnyTransformer implements TransformerType and uses the provided
- function for transforming values.
+ An implemenation of TransformerType using the function passed to init.
 */
 
 public final class ThunkTransformer<T, U>: TransformerType  {
@@ -88,72 +77,6 @@ public final class ThunkTransformer<T, U>: TransformerType  {
         let result = transform(input)
         
         consumer?(result)
-    }
-}
-
-
-/*
- A transformer that filters values not meeting a certain condition. 
- If a value is encountered that doesn't meet the condition, the
- execution of the Pipeline ends (no value is passed to the consumer).
-*/
-
-public final class FilterTransformer<T>: TransformerType  {
-    
-    public typealias InputType = T
-    
-    public typealias OutputType = T
-    
-    public var consumer: (OutputType -> Void)?
-    
-    public let condition: InputType -> Bool
-    
-    public init(condition: InputType -> Bool) {
-        
-        self.condition = condition
-    }
-    
-    public func consume(input: InputType) {
-        
-        guard let consumer = self.consumer where condition(input) else {
-                
-                return
-        }
-        
-        consumer(input)
-    }
-}
-
-/*
- A transformer that attempts to unwrap optionals and pass along
- the unwrapped valued. If nil is encountered, the execution of the
- Pipeline ends (no value is passed to the consumer).
-*/
-
-public final class OptionalFilterTransformer<T, U>: TransformerType  {
-    
-    public typealias InputType = T
-    
-    public typealias OutputType = U
-    
-    public var consumer: (OutputType -> Void)?
-    
-    public let transform: InputType -> OutputType?
-    
-    public init(transform: InputType -> OutputType?) {
-        
-        self.transform = transform
-    }
-    
-    public func consume(input: InputType) {
-        
-        guard let consumer = self.consumer,
-                  result = transform(input) else {
-            
-            return
-        }
-        
-        consumer(result)
     }
 }
 

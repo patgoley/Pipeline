@@ -49,7 +49,6 @@ public final class Pipeline<T, U>: TransformerType {
             tail.consumer = consumer
         }
     }
-
     
     public func consume(input: InputType) {
         

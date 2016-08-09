@@ -34,7 +34,8 @@
 		8E59D48C1D5044E4006D1769 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59D4861D5044E4006D1769 /* Helpers.swift */; };
 		8E59D48D1D5044E4006D1769 /* Join.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59D4871D5044E4006D1769 /* Join.swift */; };
 		8E59D48E1D5044E4006D1769 /* OptionalHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59D4881D5044E4006D1769 /* OptionalHelpers.swift */; };
-		8E59D48F1D5044E4006D1769 /* Splitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59D4891D5044E4006D1769 /* Splitter.swift */; };
+		8E59D48F1D5044E4006D1769 /* Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59D4891D5044E4006D1769 /* Split.swift */; };
+		8E59D4911D505413006D1769 /* FilterTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59D4901D505413006D1769 /* FilterTransformer.swift */; };
 		8E85D3801D0F8F2400B26697 /* HelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E85D37F1D0F8F2400B26697 /* HelperTests.swift */; };
 		8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */; };
 		8EDF35EA1D1BAA180099FB91 /* ErrorHandlingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDF35E91D1BAA180099FB91 /* ErrorHandlingTests.swift */; };
@@ -47,6 +48,8 @@
 		8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF82E9A1CEAA745006FCF13 /* Operators.swift */; };
 		8EF8DF3D1D15B3E1005BA467 /* SplitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8DF3C1D15B3E1005BA467 /* SplitterTests.swift */; };
 		8EF8DF411D15C7B0005BA467 /* JoinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8DF401D15C7B0005BA467 /* JoinTests.swift */; };
+		8EF8F0C71D597FC800880778 /* Producer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F0C61D597FC800880778 /* Producer.swift */; };
+		8EF8F0C91D5980A500880778 /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF8F0C81D5980A500880778 /* Consumer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,7 +92,8 @@
 		8E59D4861D5044E4006D1769 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		8E59D4871D5044E4006D1769 /* Join.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Join.swift; sourceTree = "<group>"; };
 		8E59D4881D5044E4006D1769 /* OptionalHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalHelpers.swift; sourceTree = "<group>"; };
-		8E59D4891D5044E4006D1769 /* Splitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splitter.swift; sourceTree = "<group>"; };
+		8E59D4891D5044E4006D1769 /* Split.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Split.swift; sourceTree = "<group>"; };
+		8E59D4901D505413006D1769 /* FilterTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTransformer.swift; sourceTree = "<group>"; };
 		8E85D37F1D0F8F2400B26697 /* HelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperTests.swift; sourceTree = "<group>"; };
 		8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
 		8EDF35E91D1BAA180099FB91 /* ErrorHandlingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandlingTests.swift; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 		8EF82E9A1CEAA745006FCF13 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		8EF8DF3C1D15B3E1005BA467 /* SplitterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitterTests.swift; sourceTree = "<group>"; };
 		8EF8DF401D15C7B0005BA467 /* JoinTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinTests.swift; sourceTree = "<group>"; };
+		8EF8F0C61D597FC800880778 /* Producer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Producer.swift; sourceTree = "<group>"; };
+		8EF8F0C81D5980A500880778 /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +138,7 @@
 				8E57D11E1CF51E6300EDAF4A /* ValueProducer.swift */,
 				8E59D4801D50448A006D1769 /* ThunkProducer.swift */,
 				8E59D47E1D503DB6006D1769 /* AnyConsumable.swift */,
+				8EF8F0C61D597FC800880778 /* Producer.swift */,
 			);
 			path = Producer;
 			sourceTree = "<group>";
@@ -140,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				8E57D1201CF51E6300EDAF4A /* Transformer.swift */,
+				8E59D4901D505413006D1769 /* FilterTransformer.swift */,
 				8E57D1211CF51E6300EDAF4A /* TransformerOperators.swift */,
 			);
 			path = Transformer;
@@ -149,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				8E59D4831D5044E4006D1769 /* AnyConsumer.swift */,
+				8EF8F0C81D5980A500880778 /* Consumer.swift */,
 			);
 			path = Consumer;
 			sourceTree = "<group>";
@@ -160,7 +169,7 @@
 				8E59D4861D5044E4006D1769 /* Helpers.swift */,
 				8E59D4871D5044E4006D1769 /* Join.swift */,
 				8E59D4881D5044E4006D1769 /* OptionalHelpers.swift */,
-				8E59D4891D5044E4006D1769 /* Splitter.swift */,
+				8E59D4891D5044E4006D1769 /* Split.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -349,12 +358,15 @@
 				8E59D48A1D5044E4006D1769 /* AnyConsumer.swift in Sources */,
 				8E59D48C1D5044E4006D1769 /* Helpers.swift in Sources */,
 				8E59D48D1D5044E4006D1769 /* Join.swift in Sources */,
-				8E59D48F1D5044E4006D1769 /* Splitter.swift in Sources */,
+				8E59D48F1D5044E4006D1769 /* Split.swift in Sources */,
 				8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */,
 				8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */,
+				8EF8F0C91D5980A500880778 /* Consumer.swift in Sources */,
 				8E57D12A1CF51E6300EDAF4A /* ValueProducer.swift in Sources */,
 				8E59D48B1D5044E4006D1769 /* ErrorHandling.swift in Sources */,
+				8E59D4911D505413006D1769 /* FilterTransformer.swift in Sources */,
 				8E59D48E1D5044E4006D1769 /* OptionalHelpers.swift in Sources */,
+				8EF8F0C71D597FC800880778 /* Producer.swift in Sources */,
 				8EF72F1A1D14E039009B921F /* Execution.swift in Sources */,
 				8E57D12C1CF51E6300EDAF4A /* TransformerOperators.swift in Sources */,
 			);

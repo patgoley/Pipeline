@@ -24,11 +24,8 @@ public final class ThunkProducer<T>: TransformerType {
     
     public func consume(_: Void) {
         
-        if let consumer = consumer {
-            
-            let value = thunk()
-            
-            consumer(value)
-        }
+        let value = thunk()
+        
+        consumer?(value)
     }
 }

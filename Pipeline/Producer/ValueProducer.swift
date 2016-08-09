@@ -13,6 +13,8 @@ public final class ValueProducer<T>: TransformerType {
     
     public typealias InputType = Void
     
+    public typealias OutputType = T
+    
     let value: T
     
     public var consumer: (T -> Void)?
