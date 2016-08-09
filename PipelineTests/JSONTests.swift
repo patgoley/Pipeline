@@ -3,7 +3,7 @@
 //  Pipeline
 //
 //  Created by Patrick Goley on 5/15/16.
-//  Copyright © 2016 arbiter. All rights reserved.
+//  Copyright © 2016 pipeline. All rights reserved.
 //
 
 import XCTest
