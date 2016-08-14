@@ -14,7 +14,7 @@ public extension NSBundle {
     
     func loadResource(name: String, fileExtension: String) -> ProducerPipeline<NSData> {
         
-        return { self.URLForResource(name, withExtension: fileExtension) }
+        return { () -> NSURL? in return self.URLForResource(name, withExtension: fileExtension) }
             |> forceUnwrap
             |> NSFileManager.loadFromURL
             |> crashOnError
