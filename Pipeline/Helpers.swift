@@ -14,7 +14,7 @@ import Foundation
  passed to the consumer.
 */
 
-public func filter<T>(condition: (T) -> Bool) -> FilterTransformer<T> {
+public func filter<T>(_ condition: @escaping (T) -> Bool) -> FilterTransformer<T> {
     
     return FilterTransformer(condition: condition)
 }
@@ -25,7 +25,7 @@ public func filter<T>(condition: (T) -> Bool) -> FilterTransformer<T> {
  passed to the consumer.
  */
 
-public func unless<T>(condition: (T) -> Bool) -> FilterTransformer<T> {
+public func unless<T>(_ condition: @escaping (T) -> Bool) -> FilterTransformer<T> {
     
     return FilterTransformer() { (value: T) in
         
@@ -39,7 +39,7 @@ public func unless<T>(condition: (T) -> Bool) -> FilterTransformer<T> {
  explicit, making the code more readable and expressive.
 */
 
-public func map<T, U>(transform: (T) -> U) -> AnyTransformer<T, U> {
+public func map<T, U>(_ transform: @escaping (T) -> U) -> AnyTransformer<T, U> {
     
     return AnyTransformer(transform: transform)
 }
@@ -50,7 +50,7 @@ public func map<T, U>(transform: (T) -> U) -> AnyTransformer<T, U> {
  that fail to cast.
 */
 
-public func downCast<T, U>(toType: U.Type) -> OptionalFilterTransformer<T, U> {
+public func downCast<T, U>(_ toType: U.Type) -> OptionalFilterTransformer<T, U> {
     
     return OptionalFilterTransformer() { $0 as? U }
 }
@@ -60,7 +60,7 @@ public func downCast<T, U>(toType: U.Type) -> OptionalFilterTransformer<T, U> {
  that fail to cast.
  */
 
-public func forceCast<T, U>(toType: U.Type) -> AnyTransformer<T, U> {
+public func forceCast<T, U>(_ toType: U.Type) -> AnyTransformer<T, U> {
     
     return AnyTransformer() { $0 as! U }
 }

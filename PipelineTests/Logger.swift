@@ -18,7 +18,7 @@ func logger<T: CustomStringConvertible>() -> PassThroughTransformer<T> {
     }
 }
 
-func logToConsole<T>(input: T) -> T {
+func logToConsole<T>(_ input: T) -> T {
     
     print(input)
     

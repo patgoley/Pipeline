@@ -13,18 +13,18 @@ public final class Join<T, U>: ConsumableType {
     
     public typealias OutputType = (T?, U?)
     
-    private var latestValues: (first: T?, second: U?) = (nil, nil)
+    fileprivate var latestValues: (first: T?, second: U?) = (nil, nil)
     
-    public var consumer: (OutputType -> Void)?
+    public var consumer: ((OutputType) -> Void)?
     
-    public func consumeFirst(input: T) {
+    public func consumeFirst(_ input: T) {
     
         latestValues.first = input
         
         consumer?(latestValues)
     }
     
-    public func consumeSecond(input: U) {
+    public func consumeSecond(_ input: U) {
         
         latestValues.second = input
         
@@ -36,25 +36,25 @@ public final class ThreeJoin<T, U, V>: ConsumableType {
     
     public typealias OutputType = (T?, U?, V?)
     
-    private var latestValues: (first: T?, second: U?, third: V?) = (nil, nil, nil)
+    fileprivate var latestValues: (first: T?, second: U?, third: V?) = (nil, nil, nil)
     
-    public var consumer: (OutputType -> Void)?
+    public var consumer: ((OutputType) -> Void)?
     
-    public func consumeFirst(input: T) {
+    public func consumeFirst(_ input: T) {
         
         latestValues.first = input
         
         consumer?(latestValues)
     }
     
-    public func consumeSecond(input: U) {
+    public func consumeSecond(_ input: U) {
         
         latestValues.second = input
         
         consumer?(latestValues)
     }
     
-    public func consumeThird(input: V) {
+    public func consumeThird(_ input: V) {
         
         latestValues.third = input
         
@@ -62,7 +62,7 @@ public final class ThreeJoin<T, U, V>: ConsumableType {
     }
 }
 
-public func join<C: ConsumableType, S: ConsumableType>(first: C, second: S) -> Join<C.OutputType, S.OutputType> {
+public func join<C: ConsumableType, S: ConsumableType>(_ first: C, second: S) -> Join<C.OutputType, S.OutputType> {
     
     let join = Join<C.OutputType, S.OutputType>()
     
@@ -72,7 +72,7 @@ public func join<C: ConsumableType, S: ConsumableType>(first: C, second: S) -> J
     return join
 }
 
-public func join<C: ConsumableType, S: ConsumableType, M: ConsumableType>(first: C, second: S, third: M) -> ThreeJoin<C.OutputType, S.OutputType, M.OutputType> {
+public func join<C: ConsumableType, S: ConsumableType, M: ConsumableType>(_ first: C, second: S, third: M) -> ThreeJoin<C.OutputType, S.OutputType, M.OutputType> {
     
     let join = ThreeJoin<C.OutputType, S.OutputType, M.OutputType>()
     

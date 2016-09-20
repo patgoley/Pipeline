@@ -16,5 +16,5 @@ import Foundation
  function.
 */
 
-public class Pipeline { }
+open class Pipeline { }
 

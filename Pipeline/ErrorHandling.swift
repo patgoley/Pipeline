@@ -18,7 +18,7 @@ public enum Result<T> {
     
     public typealias ValueType = T
     
-    case Success(T), Error(ErrorType)
+    case success(T), error(Error)
 }
 
 /*
@@ -32,11 +32,11 @@ public func swallowError<T>(log logMessage: String? = nil) -> OptionalFilterTran
         
         switch result {
             
-        case .Success(let value):
+        case .success(let value):
             
             return value
             
-        case .Error(let err):
+        case .error(let err):
             
             if let message = logMessage {
                 
@@ -53,7 +53,7 @@ public func swallowError<T>(log logMessage: String? = nil) -> OptionalFilterTran
  logs it with a message
  */
 
-public func logError<T>(message: String) -> OptionalFilterTransformer<Result<T>, T> {
+public func logError<T>(_ message: String) -> OptionalFilterTransformer<Result<T>, T> {
     
     return onError() { err in
         
@@ -65,17 +65,17 @@ public func logError<T>(message: String) -> OptionalFilterTransformer<Result<T>,
  Unwraps a Result<T> value or pass the error to a closure
  */
 
-public func onError<T>(handler: (ErrorType) -> Void) -> OptionalFilterTransformer<Result<T>, T> {
+public func onError<T>(_ handler: @escaping (Error) -> Void) -> OptionalFilterTransformer<Result<T>, T> {
     
     return OptionalFilterTransformer() { result in
         
         switch result {
             
-        case .Success(let value):
+        case .success(let value):
             
             return value
             
-        case .Error(let err):
+        case .error(let err):
             
             handler(err)
             
@@ -89,17 +89,17 @@ public func onError<T>(handler: (ErrorType) -> Void) -> OptionalFilterTransforme
  back on in case of errors.
  */
 
-public func resolveError<T>(resolve: () -> T) -> (Result<T>) -> T {
+public func resolveError<T>(_ resolve: @escaping () -> T) -> (Result<T>) -> T {
     
     return { result in
         
         switch result {
             
-        case .Success(let value):
+        case .success(let value):
             
             return value
             
-        case .Error(_):
+        case .error(_):
             
             return resolve()
         }
@@ -111,17 +111,17 @@ public func resolveError<T>(resolve: () -> T) -> (Result<T>) -> T {
  to fall back on in case of errors.
  */
 
-public func resolveError<P: ProducerType, V where P.OutputType == V>(resolve: P) -> AsyncTransformer<Result<V>, V> {
+public func resolveError<P: ProducerType, V>(_ resolve: P) -> AsyncTransformer<Result<V>, V> where P.OutputType == V {
     
     return AsyncTransformer() { result, consumer in
         
         switch result {
             
-        case .Success(let value):
+        case .success(let value):
             
              consumer(value)
             
-        case .Error(_):
+        case .error(_):
             
             resolve.consumer = consumer
             
@@ -134,15 +134,15 @@ public func resolveError<P: ProducerType, V where P.OutputType == V>(resolve: P)
  Unwraps a Result<T> value or causes a fatalError
 */
 
-public func crashOnError<T>(result: Result<T>) -> T {
+public func crashOnError<T>(_ result: Result<T>) -> T {
     
     switch result {
         
-    case .Success(let value):
+    case .success(let value):
         
         return value
         
-    case .Error(let err):
+    case .error(let err):
         
         fatalError("ERROR: \(err)")
     }
@@ -154,7 +154,7 @@ public func crashOnError<T>(result: Result<T>) -> T {
  or the ErrorType that was thrown.
 */
 
-public func map<T, U>(transform: (T) throws -> U) -> (T) -> Result<U> {
+public func map<T, U>(_ transform: @escaping (T) throws -> U) -> (T) -> Result<U> {
     
     return { input in
         
@@ -162,11 +162,11 @@ public func map<T, U>(transform: (T) throws -> U) -> (T) -> Result<U> {
             
             let result = try transform(input)
             
-            return .Success(result)
+            return .success(result)
             
         } catch let err {
             
-            return .Error(err)
+            return .error(err)
         }
     }
 }
@@ -177,7 +177,7 @@ public func map<T, U>(transform: (T) throws -> U) -> (T) -> Result<U> {
  or the ErrorType that was thrown.
  */
 
-public func map<U>(produce: () throws -> U) -> () -> Result<U> {
+public func map<U>(_ produce: @escaping () throws -> U) -> () -> Result<U> {
     
     return { input in
         
@@ -185,11 +185,11 @@ public func map<U>(produce: () throws -> U) -> () -> Result<U> {
             
             let result = try produce()
             
-            return .Success(result)
+            return .success(result)
             
         } catch let err {
             
-            return .Error(err)
+            return .error(err)
         }
     }
 }

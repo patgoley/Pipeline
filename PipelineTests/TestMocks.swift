@@ -9,12 +9,12 @@
 import Foundation
 
 
-func integerIdentity(x: Int) -> Int {
+func integerIdentity(_ x: Int) -> Int {
     
     return x
 }
 
-func stringIdentity(str: String) -> String {
+func stringIdentity(_ str: String) -> String {
     
     return str
 }

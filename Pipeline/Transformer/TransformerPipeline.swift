@@ -15,7 +15,7 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
     
     public typealias OutputType = U
     
-    public var consumer: (OutputType -> Void)? {
+    public var consumer: ((OutputType) -> Void)? {
         
         didSet {
             
@@ -23,20 +23,20 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
         }
     }
     
-    private let _setConsumer: (OutputType -> Void)? -> Void
+    fileprivate let _setConsumer: (((OutputType) -> Void)?) -> Void
     
-    private let head: AnyConsumer<InputType>
+    fileprivate let head: AnyConsumer<InputType>
     
-    private let tail: AnyConsumable<OutputType>
+    fileprivate let tail: AnyConsumable<OutputType>
     
-    public convenience init<Head: TransformerType where Head.InputType == InputType, Head.OutputType == OutputType>(head: Head) {
+    public convenience init<Head: TransformerType>(head: Head) where Head.InputType == InputType, Head.OutputType == OutputType {
         
         let headConsumer = AnyConsumer(base: head)
         
         self.init(head: headConsumer, tail: head)
     }
     
-    private init<Tail: TransformerType where Tail.OutputType == OutputType>(head: AnyConsumer<InputType>, tail: Tail) {
+    fileprivate init<Tail: TransformerType>(head: AnyConsumer<InputType>, tail: Tail) where Tail.OutputType == OutputType {
         
         self.head = head
         
@@ -48,19 +48,19 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
         }
     }
     
-    public func consume(input: InputType) {
+    public func consume(_ input: InputType) {
         
         head.consume(input)
     }
     
-    func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> TransformerPipeline<InputType, Transform.OutputType> {
+    func then<Transform: TransformerType>(_ transformer: Transform) -> TransformerPipeline<InputType, Transform.OutputType> where Transform.InputType == OutputType {
         
         tail.consumer = transformer.consume
         
         return TransformerPipeline<InputType, Transform.OutputType>(head: head, tail: transformer)
     }
     
-    public func then<NewOutput>(transformer: U -> NewOutput) -> TransformerPipeline<InputType, NewOutput> {
+    public func then<NewOutput>(_ transformer: @escaping (U) -> NewOutput) -> TransformerPipeline<InputType, NewOutput> {
         
         let transform = AnyTransformer(transform: transformer)
         
@@ -69,14 +69,14 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
         return TransformerPipeline<InputType, NewOutput>(head: head, tail: transform)
     }
     
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> AnyConsumer<InputType> {
+    public func finally<Consumer: ConsumerType>(_ consumer: Consumer) -> AnyConsumer<InputType> where Consumer.InputType == OutputType {
         
         self.consumer = consumer.consume
         
         return AnyConsumer(base: self)
     }
     
-    public func finally(consumer: OutputType -> Void) -> AnyConsumer<InputType> {
+    public func finally(_ consumer: @escaping (OutputType) -> Void) -> AnyConsumer<InputType> {
         
         self.consumer = consumer
         
@@ -86,7 +86,7 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
 
 public extension TransformerPipeline {
     
-    convenience init(head: InputType -> OutputType) {
+    convenience init(head: @escaping (InputType) -> OutputType) {
         
         let transformer = AnyTransformer(transform: head)
         

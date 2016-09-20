@@ -18,7 +18,7 @@ class ExecutionTests: XCTestCase {
             return x + 5
         }
         
-        let expt = expectationWithDescription("execution")
+        let expt = expectation(description: "execution")
         
         pipe.produce() { x in
             
@@ -27,12 +27,12 @@ class ExecutionTests: XCTestCase {
             expt.fulfill()
         }
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testConsumeWithCompletion() {
         
-        let expt = expectationWithDescription("execution")
+        let expt = expectation(description: "execution")
         
         let pipe = { (x: Int) in return x + 5 }
             |> { (x: Int) in return "\(x)" }
@@ -44,7 +44,7 @@ class ExecutionTests: XCTestCase {
             expt.fulfill()
         }
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testPipelineProduceWithRetainsSelf() {

@@ -10,17 +10,17 @@ import Foundation
 
 // Creation
 
-public func |> <S: ConsumableType, T: TransformerType where S.OutputType == T.InputType>(lhs: S, rhs: T) -> ConsumablePipeline<T.OutputType>  {
+public func |> <S: ConsumableType, T: TransformerType>(lhs: S, rhs: T) -> ConsumablePipeline<T.OutputType> where S.OutputType == T.InputType  {
     
     return ConsumablePipeline(head: lhs).then(rhs)
 }
 
-public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: S.OutputType -> NewOutput) -> ConsumablePipeline<NewOutput>  {
+public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: @escaping (S.OutputType) -> NewOutput) -> ConsumablePipeline<NewOutput>  {
     
     return ConsumablePipeline(head: lhs).then(rhs)
 }
 
-public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: S.OutputType throws -> NewOutput) -> ConsumablePipeline<Result<NewOutput>>  {
+public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: @escaping (S.OutputType) throws -> NewOutput) -> ConsumablePipeline<Result<NewOutput>>  {
     
     let resultFunction = map(rhs)
     
@@ -34,12 +34,12 @@ public func |> <T: TransformerType>(lhs: ConsumablePipeline<T.InputType>, rhs: T
     return lhs.then(rhs)
 }
 
-public func |> <T, U>(lhs: ConsumablePipeline<T>, rhs: T -> U) -> ConsumablePipeline<U>  {
+public func |> <T, U>(lhs: ConsumablePipeline<T>, rhs: @escaping (T) -> U) -> ConsumablePipeline<U>  {
     
     return lhs.then(rhs)
 }
 
-public func |> <Input, NewOutput>(lhs: ConsumablePipeline<Input>, rhs: Input throws -> NewOutput) -> ConsumablePipeline<Result<NewOutput>>  {
+public func |> <Input, NewOutput>(lhs: ConsumablePipeline<Input>, rhs: @escaping (Input) throws -> NewOutput) -> ConsumablePipeline<Result<NewOutput>>  {
     
     let resultFunction = map(rhs)
     
@@ -48,22 +48,22 @@ public func |> <Input, NewOutput>(lhs: ConsumablePipeline<Input>, rhs: Input thr
 
 // finally
 
-public func |> <S: ConsumableType, C: ConsumerType where S.OutputType == C.InputType>(lhs: S, rhs: C) -> Pipeline  {
+public func |> <S: ConsumableType, C: ConsumerType>(lhs: S, rhs: C) -> Pipeline where S.OutputType == C.InputType  {
     
     return ConsumablePipeline(head: lhs).finally(rhs)
 }
 
-public func |> <C: ConsumableType>(lhs: C, rhs: C.OutputType -> Void) -> Pipeline  {
+public func |> <C: ConsumableType>(lhs: C, rhs: @escaping (C.OutputType) -> Void) -> Pipeline  {
     
     return ConsumablePipeline(head: lhs).finally(rhs)
 }
 
-public func |> <O, C: ConsumerType where C.InputType == O>(lhs: ConsumablePipeline<O>, rhs: C) -> Pipeline  {
+public func |> <O, C: ConsumerType>(lhs: ConsumablePipeline<O>, rhs: C) -> Pipeline where C.InputType == O  {
     
     return lhs.finally(rhs)
 }
 
-public func |> <O>(lhs: ConsumablePipeline<O>, rhs: O -> Void) -> Pipeline  {
+public func |> <O>(lhs: ConsumablePipeline<O>, rhs: @escaping (O) -> Void) -> Pipeline  {
     
     return lhs.finally(rhs)
 }

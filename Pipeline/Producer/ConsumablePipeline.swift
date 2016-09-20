@@ -13,11 +13,11 @@ public final class ConsumablePipeline<T>: Pipeline, ConsumableType {
     
     public typealias OutputType = T
     
-    private let head: Any
+    fileprivate let head: Any
     
-    private let tail: AnyConsumable<T>
+    fileprivate let tail: AnyConsumable<T>
     
-    public var consumer: (OutputType -> Void)? {
+    public var consumer: ((OutputType) -> Void)? {
         
         didSet {
             
@@ -25,16 +25,16 @@ public final class ConsumablePipeline<T>: Pipeline, ConsumableType {
         }
     }
     
-    private let _setConsumer: (T -> Void)? -> Void
+    fileprivate let _setConsumer: (((T) -> Void)?) -> Void
     
-    public convenience init<Head: ConsumableType where Head.OutputType == T>(head: Head) {
+    public convenience init<Head: ConsumableType>(head: Head) where Head.OutputType == T {
         
         let tail = AnyConsumable(base: head)
         
         self.init(head: head, tail: tail)
     }
     
-    private init<Tail: ConsumableType where Tail.OutputType == T>(head: Any, tail: Tail) {
+    fileprivate init<Tail: ConsumableType>(head: Any, tail: Tail) where Tail.OutputType == T {
         
         self.head = head
         
@@ -46,14 +46,14 @@ public final class ConsumablePipeline<T>: Pipeline, ConsumableType {
         }
     }
     
-    public func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> ConsumablePipeline<Transform.OutputType> {
+    public func then<Transform: TransformerType>(_ transformer: Transform) -> ConsumablePipeline<Transform.OutputType> where Transform.InputType == OutputType {
         
         tail.consumer = transformer.consume
         
         return ConsumablePipeline<Transform.OutputType>(head: head, tail: transformer)
     }
     
-    public func then<NewOutput>(transformer: OutputType -> NewOutput) -> ConsumablePipeline<NewOutput> {
+    public func then<NewOutput>(_ transformer: @escaping (OutputType) -> NewOutput) -> ConsumablePipeline<NewOutput> {
         
         let transform = AnyTransformer(transform: transformer)
         
@@ -62,14 +62,14 @@ public final class ConsumablePipeline<T>: Pipeline, ConsumableType {
         return ConsumablePipeline<NewOutput>(head: head, tail: transform)
     }
     
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Pipeline {
+    public func finally<Consumer: ConsumerType>(_ consumer: Consumer) -> Pipeline where Consumer.InputType == OutputType {
         
         self.consumer = consumer.consume
         
         return self
     }
     
-    public func finally(consumer: OutputType -> Void) -> Pipeline {
+    public func finally(_ consumer: @escaping (OutputType) -> Void) -> Pipeline {
         
         self.consumer = consumer
         

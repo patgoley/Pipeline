@@ -34,7 +34,7 @@ class TransformerTests: XCTestCase {
     
     func testAsyncTransformerNoConsumer() {
         
-        let transformer = AsyncTransformer() { (x: String, consumer: String -> Void) in
+        let transformer = AsyncTransformer() { (x: String, consumer: (String) -> Void) in
             
             XCTAssert(false)
             

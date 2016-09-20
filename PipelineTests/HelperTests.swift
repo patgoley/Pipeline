@@ -14,7 +14,7 @@ struct Person {
     var name: String?
 }
 
-struct MockError: ErrorType { }
+struct MockError: Error { }
 
 class HelperTests: XCTestCase {
     
@@ -84,7 +84,7 @@ class HelperTests: XCTestCase {
             
             switch result {
                 
-            case .Success(_): XCTFail()
+            case .success(_): XCTFail()
             default: break
             }
         }
@@ -95,7 +95,7 @@ class HelperTests: XCTestCase {
             
             switch result {
                 
-            case .Error(_): XCTFail()
+            case .error(_): XCTFail()
             default: break
             }
         }
@@ -171,11 +171,11 @@ class HelperTests: XCTestCase {
     
     func testForceCast() {
         
-        let anyObject: AnyObject = NSNumber(int: 3)
+        let anyObject: AnyObject = NSNumber(value: 3 as Int32)
         
         let pipe = ValueProducer<AnyObject>(anyObject)
             |> forceCast(NSNumber.self)
-            |> { (x: NSNumber) in XCTAssert(x.intValue == 3) }
+            |> { (x: NSNumber) in XCTAssert(x.int32Value == 3) }
         
         pipe.produce()
     }
@@ -184,7 +184,7 @@ class HelperTests: XCTestCase {
         
         let optional: String? = nil
         
-        let expt = expectationWithDescription("nil")
+        let expt = expectation(description: "nil")
         
         let pipe = ValueProducer<String?>(optional)
             |> resolveNil() { () -> String in return "abc" }
@@ -197,14 +197,14 @@ class HelperTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testResolveNilSome() {
         
         let optional: String? = "abc"
         
-        let expt = expectationWithDescription("some")
+        let expt = expectation(description: "some")
         
         let pipe = ValueProducer<String?>(optional)
             |> resolveNil() { () -> String in
@@ -222,14 +222,14 @@ class HelperTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testResolveNilProducer() {
         
         let optional: String? = nil
         
-        let expt = expectationWithDescription("nil")
+        let expt = expectation(description: "nil")
         
         let pipe = ValueProducer<String?>(optional)
             |> resolveNil(ThunkProducer<String>() { return "abc" })
@@ -242,14 +242,14 @@ class HelperTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testResolveNilProducerSome() {
         
         let optional: String? = "abc"
         
-        let expt = expectationWithDescription("some")
+        let expt = expectation(description: "some")
         
         let pipe = ValueProducer<String?>(optional)
             |> resolveNil(ThunkProducer<String>() {
@@ -267,6 +267,6 @@ class HelperTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 }

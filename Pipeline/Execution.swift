@@ -11,7 +11,7 @@ import Foundation
 
 public extension ProducerType {
     
-    func produce(consumer: (OutputType) -> Void) {
+    func produce(_ consumer: @escaping (OutputType) -> Void) {
         
         let originalConsumer = self.consumer
             
@@ -32,7 +32,7 @@ public extension ProducerType {
 
 public extension TransformerType {
     
-    func consume(value: InputType, consumer: (OutputType) -> Void) {
+    func consume(_ value: InputType, consumer: @escaping (OutputType) -> Void) {
         
         let originalConsumer = self.consumer
             

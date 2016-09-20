@@ -24,16 +24,16 @@ public final class AnyTransformer<T, U>: TransformerType  {
     
     public typealias OutputType = U
     
-    public var consumer: (OutputType -> Void)?
+    public var consumer: ((OutputType) -> Void)?
     
-    public let transform: InputType -> OutputType
+    public let transform: (InputType) -> OutputType
     
-    public init(transform: InputType -> OutputType) {
+    public init(transform: @escaping (InputType) -> OutputType) {
         
         self.transform = transform
     }
     
-    public func consume(input: InputType) {
+    public func consume(_ input: InputType) {
         
         guard let consumer = self.consumer else {
             
@@ -59,18 +59,18 @@ public final class FilterTransformer<T>: TransformerType  {
     
     public typealias OutputType = T
     
-    public var consumer: (OutputType -> Void)?
+    public var consumer: ((OutputType) -> Void)?
     
-    public let condition: InputType -> Bool
+    public let condition: (InputType) -> Bool
     
-    public init(condition: InputType -> Bool) {
+    public init(condition: @escaping (InputType) -> Bool) {
         
         self.condition = condition
     }
     
-    public func consume(input: InputType) {
+    public func consume(_ input: InputType) {
         
-        guard let consumer = self.consumer where condition(input) else {
+        guard let consumer = self.consumer , condition(input) else {
                 
                 return
         }
@@ -91,19 +91,19 @@ public final class OptionalFilterTransformer<T, U>: TransformerType  {
     
     public typealias OutputType = U
     
-    public var consumer: (OutputType -> Void)?
+    public var consumer: ((OutputType) -> Void)?
     
-    public let transform: InputType -> OutputType?
+    public let transform: (InputType) -> OutputType?
     
-    public init(transform: InputType -> OutputType?) {
+    public init(transform: @escaping (InputType) -> OutputType?) {
         
         self.transform = transform
     }
     
-    public func consume(input: InputType) {
+    public func consume(_ input: InputType) {
         
         guard let consumer = self.consumer,
-                  result = transform(input) else {
+                  let result = transform(input) else {
             
             return
         }
@@ -125,16 +125,16 @@ public final class PassThroughTransformer<T>: TransformerType  {
     
     public typealias OutputType = T
     
-    public var consumer: (OutputType -> Void)?
+    public var consumer: ((OutputType) -> Void)?
     
-    public let observe: InputType -> Void
+    public let observe: (InputType) -> Void
     
-    public init(observe: InputType -> Void) {
+    public init(observe: @escaping (InputType) -> Void) {
         
         self.observe = observe
     }
     
-    public func consume(input: InputType) {
+    public func consume(_ input: InputType) {
         
         observe(input)
         
@@ -154,16 +154,16 @@ public final class AsyncTransformer<T, U>: TransformerType  {
     
     public typealias OutputType = U
     
-    public var consumer: (OutputType -> Void)?
+    public var consumer: ((OutputType) -> Void)?
     
-    public let execute: (InputType, (OutputType -> Void)) -> Void
+    public let execute: (InputType, @escaping ((OutputType) -> Void)) -> Void
     
-    public init(execute: (InputType, (OutputType -> Void)) -> Void) {
+    public init(execute: @escaping (InputType, @escaping ((OutputType) -> Void)) -> Void) {
         
         self.execute = execute
     }
     
-    public func consume(input: InputType) {
+    public func consume(_ input: InputType) {
         
         guard let consumer = self.consumer else {
             
@@ -186,16 +186,16 @@ public final class EagerTransformer<T, U>: TransformerType {
     
     public typealias OutputType = U
     
-    public var consumer: (OutputType -> Void)?
+    public var consumer: ((OutputType) -> Void)?
     
-    public let transform: InputType -> OutputType
+    public let transform: (InputType) -> OutputType
     
-    public init(transform: InputType -> OutputType) {
+    public init(transform: @escaping (InputType) -> OutputType) {
         
         self.transform = transform
     }
     
-    public func consume(input: InputType) {
+    public func consume(_ input: InputType) {
         
         let result = transform(input)
         

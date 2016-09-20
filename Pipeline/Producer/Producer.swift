@@ -19,7 +19,7 @@ public final class AnyProducer<T>: ProducerType {
     
     public typealias OutputType = T
     
-    public var consumer: (T -> Void)? {
+    public var consumer: ((T) -> Void)? {
         
         didSet {
             
@@ -27,11 +27,11 @@ public final class AnyProducer<T>: ProducerType {
         }
     }
     
-    private let _setConsumer: (T -> Void)? -> Void
+    fileprivate let _setConsumer: (((T) -> Void)?) -> Void
     
-    private let _produce: () -> Void
+    fileprivate let _produce: () -> Void
     
-    public init<Base: ProducerType where Base.OutputType == OutputType>(base: Base) {
+    public init<Base: ProducerType>(base: Base) where Base.OutputType == OutputType {
         
         _produce = base.produce
         

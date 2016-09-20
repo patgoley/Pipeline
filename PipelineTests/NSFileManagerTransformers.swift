@@ -9,36 +9,36 @@
 import Foundation
 import Pipeline
 
-public enum FileError: ErrorType {
+public enum FileError: Error {
     
-    case NotFound
+    case notFound
 }
 
-public extension NSFileManager {
+public extension FileManager {
     
-    static func loadFromURL(url: NSURL) -> Result<NSData> {
+    static func loadFromURL(_ url: URL) -> Result<Data> {
         
-        if let data = NSData(contentsOfURL: url) {
+        if let data = try? Data(contentsOf: url) {
             
-            return .Success(data)
+            return .success(data)
             
         } else {
             
-            return .Error(FileError.NotFound)
+            return .error(FileError.notFound)
         }
     }
     
-    static func loadFromPath(path: String) -> Result<NSData> {
+    static func loadFromPath(_ path: String) -> Result<Data> {
         
-        let fileManager = NSFileManager()
+        let fileManager = FileManager()
         
-        if let data = fileManager.contentsAtPath(path) {
+        if let data = fileManager.contents(atPath: path) {
             
-            return .Success(data)
+            return .success(data)
             
         } else {
             
-            return .Error(FileError.NotFound)
+            return .error(FileError.notFound)
         }
     }
 }
