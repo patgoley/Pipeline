@@ -14,6 +14,7 @@ public func |> <P: ProducerType, U: TransformerType where P.OutputType == U.Inpu
     
     return ProducerPipeline(head: lhs).then(rhs)
 }
+
 public func |> <P: ProducerType, U>(lhs: P, rhs: P.OutputType -> U) -> ProducerPipeline<U>  {
     
     return ProducerPipeline(head: lhs).then(rhs)
