@@ -27,12 +27,11 @@ class TransformerOperatorTests: XCTestCase {
         
         let pipe = AnyTransformer() { (x: Int) in return x + 5 } |> { (x: Int) in return x * 2 }
         
-        pipe.finally { x in
+        pipe.finally({ x in
                 
             XCTAssert(x == 652)
-        }
-        
-        pipe.consume(inputValue)
+            
+        }).consume(inputValue)
     }
     
     func testTransformerPipelineTransformerFunction() {
@@ -53,12 +52,11 @@ class TransformerOperatorTests: XCTestCase {
         
         let pipe = { (x: Int) in return x + 5 } |> AnyTransformer() { (x: Int) in return x * 2 }
         
-        pipe.finally { x in
+        pipe.finally({
             
-            XCTAssert(x == 652)
-        }
-        
-        pipe.consume(inputValue)
+            x in XCTAssert(x == 652)
+            
+        }).consume(inputValue)
     }
     
     func testTransformerPipelineConsumerType() {

@@ -15,7 +15,7 @@ class ThreadingTests: XCTestCase {
         
         let expt = expectation(description: "async")
         
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
             
             XCTAssert(!Thread.isMainThread)
             

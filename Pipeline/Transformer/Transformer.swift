@@ -70,7 +70,7 @@ public final class FilterTransformer<T>: TransformerType  {
     
     public func consume(_ input: InputType) {
         
-        guard let consumer = self.consumer , condition(input) else {
+        guard let consumer = self.consumer, condition(input) else {
                 
                 return
         }
