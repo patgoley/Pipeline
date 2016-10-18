@@ -8,16 +8,16 @@
 
 import Foundation
 
-// Creation
+// Chaining
 
 public func |> <S: ConsumableType, T: TransformerType>(lhs: S, rhs: T) -> ConsumablePipeline<T.OutputType> where S.OutputType == T.InputType  {
     
-    return ConsumablePipeline(head: lhs).then(rhs)
+    return lhs.then(rhs)
 }
 
 public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: @escaping (S.OutputType) -> NewOutput) -> ConsumablePipeline<NewOutput>  {
     
-    return ConsumablePipeline(head: lhs).then(rhs)
+    return lhs.then(rhs)
 }
 
 public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: @escaping (S.OutputType) throws -> NewOutput) -> ConsumablePipeline<Result<NewOutput>>  {
@@ -27,24 +27,6 @@ public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: @escaping (S.OutputTy
     return ConsumablePipeline(head: lhs).then(resultFunction)
 }
 
-// Chaining
-
-public func |> <T: TransformerType>(lhs: ConsumablePipeline<T.InputType>, rhs: T) -> ConsumablePipeline<T.OutputType>  {
-    
-    return lhs.then(rhs)
-}
-
-public func |> <T, U>(lhs: ConsumablePipeline<T>, rhs: @escaping (T) -> U) -> ConsumablePipeline<U>  {
-    
-    return lhs.then(rhs)
-}
-
-public func |> <Input, NewOutput>(lhs: ConsumablePipeline<Input>, rhs: @escaping (Input) throws -> NewOutput) -> ConsumablePipeline<Result<NewOutput>>  {
-    
-    let resultFunction = map(rhs)
-    
-    return lhs.then(resultFunction)
-}
 
 // finally
 

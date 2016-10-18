@@ -51,24 +51,6 @@ public func |> <V, T>(lhs: @escaping () throws -> V, rhs: @escaping (Result<V>) 
     return ProducerPipeline(head: producer).then(rhs)
 }
 
-// Chaining
-
-public func |> <O, T>(lhs: ProducerPipeline<O>, rhs: T) -> ProducerPipeline<T.OutputType> where T: TransformerType, O == T.InputType  {
-    
-    return lhs.then(rhs)
-}
-
-public func |> <O, C>(lhs: ProducerPipeline<O>, rhs: @escaping (O) -> C) -> ProducerPipeline<C>  {
-    
-    return lhs.then(rhs)
-}
-
-public func |> <Input, NewOutput>(lhs: ProducerPipeline<Input>, rhs: @escaping (Input) throws -> NewOutput) -> ProducerPipeline<Result<NewOutput>>  {
-    
-    let resultFunction = map(rhs)
-    
-    return lhs.then(resultFunction)
-}
 
 // Finally
 

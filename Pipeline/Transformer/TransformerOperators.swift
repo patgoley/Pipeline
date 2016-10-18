@@ -37,24 +37,6 @@ public func |> <T: TransformerType, U>(lhs: T, rhs: @escaping (T.OutputType) thr
     return TransformerPipeline(head: lhs).then(resultFunction)
 }
 
-// Chaining
-
-public func |> <I, O, U>(lhs: TransformerPipeline<I, O>, rhs: U) -> TransformerPipeline<I, U.OutputType> where U: TransformerType, O == U.InputType  {
-    
-    return lhs.then(rhs)
-}
-
-public func |> <I, O, C>(lhs: TransformerPipeline<I, O>, rhs: @escaping (O) -> C) -> TransformerPipeline<I, C>  {
-    
-    return lhs.then(rhs)
-}
-
-public func |> <I, O, C>(lhs: TransformerPipeline<I, O>, rhs: @escaping (O) throws -> C) -> TransformerPipeline<I, Result<C>>  {
-    
-    let resultFunction = map(rhs)
-    
-    return lhs.then(resultFunction)
-}
 
 // Finally
 
