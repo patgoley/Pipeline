@@ -24,7 +24,7 @@ public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: @escaping (S.OutputTy
     
     let resultFunction = map(rhs)
     
-    return ConsumablePipeline(head: lhs).then(resultFunction)
+    return lhs.then(resultFunction)
 }
 
 
