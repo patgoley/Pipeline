@@ -12,25 +12,25 @@ import Foundation
 
 public func |> <P: ProducerType, U: TransformerType>(lhs: P, rhs: U) -> ProducerPipeline<U.OutputType> where P.OutputType == U.InputType  {
     
-    return ProducerPipeline(head: lhs).then(rhs)
+    return lhs.then(rhs)
 }
 public func |> <P: ProducerType, U>(lhs: P, rhs: @escaping (P.OutputType) -> U) -> ProducerPipeline<U>  {
     
-    return ProducerPipeline(head: lhs).then(rhs)
+    return lhs.then(rhs)
 }
 
 public func |> <V, T: TransformerType>(lhs: @escaping () -> V, rhs: T) -> ProducerPipeline<T.OutputType> where V == T.InputType  {
     
     let thunkProducer = ThunkProducer(thunk: lhs)
     
-    return ProducerPipeline(head: thunkProducer).then(rhs)
+    return thunkProducer.then(rhs)
 }
 
 public func |> <V, T>(lhs: @escaping () -> V, rhs: @escaping (V) -> T) -> ProducerPipeline<T>  {
     
     let thunkProducer = ThunkProducer(thunk: lhs)
     
-    return ProducerPipeline(head: thunkProducer).then(rhs)
+    return thunkProducer.then(rhs)
 }
 
 public func |> <V, T: TransformerType>(lhs: @escaping () throws -> V, rhs: T) -> ProducerPipeline<T.OutputType> where T.InputType == Result<V>  {
@@ -39,7 +39,7 @@ public func |> <V, T: TransformerType>(lhs: @escaping () throws -> V, rhs: T) ->
     
     let producer = ThunkProducer(thunk: throwingProduce)
     
-    return ProducerPipeline(head: producer).then(rhs)
+    return producer.then(rhs)
 }
 
 public func |> <V, T>(lhs: @escaping () throws -> V, rhs: @escaping (Result<V>) -> T) -> ProducerPipeline<T>  {
@@ -48,7 +48,7 @@ public func |> <V, T>(lhs: @escaping () throws -> V, rhs: @escaping (Result<V>) 
     
     let producer = ThunkProducer(thunk: throwingProduce)
     
-    return ProducerPipeline(head: producer).then(rhs)
+    return producer.then(rhs)
 }
 
 

@@ -12,29 +12,29 @@ import Foundation
 
 public func |> <T: TransformerType, U: TransformerType>(lhs: T, rhs: U) -> TransformerPipeline<T.InputType, U.OutputType> where T.OutputType == U.InputType  {
     
-    return TransformerPipeline(head: lhs).then(rhs)
+    return lhs.then(rhs)
 }
 
 public func |> <T: TransformerType, U>(lhs: T, rhs: @escaping (T.OutputType) -> U) -> TransformerPipeline<T.InputType, U>  {
     
-    return TransformerPipeline(head: lhs).then(rhs)
+    return lhs.then(rhs)
 }
 
 public func |> <T: TransformerType, S, U>(lhs: @escaping (S) -> U, rhs: T) -> TransformerPipeline<S, T.OutputType> where T.InputType == U  {
     
-    return TransformerPipeline(head: lhs).then(rhs)
+    return AnyTransformer(transform: lhs).then(rhs)
 }
 
 public func |> <S, U, V>(lhs: @escaping (S) -> U, rhs: @escaping (U) -> V) -> TransformerPipeline<S, V>  {
     
-    return TransformerPipeline(head: lhs).then(rhs)
+    return AnyTransformer(transform: lhs).then(rhs)
 }
 
 public func |> <T: TransformerType, U>(lhs: T, rhs: @escaping (T.OutputType) throws -> U) -> TransformerPipeline<T.InputType, Result<U>>  {
     
     let resultFunction = map(rhs)
     
-    return TransformerPipeline(head: lhs).then(resultFunction)
+    return lhs.then(resultFunction)
 }
 
 
