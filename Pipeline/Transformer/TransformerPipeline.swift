@@ -25,9 +25,9 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
     
     fileprivate let _setConsumer: (((OutputType) -> Void)?) -> Void
     
-    fileprivate let head: AnyConsumer<InputType>
+    let head: AnyConsumer<InputType>
     
-    fileprivate let tail: AnyConsumable<OutputType>
+    let tail: AnyConsumable<OutputType>
     
     public convenience init<Head: TransformerType>(head: Head) where Head.InputType == InputType, Head.OutputType == OutputType {
         
@@ -36,7 +36,7 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
         self.init(head: headConsumer, tail: head)
     }
     
-    fileprivate init<Tail: TransformerType>(head: AnyConsumer<InputType>, tail: Tail) where Tail.OutputType == OutputType {
+    init<Tail: TransformerType>(head: AnyConsumer<InputType>, tail: Tail) where Tail.OutputType == OutputType {
         
         self.head = head
         
@@ -51,22 +51,6 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
     public func consume(_ input: InputType) {
         
         head.consume(input)
-    }
-    
-    func then<Transform: TransformerType>(_ transformer: Transform) -> TransformerPipeline<InputType, Transform.OutputType> where Transform.InputType == OutputType {
-        
-        tail.consumer = transformer.consume
-        
-        return TransformerPipeline<InputType, Transform.OutputType>(head: head, tail: transformer)
-    }
-    
-    public func then<NewOutput>(_ transformer: @escaping (U) -> NewOutput) -> TransformerPipeline<InputType, NewOutput> {
-        
-        let transform = AnyTransformer(transform: transformer)
-        
-        tail.consumer = transform.consume
-        
-        return TransformerPipeline<InputType, NewOutput>(head: head, tail: transform)
     }
     
     public func finally<Consumer: ConsumerType>(_ consumer: Consumer) -> AnyConsumer<InputType> where Consumer.InputType == OutputType {

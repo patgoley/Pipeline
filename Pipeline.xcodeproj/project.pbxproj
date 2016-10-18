@@ -40,6 +40,7 @@
 		8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */; };
 		8ECB98781D1BA523005C5EBE /* OptionalHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB98771D1BA523005C5EBE /* OptionalHelpers.swift */; };
 		8EDF35EA1D1BAA180099FB91 /* ErrorHandlingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDF35E91D1BAA180099FB91 /* ErrorHandlingTests.swift */; };
+		8EE313CB1DB5BB3B00C709A2 /* UtilityTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE313CA1DB5BB3B00C709A2 /* UtilityTransformers.swift */; };
 		8EE644491CE7AEA500403EFC /* Pipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EE644481CE7AEA500403EFC /* Pipeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8EE644501CE7AEA500403EFC /* Pipeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE644451CE7AEA500403EFC /* Pipeline.framework */; };
 		8EE644641CE8600800403EFC /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE644631CE8600800403EFC /* ErrorHandling.swift */; };
@@ -100,6 +101,7 @@
 		8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
 		8ECB98771D1BA523005C5EBE /* OptionalHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalHelpers.swift; sourceTree = "<group>"; };
 		8EDF35E91D1BAA180099FB91 /* ErrorHandlingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandlingTests.swift; sourceTree = "<group>"; };
+		8EE313CA1DB5BB3B00C709A2 /* UtilityTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityTransformers.swift; sourceTree = "<group>"; };
 		8EE644451CE7AEA500403EFC /* Pipeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pipeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE644481CE7AEA500403EFC /* Pipeline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pipeline.h; sourceTree = "<group>"; };
 		8EE6444A1CE7AEA500403EFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				8E57D1201CF51E6300EDAF4A /* Transformer.swift */,
+				8EE313CA1DB5BB3B00C709A2 /* UtilityTransformers.swift */,
 				8E57D1211CF51E6300EDAF4A /* TransformerOperators.swift */,
 				8E57D1221CF51E6300EDAF4A /* TransformerPipeline.swift */,
 			);
@@ -369,6 +372,7 @@
 				8E57D12D1CF51E6300EDAF4A /* TransformerPipeline.swift in Sources */,
 				8EF8DF3B1D15B26D005BA467 /* Splitter.swift in Sources */,
 				8E40C84A1D46F64800F5B6AB /* ConsumablePipeline.swift in Sources */,
+				8EE313CB1DB5BB3B00C709A2 /* UtilityTransformers.swift in Sources */,
 				8EF72F1A1D14E039009B921F /* Execution.swift in Sources */,
 				8E57D12C1CF51E6300EDAF4A /* TransformerOperators.swift in Sources */,
 			);

@@ -15,6 +15,44 @@ public protocol ConsumableType: class {
     var consumer: ((OutputType) -> Void)? { get set }
 }
 
+extension ConsumableType {
+    
+    func then<T>(_ map: @escaping (OutputType) -> T) -> ConsumablePipeline<T> {
+        
+        let transformer = AnyTransformer(transform: map)
+        
+        return then(transformer)
+    }
+    
+    func then<T: TransformerType>(_ transformer: T) -> ConsumablePipeline<T.OutputType> where T.InputType == OutputType {
+        
+        self.consumer = transformer.consume
+        
+        if let pipeline = self as? ConsumablePipeline<OutputType> {
+            
+            return ConsumablePipeline<T.OutputType>(head: pipeline.head, tail: transformer)
+            
+        } else {
+            
+            return ConsumablePipeline<T.OutputType>(head: self, tail: transformer)
+        }
+    }
+    
+    public func then<P: ProducerType>(_ function: @escaping (OutputType) -> P) -> ConsumablePipeline<P.OutputType> {
+        
+        let transformer = AsyncTransformer<OutputType, P.OutputType>() { input, consumer in
+            
+            let producer = function(input)
+            
+            producer.produce(consumer)
+        }
+        
+        consumer = transformer.consume
+        
+        return then(transformer)
+    }
+}
+
 
 public final class AnyConsumable<T>: ConsumableType {
     

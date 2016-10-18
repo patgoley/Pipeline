@@ -13,9 +13,9 @@ public final class ConsumablePipeline<T>: Pipeline, ConsumableType {
     
     public typealias OutputType = T
     
-    fileprivate let head: Any
+    let head: Any
     
-    fileprivate let tail: AnyConsumable<T>
+    let tail: AnyConsumable<T>
     
     public var consumer: ((OutputType) -> Void)? {
         
@@ -34,7 +34,7 @@ public final class ConsumablePipeline<T>: Pipeline, ConsumableType {
         self.init(head: head, tail: tail)
     }
     
-    fileprivate init<Tail: ConsumableType>(head: Any, tail: Tail) where Tail.OutputType == T {
+    init<Tail: ConsumableType>(head: Any, tail: Tail) where Tail.OutputType == T {
         
         self.head = head
         
@@ -44,22 +44,6 @@ public final class ConsumablePipeline<T>: Pipeline, ConsumableType {
             
             tail.consumer = consumer
         }
-    }
-    
-    public func then<Transform: TransformerType>(_ transformer: Transform) -> ConsumablePipeline<Transform.OutputType> where Transform.InputType == OutputType {
-        
-        tail.consumer = transformer.consume
-        
-        return ConsumablePipeline<Transform.OutputType>(head: head, tail: transformer)
-    }
-    
-    public func then<NewOutput>(_ transformer: @escaping (OutputType) -> NewOutput) -> ConsumablePipeline<NewOutput> {
-        
-        let transform = AnyTransformer(transform: transformer)
-        
-        tail.consumer = transform.consume
-        
-        return ConsumablePipeline<NewOutput>(head: head, tail: transform)
     }
     
     public func finally<Consumer: ConsumerType>(_ consumer: Consumer) -> Pipeline where Consumer.InputType == OutputType {
