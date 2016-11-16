@@ -20,9 +20,11 @@ public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: @escaping (S.OutputTy
     return lhs.then(rhs)
 }
 
-public func |> <S: ConsumableType, NewOutput>(lhs: S, rhs: @escaping (S.OutputType) throws -> NewOutput) -> ConsumablePipeline<Result<NewOutput>>  {
+// Throwing
+
+public func !> <S: ConsumableType, NewOutput>(lhs: S, rhs: @escaping (S.OutputType) throws -> NewOutput) -> ConsumablePipeline<Result<NewOutput>>  {
     
-    let resultFunction = map(rhs)
+    let resultFunction = errorMap(rhs)
     
     return lhs.then(resultFunction)
 }

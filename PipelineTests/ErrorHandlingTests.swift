@@ -220,7 +220,7 @@ class ErrorHandlingTests: XCTestCase {
             throw MockError()
         }
         
-        let pipe = map(throwingFunc)
+        let pipe = errorMap(throwingFunc)
             |> resolveError() { err in
                 
                 return "resolved"

@@ -84,7 +84,7 @@ class ProducerOperatorTests: XCTestCase {
         
         let pipe = ValueProducer<Int>(123)
             |> integerIdentity
-            |> { (x: Int) throws -> Int in
+            !> { (x: Int) throws -> Int in
                 
                 throw MockError()
                 
@@ -114,7 +114,7 @@ class ProducerOperatorTests: XCTestCase {
         }
         
         let pipe = throwingFunc
-            |> resolveError() { () -> String in
+            !> resolveError() { () -> String in
                 
                 return "resolved"
                 
@@ -140,7 +140,7 @@ class ProducerOperatorTests: XCTestCase {
         }
         
         let pipe = ThunkProducer<String>() { return "abc" }
-            |> throwingFunc
+            !> throwingFunc
             |> resolveError() { () -> String in
                 
                 return "resolved"
@@ -168,7 +168,7 @@ class ProducerOperatorTests: XCTestCase {
         
         let pipe = { return "abc" }
             |> stringIdentity
-            |> throwingFunc
+            !> throwingFunc
             |> resolveError() {
                 
                 return "resolved"

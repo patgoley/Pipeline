@@ -148,7 +148,7 @@ class TransformerOperatorTests: XCTestCase {
         
         let pipe = { (str: String) in return str }
             |> AnyTransformer<String, String>() { str in return str }
-            |> { (str: String) throws -> Int in
+            !> { (str: String) throws -> Int in
             
                 if str.characters.count == 3 {
                     

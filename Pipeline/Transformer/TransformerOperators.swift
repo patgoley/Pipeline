@@ -30,9 +30,11 @@ public func |> <S, U, V>(lhs: @escaping (S) -> U, rhs: @escaping (U) -> V) -> Tr
     return AnyTransformer(transform: lhs).then(rhs)
 }
 
-public func |> <T: TransformerType, U>(lhs: T, rhs: @escaping (T.OutputType) throws -> U) -> TransformerPipeline<T.InputType, Result<U>>  {
+// Throwing
+
+public func !> <T: TransformerType, U>(lhs: T, rhs: @escaping (T.OutputType) throws -> U) -> TransformerPipeline<T.InputType, Result<U>>  {
     
-    let resultFunction = map(rhs)
+    let resultFunction = errorMap(rhs)
     
     return lhs.then(resultFunction)
 }

@@ -108,7 +108,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectation(description: "error")
         
-        let _ = consumable |> { (x: Int) throws -> String in
+        let _ = consumable !> { (x: Int) throws -> String in
             
                 if x == 123 {
                     
@@ -145,7 +145,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let _ = consumable
             |> AnyTransformer<Int,Int>(transform: integerIdentity)
-            |> { (x: Int) throws -> String in
+            !> { (x: Int) throws -> String in
             
             if x == 123 {
                 
@@ -181,7 +181,7 @@ class ConsumableOperatorTests: XCTestCase {
         let _ = consumable
             |> AnyTransformer<Int, Int>(transform: integerIdentity)
             |> integerIdentity
-            |> { (x: Int) throws -> Int in
+            !> { (x: Int) throws -> Int in
                 
                 throw MockError()
                 

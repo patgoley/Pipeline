@@ -43,8 +43,6 @@ extension TransformerType {
             producer.produce(consumer)
         }
         
-        consumer = transformer.consume
-        
         return then(transformer)
     }
 }

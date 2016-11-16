@@ -10,11 +10,17 @@ import Foundation
 
 // Creation
 
-public func |> <P: ProducerType, U: TransformerType>(lhs: P, rhs: U) -> ProducerPipeline<U.OutputType> where P.OutputType == U.InputType  {
+public func |> <P: ProducerType, T: TransformerType>(lhs: P, rhs: T) -> ProducerPipeline<T.OutputType> where P.OutputType == T.InputType  {
     
     return lhs.then(rhs)
 }
+
 public func |> <P: ProducerType, U>(lhs: P, rhs: @escaping (P.OutputType) -> U) -> ProducerPipeline<U>  {
+    
+    return lhs.then(rhs)
+}
+
+public func |> <P: ProducerType, U: ProducerType>(lhs: P, rhs: @escaping (P.OutputType) -> U) -> ProducerPipeline<U.OutputType>  {
     
     return lhs.then(rhs)
 }
@@ -35,21 +41,31 @@ public func |> <V, T>(lhs: @escaping () -> V, rhs: @escaping (V) -> T) -> Produc
 
 public func |> <V, T: TransformerType>(lhs: @escaping () throws -> V, rhs: T) -> ProducerPipeline<T.OutputType> where T.InputType == Result<V>  {
     
-    let throwingProduce = map(lhs)
+    let throwingProduce = errorMap(lhs)
     
     let producer = ThunkProducer(thunk: throwingProduce)
     
     return producer.then(rhs)
 }
 
-public func |> <V, T>(lhs: @escaping () throws -> V, rhs: @escaping (Result<V>) -> T) -> ProducerPipeline<T>  {
+// Throwing
+
+public func !> <V, T>(lhs: @escaping () throws -> V, rhs: @escaping (Result<V>) -> T) -> ProducerPipeline<T>  {
     
-    let throwingProduce = map(lhs)
+    let throwingProduce = errorMap(lhs)
     
     let producer = ThunkProducer(thunk: throwingProduce)
     
     return producer.then(rhs)
 }
+
+public func !> <P: ProducerType, U>(lhs: P, rhs: @escaping (P.OutputType) throws -> U) -> ProducerPipeline<Result<U>>  {
+    
+    let throwingTransform = errorMap(rhs)
+    
+    return ProducerPipeline(head: lhs).then(throwingTransform)
+}
+
 
 
 // Finally
@@ -58,14 +74,6 @@ public func |> <P: ProducerType, C: ConsumerType>(lhs: P, rhs: C) -> Producible 
     
     return ProducerPipeline(head: lhs).finally(rhs)
 }
-
-public func |> <P: ProducerType, U>(lhs: P, rhs: @escaping (P.OutputType) throws -> U) -> ProducerPipeline<Result<U>>  {
-    
-    let throwingTransform = map(rhs)
-    
-    return ProducerPipeline(head: lhs).then(throwingTransform)
-}
-
 public func |> <P: ProducerType>(lhs: P, rhs: @escaping (P.OutputType) -> Void) -> Producible  {
     
     return ProducerPipeline(head: lhs).finally(rhs)

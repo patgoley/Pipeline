@@ -154,7 +154,7 @@ public func crashOnError<T>(_ result: Result<T>) -> T {
  or the ErrorType that was thrown.
 */
 
-public func map<T, U>(_ transform: @escaping (T) throws -> U) -> (T) -> Result<U> {
+public func errorMap<T, U>(_ transform: @escaping (T) throws -> U) -> (T) -> Result<U> {
     
     return { input in
         
@@ -177,7 +177,7 @@ public func map<T, U>(_ transform: @escaping (T) throws -> U) -> (T) -> Result<U
  or the ErrorType that was thrown.
  */
 
-public func map<U>(_ produce: @escaping () throws -> U) -> () -> Result<U> {
+public func errorMap<U>(_ produce: @escaping () throws -> U) -> () -> Result<U> {
     
     return { input in
         

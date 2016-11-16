@@ -15,3 +15,4 @@ precedencegroup CompositionPrecedence {
 }
 
 infix operator |> : CompositionPrecedence
+infix operator !> : CompositionPrecedence
