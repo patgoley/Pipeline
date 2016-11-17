@@ -26,7 +26,7 @@ extension ConsumableType {
     
     func then<T: TransformerType where T.InputType == OutputType>(transformer: T) -> ConsumablePipeline<T.OutputType> {
     
-        self.consumer = transformer.consume
+        consumer = transformer.consume
         
         if let pipeline = self as? ConsumablePipeline<OutputType> {
         
