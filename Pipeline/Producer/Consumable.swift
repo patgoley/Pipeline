@@ -3,7 +3,6 @@
 //  Pipeline
 //
 //  Created by Patrick Goley on 5/19/16.
-//  Copyright © 2016 arbiter. All rights reserved.
 //
 
 import Foundation
@@ -16,25 +15,40 @@ public protocol ConsumableType: class {
 }
 
 
-public final class AnyConsumable<T>: ConsumableType {
+extension ConsumableType {
     
-    public typealias OutputType = T
-    
-    public var consumer: (T -> Void)? {
+    func then<T>(map: (OutputType) -> T) -> ConsumablePipeline<T> {
         
-        didSet {
-            
-            _setConsumer(consumer)
+        let transformer = AnyTransformer(transform: map)
+        
+        return then(transformer)
+    }
+    
+    func then<T: TransformerType where T.InputType == OutputType>(transformer: T) -> ConsumablePipeline<T.OutputType> {
+    
+        self.consumer = transformer.consume
+        
+        if let pipeline = self as? ConsumablePipeline<OutputType> {
+        
+            return ConsumablePipeline<T.OutputType>(head: pipeline.head, tail: transformer)
+        
+        } else {
+        
+            return ConsumablePipeline<T.OutputType>(head: self, tail: transformer)
         }
     }
     
-    private let _setConsumer: (T -> Void)? -> Void
-    
-    public init<Base: ConsumableType where Base.OutputType == OutputType>(base: Base) {
+    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Pipeline {
         
-        _setConsumer = { consumer in
-            
-            base.consumer = consumer
-        }
+        self.consumer = consumer.consume
+        
+        return ConsumablePipeline(head: self)
+    }
+    
+    public func finally(consumer: OutputType -> Void) -> Pipeline {
+        
+        self.consumer = consumer
+        
+        return ConsumablePipeline(head: self)
     }
 }
