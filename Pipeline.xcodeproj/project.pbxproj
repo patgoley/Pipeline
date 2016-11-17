@@ -321,7 +321,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = arbiter;
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					8EE644441CE7AEA500403EFC = {
 						CreatedOnToolsVersion = 7.3.1;
