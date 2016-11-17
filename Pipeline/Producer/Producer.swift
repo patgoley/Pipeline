@@ -15,35 +15,64 @@ public protocol Producible: class {
 
 public protocol ProducerType: ConsumableType, Producible { }
 
-public final class AnyProducer<T>: ProducerType {
+extension ProducerType {
     
-    public typealias OutputType = T
-    
-    public var consumer: (T -> Void)? {
+    public func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> ProducerPipeline<Transform.OutputType> {
         
-        didSet {
+        consumer = transformer.consume
+        
+        if let pipeline = self as? ProducerPipeline<Transform.OutputType> {
             
-            _setConsumer(consumer)
+            return ProducerPipeline<Transform.OutputType>(head: pipeline.head, tail: transformer)
+            
+        } else {
+            
+            return ProducerPipeline<Transform.OutputType>(head: self, tail: transformer)
         }
     }
     
-    private let _setConsumer: (T -> Void)? -> Void
-    
-    private let _produce: () -> Void
-    
-    public init<Base: ProducerType where Base.OutputType == OutputType>(base: Base) {
+    public func then<NewOutput>(transform: OutputType -> NewOutput) -> ProducerPipeline<NewOutput> {
         
-        _produce = base.produce
+        let transformer = AnyTransformer(transform: transform)
         
-        _setConsumer = { consumer in
+        consumer = transformer.consume
+        
+        if let pipeline = self as? ProducerPipeline<NewOutput> {
             
-            base.consumer = consumer
+            return ProducerPipeline<NewOutput>(head: pipeline.head, tail: transformer)
+            
+        } else {
+            
+            return ProducerPipeline<NewOutput>(head: self, tail: transformer)
         }
     }
     
-    public func produce() {
+    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Producible {
         
-        _produce()
+        self.consumer = consumer.consume
+        
+        if self is ProducerPipeline<OutputType> {
+            
+            return self
+            
+        } else {
+            
+            return ProducerPipeline<OutputType>(head: self)
+        }
+    }
+    
+    public func finally(consume: OutputType -> Void) -> Producible {
+        
+        self.consumer = consume
+        
+        if self is ProducerPipeline<OutputType> {
+            
+            return self
+            
+        } else {
+            
+            return ProducerPipeline<OutputType>(head: self)
+        }
     }
 }
 
