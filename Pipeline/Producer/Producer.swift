@@ -49,16 +49,7 @@ extension ProducerType {
     
     public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Producible {
         
-        self.consumer = consumer.consume
-        
-        if self is ProducerPipeline<OutputType> {
-            
-            return self
-            
-        } else {
-            
-            return ProducerPipeline<OutputType>(head: self)
-        }
+        return finally(consumer.consume)
     }
     
     public func finally(consume: OutputType -> Void) -> Producible {

@@ -40,9 +40,7 @@ extension ConsumableType {
     
     public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Pipeline {
         
-        self.consumer = consumer.consume
-        
-        return ConsumablePipeline(head: self)
+        return finally(consumer.consume)
     }
     
     public func finally(consumer: OutputType -> Void) -> Pipeline {
