@@ -23,8 +23,6 @@ public extension ProducerType {
             self.consumer = originalConsumer
         }
         
-        self.consumer = consumer
-        
         produce()
     }
 }
