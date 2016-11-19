@@ -34,15 +34,17 @@ extension TransformerType {
         }
     }
     
-    public func then<P: ProducerType>(_ function: @escaping (OutputType) -> P) -> TransformerPipeline<InputType, P.OutputType> {
+    public func finally<Consumer: ConsumerType>(_ consumer: Consumer) -> AnyConsumer<InputType> where Consumer.InputType == OutputType {
         
-        let transformer = AsyncTransformer<OutputType, P.OutputType>() { input, consumer in
-            
-            let producer = function(input)
-            
-            producer.produce(consumer)
-        }
+        self.consumer = consumer.consume
         
-        return then(transformer)
+        return AnyConsumer(base: self)
+    }
+    
+    public func finally(_ consumer: @escaping (OutputType) -> Void) -> AnyConsumer<InputType> {
+        
+        self.consumer = consumer
+        
+        return AnyConsumer(base: self)
     }
 }

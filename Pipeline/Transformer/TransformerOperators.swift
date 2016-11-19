@@ -44,26 +44,20 @@ public func !> <T: TransformerType, U>(lhs: T, rhs: @escaping (T.OutputType) thr
 
 public func |> <T: TransformerType>(lhs: T, rhs: @escaping (T.OutputType) -> Void) -> AnyConsumer<T.InputType>  {
     
-    return TransformerPipeline(head: lhs).finally(rhs)
+    return lhs.finally(rhs)
+}
+
+public func |> <T: TransformerType, C: ConsumerType>(lhs: T, rhs: C) -> AnyConsumer<T.InputType> where C.InputType == T.OutputType  {
+    
+    return lhs.finally(rhs)
 }
 
 public func |> <I, O, C: ConsumerType>(lhs: @escaping (I) -> O, rhs: C) -> AnyConsumer<I> where C.InputType == O  {
     
-    return TransformerPipeline(head: lhs).finally(rhs)
+    return AnyTransformer(transform: lhs).finally(rhs)
 }
 
 public func |> <I, O>(lhs: @escaping (I) -> O, rhs: @escaping (O) -> Void) -> AnyConsumer<I>  {
     
-    return TransformerPipeline(head: lhs).finally(rhs)
+    return AnyTransformer(transform: lhs).finally(rhs)
 }
-
-public func |> <I, O, C: ConsumerType>(lhs: TransformerPipeline<I, O>, rhs: C) -> AnyConsumer<I> where C.InputType == O  {
-    
-    return lhs.finally(rhs)
-}
-
-public func |> <I, O>(lhs: TransformerPipeline<I, O>, rhs: @escaping (O) -> Void) -> AnyConsumer<I>  {
-    
-    return lhs.finally(rhs)
-}
-

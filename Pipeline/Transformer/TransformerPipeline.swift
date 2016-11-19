@@ -52,20 +52,6 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
         
         head.consume(input)
     }
-    
-    public func finally<Consumer: ConsumerType>(_ consumer: Consumer) -> AnyConsumer<InputType> where Consumer.InputType == OutputType {
-        
-        self.consumer = consumer.consume
-        
-        return AnyConsumer(base: self)
-    }
-    
-    public func finally(_ consumer: @escaping (OutputType) -> Void) -> AnyConsumer<InputType> {
-        
-        self.consumer = consumer
-        
-        return AnyConsumer(base: self)
-    }
 }
 
 public extension TransformerPipeline {
