@@ -1,19 +1,20 @@
 //
-//  ProducerPipeline.swift
+//  ConsumablePipeline.swift
 //  Pipeline
 //
-//  Created by Patrick Goley on 5/14/16.
+//  Created by Patrick Goley on 5/19/16.
 //
 
 import Foundation
 
-public final class ProducerPipeline<T>: Pipeline, ProducerType {
+
+public final class ConsumablePipeline<T>: Pipeline, ConsumableType {
     
     public typealias OutputType = T
     
-    let head: Producible
+    let head: Any
     
-    var tail: AnyConsumable<T>
+    let tail: AnyConsumable<T>
     
     public var consumer: (OutputType -> Void)? {
         
@@ -25,14 +26,14 @@ public final class ProducerPipeline<T>: Pipeline, ProducerType {
     
     private let _setConsumer: (T -> Void)? -> Void
     
-    public convenience init<Head: ProducerType where Head.OutputType == T>(head: Head) {
+    public convenience init<Head: ConsumableType where Head.OutputType == T>(head: Head) {
         
         let tail = AnyConsumable(base: head)
         
         self.init(head: head, tail: tail)
     }
     
-    init<Tail: ConsumableType where Tail.OutputType == OutputType>(head: Producible, tail: Tail) {
+    init<Tail: ConsumableType where Tail.OutputType == T>(head: Any, tail: Tail) {
         
         self.head = head
         
@@ -42,11 +43,6 @@ public final class ProducerPipeline<T>: Pipeline, ProducerType {
             
             tail.consumer = consumer
         }
-    }
-    
-    public func produce() {
-        
-        head.produce()
     }
 }
 

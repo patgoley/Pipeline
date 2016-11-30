@@ -3,7 +3,6 @@
 //  Pipeline
 //
 //  Created by Patrick Goley on 6/17/16.
-//  Copyright © 2016 arbiter. All rights reserved.
 //
 
 import Foundation
@@ -23,8 +22,6 @@ public extension ProducerType {
             
             self.consumer = originalConsumer
         }
-        
-        self.consumer = consumer
         
         produce()
     }

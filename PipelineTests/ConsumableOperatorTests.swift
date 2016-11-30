@@ -3,7 +3,6 @@
 //  Pipeline
 //
 //  Created by Patrick Goley on 5/24/16.
-//  Copyright © 2016 arbiter. All rights reserved.
 //
 
 import XCTest
@@ -240,7 +239,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectationWithDescription("value")
         
-        let pipe = producer |> optionalMap({ (int: Int) -> Int in int + 5 })
+        let pipe = ProducerPipeline(head: producer) |> optionalMap({ (int: Int) -> Int in int + 5 })
         
         pipe.consumer = { (x: Int?) in
             

@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		8E3157F61D281BAD00292851 /* EagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3157F51D281BAD00292851 /* EagerTests.swift */; };
 		8E40C8441D46F61300F5B6AB /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40C8431D46F61300F5B6AB /* Consumer.swift */; };
-		8E40C8481D46F64800F5B6AB /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40C8451D46F64800F5B6AB /* Consumable.swift */; };
-		8E40C8491D46F64800F5B6AB /* ConsumableOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40C8461D46F64800F5B6AB /* ConsumableOperators.swift */; };
-		8E40C84A1D46F64800F5B6AB /* ConsumablePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40C8471D46F64800F5B6AB /* ConsumablePipeline.swift */; };
 		8E56E6D31D2613FD009182DF /* TestMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E56E6D21D2613FD009182DF /* TestMocks.swift */; };
 		8E57D1001CF516FD00EDAF4A /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */; };
 		8E57D1011CF516FD00EDAF4A /* JSONTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */; };
@@ -38,6 +35,14 @@
 		8E5E7E2F1D09FB4B007A1B7E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5E7E2E1D09FB4B007A1B7E /* Helpers.swift */; };
 		8E85D3801D0F8F2400B26697 /* HelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E85D37F1D0F8F2400B26697 /* HelperTests.swift */; };
 		8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */; };
+		8EC0DE7E1DDD5B0300FAB046 /* AnyConsumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0DE7A1DDD5B0300FAB046 /* AnyConsumable.swift */; };
+		8EC0DE7F1DDD5B0300FAB046 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0DE7B1DDD5B0300FAB046 /* Consumable.swift */; };
+		8EC0DE801DDD5B0300FAB046 /* ConsumableOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0DE7C1DDD5B0300FAB046 /* ConsumableOperators.swift */; };
+		8EC0DE811DDD5B0300FAB046 /* ConsumablePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0DE7D1DDD5B0300FAB046 /* ConsumablePipeline.swift */; };
+		8EC0DE831DDD5DBA00FAB046 /* AnyProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0DE821DDD5DBA00FAB046 /* AnyProducer.swift */; };
+		8EC0DE851DDD5E1100FAB046 /* AnyConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0DE841DDD5E1100FAB046 /* AnyConsumer.swift */; };
+		8EC0DE871DDD60F800FAB046 /* AnyTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0DE861DDD60F800FAB046 /* AnyTransformer.swift */; };
+		8EC0DE891DDD613E00FAB046 /* UtilityTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0DE881DDD613E00FAB046 /* UtilityTransformers.swift */; };
 		8ECB98781D1BA523005C5EBE /* OptionalHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB98771D1BA523005C5EBE /* OptionalHelpers.swift */; };
 		8EDF35EA1D1BAA180099FB91 /* ErrorHandlingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDF35E91D1BAA180099FB91 /* ErrorHandlingTests.swift */; };
 		8EE644491CE7AEA500403EFC /* Pipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EE644481CE7AEA500403EFC /* Pipeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -67,9 +72,6 @@
 /* Begin PBXFileReference section */
 		8E3157F51D281BAD00292851 /* EagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EagerTests.swift; sourceTree = "<group>"; };
 		8E40C8431D46F61300F5B6AB /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
-		8E40C8451D46F64800F5B6AB /* Consumable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
-		8E40C8461D46F64800F5B6AB /* ConsumableOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumableOperators.swift; sourceTree = "<group>"; };
-		8E40C8471D46F64800F5B6AB /* ConsumablePipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumablePipeline.swift; sourceTree = "<group>"; };
 		8E56E6D21D2613FD009182DF /* TestMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMocks.swift; sourceTree = "<group>"; };
 		8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		8E57D0F11CF516FD00EDAF4A /* JSONTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTransformers.swift; sourceTree = "<group>"; };
@@ -98,6 +100,14 @@
 		8E5E7E2E1D09FB4B007A1B7E /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		8E85D37F1D0F8F2400B26697 /* HelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperTests.swift; sourceTree = "<group>"; };
 		8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
+		8EC0DE7A1DDD5B0300FAB046 /* AnyConsumable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyConsumable.swift; sourceTree = "<group>"; };
+		8EC0DE7B1DDD5B0300FAB046 /* Consumable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
+		8EC0DE7C1DDD5B0300FAB046 /* ConsumableOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumableOperators.swift; sourceTree = "<group>"; };
+		8EC0DE7D1DDD5B0300FAB046 /* ConsumablePipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumablePipeline.swift; sourceTree = "<group>"; };
+		8EC0DE821DDD5DBA00FAB046 /* AnyProducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyProducer.swift; sourceTree = "<group>"; };
+		8EC0DE841DDD5E1100FAB046 /* AnyConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyConsumer.swift; sourceTree = "<group>"; };
+		8EC0DE861DDD60F800FAB046 /* AnyTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyTransformer.swift; sourceTree = "<group>"; };
+		8EC0DE881DDD613E00FAB046 /* UtilityTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityTransformers.swift; sourceTree = "<group>"; };
 		8ECB98771D1BA523005C5EBE /* OptionalHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalHelpers.swift; sourceTree = "<group>"; };
 		8EDF35E91D1BAA180099FB91 /* ErrorHandlingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandlingTests.swift; sourceTree = "<group>"; };
 		8EE644451CE7AEA500403EFC /* Pipeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pipeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				8E40C8431D46F61300F5B6AB /* Consumer.swift */,
+				8EC0DE841DDD5E1100FAB046 /* AnyConsumer.swift */,
 			);
 			path = Consumer;
 			sourceTree = "<group>";
@@ -147,10 +158,8 @@
 		8E57D11A1CF51E6300EDAF4A /* Producer */ = {
 			isa = PBXGroup;
 			children = (
-				8E40C8451D46F64800F5B6AB /* Consumable.swift */,
-				8E40C8461D46F64800F5B6AB /* ConsumableOperators.swift */,
-				8E40C8471D46F64800F5B6AB /* ConsumablePipeline.swift */,
 				8E57D11B1CF51E6300EDAF4A /* Producer.swift */,
+				8EC0DE821DDD5DBA00FAB046 /* AnyProducer.swift */,
 				8E57D11C1CF51E6300EDAF4A /* ProducerOperators.swift */,
 				8E57D11D1CF51E6300EDAF4A /* ProducerPipeline.swift */,
 				8E57D11E1CF51E6300EDAF4A /* ValueProducer.swift */,
@@ -162,10 +171,23 @@
 			isa = PBXGroup;
 			children = (
 				8E57D1201CF51E6300EDAF4A /* Transformer.swift */,
+				8EC0DE881DDD613E00FAB046 /* UtilityTransformers.swift */,
+				8EC0DE861DDD60F800FAB046 /* AnyTransformer.swift */,
 				8E57D1211CF51E6300EDAF4A /* TransformerOperators.swift */,
 				8E57D1221CF51E6300EDAF4A /* TransformerPipeline.swift */,
 			);
 			path = Transformer;
+			sourceTree = "<group>";
+		};
+		8EC0DE791DDD5B0300FAB046 /* Consumable */ = {
+			isa = PBXGroup;
+			children = (
+				8EC0DE7A1DDD5B0300FAB046 /* AnyConsumable.swift */,
+				8EC0DE7B1DDD5B0300FAB046 /* Consumable.swift */,
+				8EC0DE7C1DDD5B0300FAB046 /* ConsumableOperators.swift */,
+				8EC0DE7D1DDD5B0300FAB046 /* ConsumablePipeline.swift */,
+			);
+			path = Consumable;
 			sourceTree = "<group>";
 		};
 		8EE6443B1CE7AEA400403EFC = {
@@ -200,6 +222,7 @@
 				8EE644631CE8600800403EFC /* ErrorHandling.swift */,
 				8EF8DF3A1D15B26D005BA467 /* Splitter.swift */,
 				8EF8DF3E1D15C20D005BA467 /* Join.swift */,
+				8EC0DE791DDD5B0300FAB046 /* Consumable */,
 				8E40C8421D46F61300F5B6AB /* Consumer */,
 				8E57D11A1CF51E6300EDAF4A /* Producer */,
 				8E57D11F1CF51E6300EDAF4A /* Transformer */,
@@ -298,7 +321,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = arbiter;
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					8EE644441CE7AEA500403EFC = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -350,24 +373,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EC0DE871DDD60F800FAB046 /* AnyTransformer.swift in Sources */,
 				8E57D12B1CF51E6300EDAF4A /* Transformer.swift in Sources */,
+				8EC0DE831DDD5DBA00FAB046 /* AnyProducer.swift in Sources */,
 				8EE644641CE8600800403EFC /* ErrorHandling.swift in Sources */,
-				8E40C8481D46F64800F5B6AB /* Consumable.swift in Sources */,
 				8E57D1291CF51E6300EDAF4A /* ProducerPipeline.swift in Sources */,
 				8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */,
+				8EC0DE891DDD613E00FAB046 /* UtilityTransformers.swift in Sources */,
 				8EF8DF3F1D15C20D005BA467 /* Join.swift in Sources */,
+				8EC0DE851DDD5E1100FAB046 /* AnyConsumer.swift in Sources */,
 				8E40C8441D46F61300F5B6AB /* Consumer.swift in Sources */,
+				8EC0DE7E1DDD5B0300FAB046 /* AnyConsumable.swift in Sources */,
 				8ECB98781D1BA523005C5EBE /* OptionalHelpers.swift in Sources */,
 				8E5E7E2F1D09FB4B007A1B7E /* Helpers.swift in Sources */,
 				8E57D1281CF51E6300EDAF4A /* ProducerOperators.swift in Sources */,
-				8E40C8491D46F64800F5B6AB /* ConsumableOperators.swift in Sources */,
 				8EF82E9B1CEAA745006FCF13 /* Operators.swift in Sources */,
+				8EC0DE801DDD5B0300FAB046 /* ConsumableOperators.swift in Sources */,
 				8E57D12A1CF51E6300EDAF4A /* ValueProducer.swift in Sources */,
+				8EC0DE7F1DDD5B0300FAB046 /* Consumable.swift in Sources */,
 				8E57D1271CF51E6300EDAF4A /* Producer.swift in Sources */,
 				8E57D12D1CF51E6300EDAF4A /* TransformerPipeline.swift in Sources */,
 				8EF8DF3B1D15B26D005BA467 /* Splitter.swift in Sources */,
-				8E40C84A1D46F64800F5B6AB /* ConsumablePipeline.swift in Sources */,
 				8EF72F1A1D14E039009B921F /* Execution.swift in Sources */,
+				8EC0DE811DDD5B0300FAB046 /* ConsumablePipeline.swift in Sources */,
 				8E57D12C1CF51E6300EDAF4A /* TransformerOperators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -544,9 +572,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/**";
 				INFOPLIST_FILE = PipelineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.arbiter.PipelineTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pipeline.PipelineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -556,9 +585,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/**";
 				INFOPLIST_FILE = PipelineTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.arbiter.PipelineTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pipeline.PipelineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
