@@ -239,7 +239,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectationWithDescription("value")
         
-        let pipe = producer |> optionalMap({ (int: Int) -> Int in int + 5 })
+        let pipe = ProducerPipeline(head: producer) |> optionalMap({ (int: Int) -> Int in int + 5 })
         
         pipe.consumer = { (x: Int?) in
             
