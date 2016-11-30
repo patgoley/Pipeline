@@ -9,14 +9,6 @@ import Foundation
 import Pipeline
 
 
-func logger<T: CustomStringConvertible>() -> PassThroughTransformer<T> {
-    
-    return PassThroughTransformer<T>() {
-        
-        print($0)
-    }
-}
-
 func logToConsole<T>(input: T) -> T {
     
     print(input)

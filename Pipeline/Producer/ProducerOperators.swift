@@ -13,6 +13,7 @@ public func |> <P: ProducerType, U: TransformerType where P.OutputType == U.Inpu
     
     return lhs.then(rhs)
 }
+
 public func |> <P: ProducerType, U>(lhs: P, rhs: P.OutputType -> U) -> ProducerPipeline<U>  {
     
     return lhs.then(rhs)

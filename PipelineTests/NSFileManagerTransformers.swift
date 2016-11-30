@@ -26,19 +26,5 @@ public extension NSFileManager {
             return .Error(FileError.NotFound)
         }
     }
-    
-    static func loadFromPath(path: String) -> Result<NSData> {
-        
-        let fileManager = NSFileManager()
-        
-        if let data = fileManager.contentsAtPath(path) {
-            
-            return .Success(data)
-            
-        } else {
-            
-            return .Error(FileError.NotFound)
-        }
-    }
 }
 
