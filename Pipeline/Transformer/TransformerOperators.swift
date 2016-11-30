@@ -29,13 +29,6 @@ public func |> <S, U, V>(lhs: S -> U, rhs: U -> V) -> TransformerPipeline<S, V> 
     return TransformerPipeline(head: lhs).then(rhs)
 }
 
-// Chaining
-
-public func |> <I, O, C>(lhs: TransformerPipeline<I, O>, rhs: O -> C) -> TransformerPipeline<I, C>  {
-    
-    return lhs.then(rhs)
-}
-
 // Finally
 
 public func |> <T: TransformerType>(lhs: T, rhs: T.OutputType -> Void) -> AnyConsumer<T.InputType>  {
@@ -56,11 +49,6 @@ public func |> <I, O, C: ConsumerType where C.InputType == O>(lhs: I -> O, rhs: 
 public func |> <I, O>(lhs: I -> O, rhs: O -> Void) -> AnyConsumer<I>  {
     
     return TransformerPipeline(head: lhs).finally(rhs)
-}
-
-public func |> <I, O>(lhs: TransformerPipeline<I, O>, rhs: O -> Void) -> AnyConsumer<I>  {
-    
-    return lhs.finally(rhs)
 }
 
 
