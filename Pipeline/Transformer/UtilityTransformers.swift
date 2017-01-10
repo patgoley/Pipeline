@@ -31,12 +31,12 @@ public final class FilterTransformer<T>: TransformerType  {
     
     public func consume(input: InputType) {
         
-        guard let consumer = self.consumer where condition(input) else {
+        guard condition(input) else {
             
             return
         }
         
-        consumer(input)
+        consumer?(input)
     }
 }
 
@@ -63,13 +63,12 @@ public final class OptionalFilterTransformer<T, U>: TransformerType  {
     
     public func consume(input: InputType) {
         
-        guard let consumer = self.consumer,
-            result = transform(input) else {
+        guard let result = transform(input) else {
                 
                 return
         }
         
-        consumer(result)
+        consumer?(result)
     }
 }
 
@@ -126,12 +125,10 @@ public final class AsyncTransformer<T, U>: TransformerType  {
     
     public func consume(input: InputType) {
         
-        guard let consumer = self.consumer else {
-            
-            return
+        execute(input) { output in
+         
+            self.consumer?(output)
         }
-        
-        execute(input, consumer)
     }
 }
 
@@ -140,7 +137,7 @@ public final class AsyncTransformer<T, U>: TransformerType  {
  even if no consumer is listening to receive the result. This is
  useful for operations that generate an ignorable result.
  */
-
+@available(*, deprecated)
 public final class EagerTransformer<T, U>: TransformerType {
     
     public typealias InputType = T
