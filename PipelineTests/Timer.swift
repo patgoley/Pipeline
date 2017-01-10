@@ -47,17 +47,11 @@ public final class Timer: ProducerType {
     
     @objc func tick() {
         
-        if let consumer = consumer {
-            
-            let date = NSDate()
-            
-            consumer(date)
-        }
+        let date = NSDate()
         
-        if let target = target {
-            
-            target()
-        }
+        consumer?(date)
+        
+        target?()
     }
 }
 

@@ -25,16 +25,4 @@ class EagerTests: XCTestCase {
         
         waitForExpectationsWithTimeout(0.1, handler: nil)
     }
-    
-    func testAnyTransformerIsLazy() {
-        
-        let transformer = AnyTransformer<Int, String>() { (x: Int) in
-            
-            XCTFail()
-            
-            return "\(x)"
-        }
-        
-        transformer.consume(123)
-    }
 }

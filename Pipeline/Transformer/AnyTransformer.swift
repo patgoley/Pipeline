@@ -32,13 +32,8 @@ public final class AnyTransformer<T, U>: TransformerType  {
     
     public func consume(input: InputType) {
         
-        guard let consumer = self.consumer else {
-            
-            return
-        }
-        
         let result = transform(input)
         
-        consumer(result)
+        consumer?(result)
     }
 }
