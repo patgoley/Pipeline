@@ -7,5 +7,12 @@
 
 import Foundation
 
+precedencegroup Composition {
+    
+    associativity: left
+    
+    higherThan: BitwiseShiftPrecedence
+}
 
-infix operator |> { precedence 95 associativity left }
+infix operator |> : Composition
+

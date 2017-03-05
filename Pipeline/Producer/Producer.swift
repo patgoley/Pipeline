@@ -16,7 +16,7 @@ public protocol ProducerType: ConsumableType, Producible { }
 
 extension ProducerType {
     
-    public func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> ProducerPipeline<Transform.OutputType> {
+    public func then<Transform: TransformerType>(_ transformer: Transform) -> ProducerPipeline<Transform.OutputType> where Transform.InputType == OutputType {
         
         consumer = transformer.consume
         
@@ -30,7 +30,7 @@ extension ProducerType {
         }
     }
     
-    public func then<NewOutput>(transform: OutputType -> NewOutput) -> ProducerPipeline<NewOutput> {
+    public func then<NewOutput>(_ transform: @escaping (OutputType) -> NewOutput) -> ProducerPipeline<NewOutput> {
         
         let transformer = AnyTransformer(transform: transform)
         
@@ -46,12 +46,12 @@ extension ProducerType {
         }
     }
     
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Producible {
+    public func finally<Consumer: ConsumerType>(_ consumer: Consumer) -> Producible where Consumer.InputType == OutputType {
         
         return finally(consumer.consume)
     }
     
-    public func finally(consume: OutputType -> Void) -> Producible {
+    public func finally(_ consume: @escaping (OutputType) -> Void) -> Producible {
         
         self.consumer = consume
         

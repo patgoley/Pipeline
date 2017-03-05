@@ -12,7 +12,7 @@ class EagerTests: XCTestCase {
 
     func testEagerTransformerIsEager() {
         
-        let expt = expectationWithDescription("success")
+        let expt = expectation(description: "success")
         
         let transformer = EagerTransformer<Int, String>() { (x: Int) in
             
@@ -23,6 +23,6 @@ class EagerTests: XCTestCase {
         
         transformer.consume(123)
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 }

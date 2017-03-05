@@ -26,7 +26,7 @@ class TransformerOperatorTests: XCTestCase {
         
         let pipe = AnyTransformer() { (x: Int) in return x + 5 } |> { (x: Int) in return x * 2 }
         
-        pipe.finally { x in
+        _ = pipe.finally { x in
                 
             XCTAssert(x == 652)
         }
@@ -52,7 +52,7 @@ class TransformerOperatorTests: XCTestCase {
         
         let pipe = { (x: Int) in return x + 5 } |> AnyTransformer() { (x: Int) in return x * 2 }
         
-        pipe.finally { x in
+        _ = pipe.finally { x in
             
             XCTAssert(x == 652)
         }
@@ -145,7 +145,7 @@ class TransformerOperatorTests: XCTestCase {
     
     func testTransformerPipelineThrowingFunction() {
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let pipe = { (str: String) in return str }
             |> AnyTransformer<String, String>() { str in return str }
@@ -163,7 +163,7 @@ class TransformerOperatorTests: XCTestCase {
             } |> { (result: Result<Int>) in
                 
                 switch result {
-                case .Success(_): XCTFail()
+                case .success(_): XCTFail()
                 default: break
                 }
                 
@@ -172,7 +172,7 @@ class TransformerOperatorTests: XCTestCase {
         
         pipe.consume("abc")
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testThrowingFunctionTransformerType() {
@@ -187,7 +187,7 @@ class TransformerOperatorTests: XCTestCase {
                 
             switch result {
                 
-            case .Success(let str):
+            case .success(let str):
                 XCTFail()
                 return str
             default: break
