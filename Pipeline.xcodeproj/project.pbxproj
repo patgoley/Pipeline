@@ -32,6 +32,7 @@
 		8E57D1311CF51FDE00EDAF4A /* ProducerOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1301CF51FDE00EDAF4A /* ProducerOperatorTests.swift */; };
 		8E57D1331CF5235E00EDAF4A /* TransformerOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1321CF5235E00EDAF4A /* TransformerOperatorTests.swift */; };
 		8E57D1351CF52BA200EDAF4A /* TransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E57D1341CF52BA200EDAF4A /* TransformerTests.swift */; };
+		8E5E70841E71CD1C00D433CF /* Pipeline.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8E5E70831E71CD1C00D433CF /* Pipeline.podspec */; };
 		8E5E7E2F1D09FB4B007A1B7E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5E7E2E1D09FB4B007A1B7E /* Helpers.swift */; };
 		8E85D3801D0F8F2400B26697 /* HelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E85D37F1D0F8F2400B26697 /* HelperTests.swift */; };
 		8EB45FF31CF0D28600D0C0C4 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */; };
@@ -97,6 +98,8 @@
 		8E57D1341CF52BA200EDAF4A /* TransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformerTests.swift; sourceTree = "<group>"; };
 		8E57D1361CFD566100EDAF4A /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		8E57D1371CFD611A00EDAF4A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8E5E70831E71CD1C00D433CF /* Pipeline.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pipeline.podspec; sourceTree = "<group>"; };
+		8E5E70851E71CD9400D433CF /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		8E5E7E2E1D09FB4B007A1B7E /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		8E85D37F1D0F8F2400B26697 /* HelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperTests.swift; sourceTree = "<group>"; };
 		8EB45FF21CF0D28600D0C0C4 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
@@ -193,7 +196,9 @@
 		8EE6443B1CE7AEA400403EFC = {
 			isa = PBXGroup;
 			children = (
+				8E5E70831E71CD1C00D433CF /* Pipeline.podspec */,
 				8E57D1371CFD611A00EDAF4A /* README.md */,
+				8E5E70851E71CD9400D433CF /* LICENSE.md */,
 				8E57D1361CFD566100EDAF4A /* .travis.yml */,
 				8EE644471CE7AEA500403EFC /* Pipeline */,
 				8EE644531CE7AEA500403EFC /* PipelineTests */,
@@ -354,6 +359,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E5E70841E71CD1C00D433CF /* Pipeline.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
