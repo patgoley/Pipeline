@@ -3,7 +3,6 @@
 //  Pipeline
 //
 //  Created by Patrick Goley on 5/19/16.
-//  Copyright © 2016 arbiter. All rights reserved.
 //
 
 import Foundation
@@ -25,9 +24,9 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
     
     private let _setConsumer: (OutputType -> Void)? -> Void
     
-    private let head: AnyConsumer<InputType>
+    let head: AnyConsumer<InputType>
     
-    private let tail: AnyConsumable<OutputType>
+    let tail: AnyConsumable<OutputType>
     
     public convenience init<Head: TransformerType where Head.InputType == InputType, Head.OutputType == OutputType>(head: Head) {
         
@@ -36,7 +35,7 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
         self.init(head: headConsumer, tail: head)
     }
     
-    private init<Tail: TransformerType where Tail.OutputType == OutputType>(head: AnyConsumer<InputType>, tail: Tail) {
+    init<Tail: TransformerType where Tail.OutputType == OutputType>(head: AnyConsumer<InputType>, tail: Tail) {
         
         self.head = head
         
@@ -51,36 +50,6 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
     public func consume(input: InputType) {
         
         head.consume(input)
-    }
-    
-    func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> TransformerPipeline<InputType, Transform.OutputType> {
-        
-        tail.consumer = transformer.consume
-        
-        return TransformerPipeline<InputType, Transform.OutputType>(head: head, tail: transformer)
-    }
-    
-    public func then<NewOutput>(transformer: U -> NewOutput) -> TransformerPipeline<InputType, NewOutput> {
-        
-        let transform = AnyTransformer(transform: transformer)
-        
-        tail.consumer = transform.consume
-        
-        return TransformerPipeline<InputType, NewOutput>(head: head, tail: transform)
-    }
-    
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> AnyConsumer<InputType> {
-        
-        self.consumer = consumer.consume
-        
-        return AnyConsumer(base: self)
-    }
-    
-    public func finally(consumer: OutputType -> Void) -> AnyConsumer<InputType> {
-        
-        self.consumer = consumer
-        
-        return AnyConsumer(base: self)
     }
 }
 

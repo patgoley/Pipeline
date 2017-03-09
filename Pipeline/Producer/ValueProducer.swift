@@ -3,7 +3,6 @@
 //  Pipeline
 //
 //  Created by Patrick Goley on 5/16/16.
-//  Copyright © 2016 arbiter. All rights reserved.
 //
 
 import Foundation
@@ -39,11 +38,8 @@ public final class ThunkProducer<T>: ProducerType {
     
     public func produce() {
         
-        if let consumer = consumer {
-            
-            let value = thunk()
-            
-            consumer(value)
-        }
+        let value = thunk()
+        
+        consumer?(value)
     }
 }
