@@ -3,7 +3,6 @@
 //  PipelineTests
 //
 //  Created by Patrick Goley on 5/14/16.
-//  Copyright © 2016 arbiter. All rights reserved.
 //
 
 import XCTest

@@ -3,10 +3,9 @@
 //  Pipeline
 //
 //  Created by Patrick Goley on 5/14/16.
-//  Copyright © 2016 arbiter. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for Pipeline.
 FOUNDATION_EXPORT double PipelineVersionNumber;

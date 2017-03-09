@@ -1,19 +1,11 @@
 //
-//  Consumable.swift
+//  AnyConsumable.swift
 //  Pipeline
 //
-//  Created by Patrick Goley on 5/19/16.
-//  Copyright © 2016 arbiter. All rights reserved.
+//  Created by Patrick Goley on 11/16/16.
 //
 
 import Foundation
-
-public protocol ConsumableType: class {
-    
-    associatedtype OutputType
-    
-    var consumer: (OutputType -> Void)? { get set }
-}
 
 
 public final class AnyConsumable<T>: ConsumableType {
