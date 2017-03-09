@@ -14,7 +14,7 @@ public protocol Producible: class {
 
 public protocol ProducerType: ConsumableType, Producible { }
 
-extension ProducerType {
+public extension ProducerType {
     
     public func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> ProducerPipeline<Transform.OutputType> {
         

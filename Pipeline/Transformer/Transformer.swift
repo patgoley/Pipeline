@@ -11,9 +11,9 @@ import Foundation
 public protocol TransformerType: ConsumerType, ConsumableType { }
 
 
-extension TransformerType {
+public extension TransformerType {
     
-    func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> TransformerPipeline<InputType, Transform.OutputType> {
+    public func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> TransformerPipeline<InputType, Transform.OutputType> {
         
         consumer = transformer.consume
     

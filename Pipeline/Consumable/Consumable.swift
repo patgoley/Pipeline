@@ -15,16 +15,16 @@ public protocol ConsumableType: class {
 }
 
 
-extension ConsumableType {
+public extension ConsumableType {
     
-    func then<T>(map: (OutputType) -> T) -> ConsumablePipeline<T> {
+    public func then<T>(map: (OutputType) -> T) -> ConsumablePipeline<T> {
         
         let transformer = AnyTransformer(transform: map)
         
         return then(transformer)
     }
     
-    func then<T: TransformerType where T.InputType == OutputType>(transformer: T) -> ConsumablePipeline<T.OutputType> {
+    public func then<T: TransformerType where T.InputType == OutputType>(transformer: T) -> ConsumablePipeline<T.OutputType> {
     
         consumer = transformer.consume
         
