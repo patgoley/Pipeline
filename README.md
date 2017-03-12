@@ -1,20 +1,20 @@
 # Pipeline
 
-[![Build Status](https://travis-ci.org/patgoley/Pipeline.svg?branch=master)](https://travis-ci.org/patgoley/Pipeline) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)]()
+[![Build Status](https://travis-ci.org/patgoley/Pipeline.svg?branch=master)](https://travis-ci.org/patgoley/Pipeline) [![CocoaPods](https://img.shields.io/cocoapods/v/Pipeline.svg)]() [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)]()
 
- 
-Pipeline is a framework that empowers functional programming in Swift. It chains together values, functions, and objects that act like functions into "pipelines" that produce, transform, or consume data. 
+
+Pipeline is a framework that empowers functional programming in Swift. It chains together values, functions, and objects that act like functions into "pipelines" that produce, transform, or consume data.
 
 Objects! Isn't that functional heresy? Not necessarily. There's no reason we can't have objects that are just as pure and wonderful as functions. This is possible through a few simple protocols provided by Pipeline. Each one corresponds to an equivalent function type, and Pipeline generally treats the two as interchangeable. It's less important how we implement things (with functions or objects), and more important that we think in terms of **input** and **output**.
 
-Let's take a look at the first of our protocols, `ConsumableType`. 
+Let's take a look at the first of our protocols, `ConsumableType`.
 
 
 ``` swift
 protocol ConsumableType {
-    
+
     associatedtype OutputType
-    
+
     var consumer: (OutputType -> Void)? { get set }
 }
 ```
@@ -32,14 +32,14 @@ The compliment to a `ConsumableType` is a `ConsumerType`. It receives some kind 
 
 ``` swift
 protocol ConsumerType {
-    
+
     associatedtype InputType
-    
+
     func consume(_: InputType) -> Void
 }
 ```
 
-The functional equivalent of `ConsumerType` is easy to guess. It is the most basic function type that takes some kind of input and does something with it. 
+The functional equivalent of `ConsumerType` is easy to guess. It is the most basic function type that takes some kind of input and does something with it.
 
 ``` swift
 T -> ()
@@ -100,7 +100,7 @@ So after chaining these components together, we end up with a `TransformerPipeli
 
 let url = NSURL(string: "https://www.reddit.com/r/science.json")
 
-getObjectPipeline.consume(url) { json in 
+getObjectPipeline.consume(url) { json in
 
     print("science subreddit object: \(json)")
 }
@@ -111,6 +111,6 @@ What's great about the pipeline just being a `TransformerType` is that we can ch
 
 This is the essence of functional programming, to think about your app as a stream of values that are created in one place, travel along a series of transformations and are ultimately consumed by something. Pipeline provides scaffolding for connecting components together so you can focus on solving real problems, one at a time, and not waste time writing and refactoring glue code.
 
-# License 
+# License
 
 Pipeline is available under the Apache 2 License. See the LICENSE file for more info.
