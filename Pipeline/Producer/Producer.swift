@@ -36,7 +36,7 @@ public extension ProducerType {
         
         consumer = transformer.consume
         
-        if let pipeline = self as? ProducerPipeline<NewOutput> {
+        if let pipeline = self as? ProducerPipeline<OutputType> {
             
             return ProducerPipeline<NewOutput>(head: pipeline.head, tail: transformer)
             
