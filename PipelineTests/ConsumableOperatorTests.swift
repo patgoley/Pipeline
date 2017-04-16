@@ -239,13 +239,13 @@ class ConsumableOperatorTests: XCTestCase {
         
         let expt = expectationWithDescription("value")
         
-        let pipe = ProducerPipeline(head: producer) |> optionalMap({ (int: Int) -> Int in int + 5 })
+        let pipe = ProducerPipeline(head: producer) |> optionalMap({ (int: Int) -> String in "\(int + 5)" })
         
-        pipe.consumer = { (x: Int?) in
+        pipe.consumer = { (x: String?) in
             
             if let val = x {
                 
-                XCTAssert(val == 128)
+                XCTAssert(val == "128")
                 
             } else {
                 
