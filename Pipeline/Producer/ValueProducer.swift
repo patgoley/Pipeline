@@ -11,9 +11,11 @@ import Foundation
 
 public final class ValueProducer<T>: ProducerType {
     
-    let value: T
+    public typealias OutputType = T
     
-    public var consumer: ((T) -> Void)?
+    public var consumer: ((OutputType) -> Void)?
+    
+    let value: T
     
     public init(_ value: T) {
         
@@ -28,9 +30,11 @@ public final class ValueProducer<T>: ProducerType {
 
 public final class ThunkProducer<T>: ProducerType {
     
-    let thunk: () -> T
+    public typealias OutputType = T
     
-    public var consumer: ((T) -> Void)?
+    public var consumer: ((OutputType) -> Void)?
+    
+    let thunk: () -> T
     
     public init(thunk: @escaping () -> T) {
         

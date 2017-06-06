@@ -34,7 +34,7 @@ public func split<C: ConsumerType>(_ consumers: C...) -> Splitter<C.InputType> {
     return Splitter(consumers: consumers)
 }
 
-public func split<I>(_ consumerFunctions: @escaping (I) -> Void...) -> Splitter<I> {
+public func split<I>(_ consumerFunctions: (I) -> Void...) -> Splitter<I> {
     
     let consumers = consumerFunctions.map(AnyConsumer.init)
     

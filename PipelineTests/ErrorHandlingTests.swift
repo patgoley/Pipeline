@@ -221,7 +221,7 @@ class ErrorHandlingTests: XCTestCase {
         }
         
         let pipe = errorMap(throwingFunc)
-            |> resolveError() { err in
+            |> resolveError() {
                 
                 return "resolved"
                 

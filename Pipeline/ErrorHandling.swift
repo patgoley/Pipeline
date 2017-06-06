@@ -179,7 +179,7 @@ public func errorMap<T, U>(_ transform: @escaping (T) throws -> U) -> (T) -> Res
 
 public func errorMap<U>(_ produce: @escaping () throws -> U) -> () -> Result<U> {
     
-    return { input in
+    return {
         
         do {
             
