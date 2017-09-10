@@ -38,6 +38,18 @@ public extension ConsumableType {
         }
     }
     
+    public func then<P: ProducerType>(transform: (OutputType) -> P) -> ConsumablePipeline<P.OutputType> {
+        
+        let asyncTransformer = AsyncTransformer<OutputType, P.OutputType> { (input, consumer) in
+            
+            let generatedProducer = transform(input)
+            
+            generatedProducer.produce(consumer)
+        }
+        
+        return then(asyncTransformer)
+    }
+    
     public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Pipeline {
         
         return finally(consumer.consume)

@@ -213,6 +213,27 @@ class ConsumableOperatorTests: XCTestCase {
         producer.produce()
     }
     
+    
+    func testConsumeablePipelineFlatThen() {
+        
+        let producer = ThunkProducer<Int>() { return 123 }
+        
+        let expt = expectationWithDescription("flat then completion")
+        
+        let _ = AnyConsumable<Int>(base: producer)
+            .then { (input: Int) -> ValueProducer<Int> in
+            
+                return ValueProducer(input + 5)
+        }.finally { (finalValue) in
+            XCTAssert(finalValue == 128)
+            expt.fulfill()
+        }
+        
+        producer.produce()
+        
+        waitForExpectationsWithTimeout(0.1, handler: nil)
+    }
+    
     func testConsumeableOptionalMap() {
         
         let producer = ThunkProducer<Int?>() { return nil }
