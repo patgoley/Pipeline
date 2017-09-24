@@ -8,11 +8,11 @@
 import Foundation
 
 
-public final class ConsumablePipeline<T>: Pipeline, ConsumableType {
+public final class ConsumablePipeline<T>: Pipeline, ConsumableType, Disposable {
     
     public typealias OutputType = T
     
-    let head: Any
+    let head: Disposable
     
     let tail: AnyConsumable<T>
     
@@ -20,29 +20,38 @@ public final class ConsumablePipeline<T>: Pipeline, ConsumableType {
         
         didSet {
             
-            _setConsumer(consumer)
+            tail.consumer = consumer
         }
     }
     
-    private let _setConsumer: (T -> Void)? -> Void
-    
     public convenience init<Head: ConsumableType where Head.OutputType == T>(head: Head) {
+        
+        let disposableHead = AnyDisposable(head)
+        
+        let tail = AnyConsumable(base: head)
+        
+        self.init(head: disposableHead, tail: tail)
+    }
+    
+    public convenience init<Head: ConsumableType where Head: Disposable, Head.OutputType == T>(head: Head) {
         
         let tail = AnyConsumable(base: head)
         
         self.init(head: head, tail: tail)
     }
     
-    init<Tail: ConsumableType where Tail.OutputType == T>(head: Any, tail: Tail) {
+    init<Tail: ConsumableType where Tail.OutputType == T>(head: Disposable, tail: Tail) {
         
         self.head = head
         
-        self.tail = AnyConsumable(base: tail)
+        self.tail = tail as? AnyConsumable<T> ?? AnyConsumable(base: tail)
+    }
+    
+    public func dispose() {
         
-        _setConsumer = { consumer in
-            
-            tail.consumer = consumer
-        }
+        tail.consumer = nil
+        
+        head.dispose()
     }
 }
 

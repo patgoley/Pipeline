@@ -132,6 +132,65 @@ public final class AsyncTransformer<T, U>: TransformerType  {
     }
 }
 
+
+final class FlatMapTransformer<T, U>: TransformerType, Disposable  {
+    
+    typealias InputType = T
+    
+    typealias OutputType = U
+    
+    var consumer: (OutputType -> Void)?
+    
+    private var disposable: Disposable?
+    
+    private let execute: (InputType, (OutputType -> Void)) -> Disposable
+    
+    init<C: ConsumableType where C.OutputType == OutputType>(flatMap: (InputType -> C)) {
+        
+        self.execute = { (input, consumer) in
+         
+            let consumable = flatMap(input)
+            
+            consumable.consumer = consumer
+            
+            return AnyDisposable.create(consumable)
+        }
+    }
+    
+    init<P: ProducerType where P.OutputType == OutputType>(flatMap: (InputType -> P)) {
+        
+        self.execute = { (input, consumer) in
+            
+            let producer = flatMap(input)
+            
+            producer.produce(consumer)
+            
+            return AnyDisposable.create(producer)
+        }
+    }
+    
+    init(execute: (InputType, (OutputType -> Void)) -> Disposable) {
+        
+        self.execute = execute
+    }
+    
+    func consume(input: InputType) {
+        
+        dispose()
+        
+        disposable = execute(input) { [weak self] output in
+            
+            self?.consumer?(output)
+        }
+    }
+    
+    func dispose() {
+        
+        disposable?.dispose()
+        disposable = nil
+    }
+}
+
 /*
  A version of AnyTransformer that always executes it's transform
  even if no consumer is listening to receive the result. This is

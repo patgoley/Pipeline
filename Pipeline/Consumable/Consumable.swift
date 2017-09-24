@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+//TODO: Make all of these disposable?
 public protocol ConsumableType: class {
     
     associatedtype OutputType
@@ -34,20 +36,22 @@ public extension ConsumableType {
         
         } else {
         
-            return ConsumablePipeline<T.OutputType>(head: self, tail: transformer)
+            return ConsumablePipeline<T.OutputType>(head: AnyDisposable.create(self), tail: transformer)
         }
     }
     
     public func then<P: ProducerType>(transform: (OutputType) -> P) -> ConsumablePipeline<P.OutputType> {
         
-        let asyncTransformer = AsyncTransformer<OutputType, P.OutputType> { (input, consumer) in
-            
-            let generatedProducer = transform(input)
-            
-            generatedProducer.produce(consumer)
-        }
+        let transformer = FlatMapTransformer(flatMap: transform)
         
-        return then(asyncTransformer)
+        return then(transformer)
+    }
+    
+    public func then<C: ConsumableType>(transform: (OutputType) -> C) -> ConsumablePipeline<C.OutputType> {
+        
+        let transformer = FlatMapTransformer(flatMap: transform)
+        
+        return then(transformer)
     }
     
     public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Pipeline {

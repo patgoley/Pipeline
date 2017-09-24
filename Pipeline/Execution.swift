@@ -27,6 +27,7 @@ public extension ProducerType {
     }
 }
 
+
 public extension TransformerType {
     
     func consume(value: InputType, consumer: (OutputType) -> Void) {

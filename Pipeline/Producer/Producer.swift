@@ -7,12 +7,15 @@
 
 import Foundation
 
+
 public protocol Producible: class {
     
     func produce()
 }
 
+
 public protocol ProducerType: ConsumableType, Producible { }
+
 
 public extension ProducerType {
     
