@@ -11,20 +11,20 @@ public protocol ConsumableType: class {
     
     associatedtype OutputType
     
-    var consumer: (OutputType -> Void)? { get set }
+    var consumer: ((OutputType) -> Void)? { get set }
 }
 
 
 public extension ConsumableType {
     
-    public func then<T>(map: (OutputType) -> T) -> ConsumablePipeline<T> {
+    public func then<T>(_ map: @escaping (OutputType) -> T) -> ConsumablePipeline<T> {
         
         let transformer = AnyTransformer(transform: map)
         
         return then(transformer)
     }
     
-    public func then<T: TransformerType where T.InputType == OutputType>(transformer: T) -> ConsumablePipeline<T.OutputType> {
+    public func then<T: TransformerType>(_ transformer: T) -> ConsumablePipeline<T.OutputType> where T.InputType == OutputType {
     
         consumer = transformer.consume
         
@@ -38,12 +38,12 @@ public extension ConsumableType {
         }
     }
     
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Pipeline {
+    public func finally<Consumer: ConsumerType>(_ consumer: Consumer) -> Pipeline where Consumer.InputType == OutputType {
         
         return finally(consumer.consume)
     }
     
-    public func finally(consumer: OutputType -> Void) -> Pipeline {
+    public func finally(_ consumer: @escaping (OutputType) -> Void) -> Pipeline {
         
         self.consumer = consumer
         

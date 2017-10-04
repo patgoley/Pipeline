@@ -12,7 +12,7 @@ class ErrorHandlingTests: XCTestCase {
 
     func testSwallowError() {
         
-        let result: Result<String> = .Error(MockError())
+        let result: Result<String> = .error(MockError())
         
         let pipe = ValueProducer(result)
             |> swallowError(log: "found error")
@@ -23,9 +23,9 @@ class ErrorHandlingTests: XCTestCase {
     
     func testSwallowErrorSuccess() {
         
-        let result: Result<String> = .Success("abc")
+        let result: Result<String> = .success("abc")
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let pipe = ValueProducer(result)
             |> swallowError(log: "found error")
@@ -37,12 +37,12 @@ class ErrorHandlingTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testLogError() {
         
-        let result: Result<String> = .Error(MockError())
+        let result: Result<String> = .error(MockError())
         
         let pipe = ValueProducer(result)
             |> logError("found error")
@@ -53,9 +53,9 @@ class ErrorHandlingTests: XCTestCase {
     
     func testLogErrorSuccess() {
         
-        let result: Result<String> = .Success("abc")
+        let result: Result<String> = .success("abc")
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let pipe = ValueProducer(result)
             |> logError("found error")
@@ -67,14 +67,14 @@ class ErrorHandlingTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testOnError() {
         
-        let result: Result<String> = .Error(MockError())
+        let result: Result<String> = .error(MockError())
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let pipe = ValueProducer(result) |> onError() { err in
             
@@ -89,14 +89,14 @@ class ErrorHandlingTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testOnErrorSuccess() {
         
-        let result: Result<String> = .Success("success")
+        let result: Result<String> = .success("success")
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let pipe = ValueProducer(result) |> onError() { err in
             
@@ -111,14 +111,14 @@ class ErrorHandlingTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testResolveError() {
         
-        let result: Result<String> = .Error(MockError())
+        let result: Result<String> = .error(MockError())
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let pipe = ValueProducer(result)
             |> resolveError() {
@@ -134,14 +134,14 @@ class ErrorHandlingTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testResolveErrorSuccess() {
         
-        let result: Result<String> = .Success("success")
+        let result: Result<String> = .success("success")
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let pipe = ValueProducer(result)
             |> resolveError() {
@@ -159,14 +159,14 @@ class ErrorHandlingTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testResolveErrorProducer() {
         
-        let result: Result<String> = .Error(MockError())
+        let result: Result<String> = .error(MockError())
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let pipe = ValueProducer(result)
             |> resolveError(ThunkProducer<String>() {
@@ -182,14 +182,14 @@ class ErrorHandlingTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testResolveErrorProducerSuccess() {
         
-        let result: Result<String> = .Success("success")
+        let result: Result<String> = .success("success")
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let pipe = ValueProducer(result)
             |> resolveError(ThunkProducer<String>() {
@@ -207,12 +207,12 @@ class ErrorHandlingTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testMapThrowToResult() {
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let throwingFunc: () throws -> String = {
             
@@ -233,6 +233,6 @@ class ErrorHandlingTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 }

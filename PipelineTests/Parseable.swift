@@ -9,5 +9,5 @@ import Foundation
 
 public protocol Parseable {
     
-    static func createWithValues(value: [String: AnyObject]) -> Self
+    static func createWithValues(_ value: [String: AnyObject]) -> Self
 }

@@ -9,13 +9,13 @@ import Foundation
 import Pipeline
 
 
-public extension NSBundle {
+public extension Bundle {
     
-    func loadResource(name: String, fileExtension: String) -> ProducerPipeline<NSData> {
+    func loadResource(_ name: String, fileExtension: String) -> ProducerPipeline<Data> {
         
-        return { () -> NSURL? in return self.URLForResource(name, withExtension: fileExtension) }
+        return { () -> URL? in return self.url(forResource: name, withExtension: fileExtension) }
             |> forceUnwrap
-            |> NSFileManager.loadFromURL
+            |> FileManager.loadFromURL
             |> crashOnError
     }
 }

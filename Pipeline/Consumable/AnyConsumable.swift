@@ -12,7 +12,7 @@ public final class AnyConsumable<T>: ConsumableType {
     
     public typealias OutputType = T
     
-    public var consumer: (T -> Void)? {
+    public var consumer: ((T) -> Void)? {
         
         didSet {
             
@@ -20,9 +20,9 @@ public final class AnyConsumable<T>: ConsumableType {
         }
     }
     
-    private let _setConsumer: (T -> Void)? -> Void
+    fileprivate let _setConsumer: (((T) -> Void)?) -> Void
     
-    public init<Base: ConsumableType where Base.OutputType == OutputType>(base: Base) {
+    public init<Base: ConsumableType>(base: Base) where Base.OutputType == OutputType {
         
         _setConsumer = { consumer in
             

@@ -26,7 +26,7 @@ public func guardUnwrap<T>() -> OptionalFilterTransformer<T?, T> {
  guardUnwrap() { person in person.employer?.name }
  */
 
-public func guardUnwrap<T, U>(transform: T -> U?) -> OptionalFilterTransformer<T, U> {
+public func guardUnwrap<T, U>(_ transform: @escaping (T) -> U?) -> OptionalFilterTransformer<T, U> {
     
     return OptionalFilterTransformer() { transform($0) }
 }
@@ -35,7 +35,7 @@ public func guardUnwrap<T, U>(transform: T -> U?) -> OptionalFilterTransformer<T
  Force unwraps an optional value. Use at your own risk.
  */
 
-public func forceUnwrap<T>(input: T?) -> T {
+public func forceUnwrap<T>(_ input: T?) -> T {
     
     return input!
 }
@@ -44,7 +44,7 @@ public func forceUnwrap<T>(input: T?) -> T {
  Force unwraps an optional value produced from a closure. Use at your own risk.
  */
 
-public func forceUnwrap<T, U>(transform: T -> U?) -> (T -> U) {
+public func forceUnwrap<T, U>(_ transform: @escaping (T) -> U?) -> ((T) -> U) {
     
     return {
         
@@ -58,7 +58,7 @@ public func forceUnwrap<T, U>(transform: T -> U?) -> (T -> U) {
  that occurred.
  */
 
-public func resolveNil<T>(resolve: () -> T) -> T? -> T {
+public func resolveNil<T>(_ resolve: @escaping () -> T) -> (T?) -> T {
     
     return { optional in
         
@@ -73,9 +73,9 @@ public func resolveNil<T>(resolve: () -> T) -> T? -> T {
     }
 }
 
-public func resolveNil<P: ProducerType, V where P.OutputType == V>(resolve: P) -> AsyncTransformer<V?, V> {
+public func resolveNil<P: ProducerType, V>(_ resolve: P) -> AsyncTransformer<V?, V> where P.OutputType == V {
     
-    return AsyncTransformer<V?, V>() { (input: V?, consumer: V -> Void) in
+    return AsyncTransformer<V?, V>() { (input: V?, consumer: @escaping (V) -> Void) in
         
         if let value = input {
             
@@ -101,7 +101,7 @@ public func resolveNil<P: ProducerType, V where P.OutputType == V>(resolve: P) -
  
  */
 
-public func optionalMap<T, U>(transform: T -> U) -> T? -> U? {
+public func optionalMap<T, U>(_ transform: @escaping (T) -> U) -> (T?) -> U? {
     
     return { input in
         
@@ -114,7 +114,7 @@ public func optionalMap<T, U>(transform: T -> U) -> T? -> U? {
     }
 }
 
-public func optionalMap<T: TransformerType, U, V where T.InputType == U, T.OutputType == V>(transformer: T) -> AsyncTransformer<U?, V?> {
+public func optionalMap<T: TransformerType, U, V>(_ transformer: T) -> AsyncTransformer<U?, V?> where T.InputType == U, T.OutputType == V {
     
     return AsyncTransformer() { input, consumer in
         

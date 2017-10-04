@@ -16,21 +16,7 @@ public protocol ProducerType: ConsumableType, Producible { }
 
 public extension ProducerType {
     
-    public func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> ProducerPipeline<Transform.OutputType> {
-        
-        consumer = transformer.consume
-        
-        if let pipeline = self as? ProducerPipeline<Transform.OutputType> {
-            
-            return ProducerPipeline<Transform.OutputType>(head: pipeline.head, tail: transformer)
-            
-        } else {
-            
-            return ProducerPipeline<Transform.OutputType>(head: self, tail: transformer)
-        }
-    }
-    
-    public func then<NewOutput>(transform: OutputType -> NewOutput) -> ProducerPipeline<NewOutput> {
+    public func then<NewOutput>(_ transform: @escaping (OutputType) -> NewOutput) -> ProducerPipeline<NewOutput> {
         
         let transformer = AnyTransformer(transform: transform)
         
@@ -46,12 +32,26 @@ public extension ProducerType {
         }
     }
     
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> Producible {
+    public func then<Transform: TransformerType>(_ transformer: Transform) -> ProducerPipeline<Transform.OutputType> where Transform.InputType == OutputType {
+        
+        consumer = transformer.consume
+        
+        if let pipeline = self as? ProducerPipeline<Transform.OutputType> {
+            
+            return ProducerPipeline<Transform.OutputType>(head: pipeline.head, tail: transformer)
+            
+        } else {
+            
+            return ProducerPipeline<Transform.OutputType>(head: self, tail: transformer)
+        }
+    }
+    
+    public func finally<Consumer: ConsumerType>(_ consumer: Consumer) -> Producible where Consumer.InputType == OutputType {
         
         return finally(consumer.consume)
     }
     
-    public func finally(consume: OutputType -> Void) -> Producible {
+    public func finally(_ consume: @escaping (OutputType) -> Void) -> Producible {
         
         self.consumer = consume
         

@@ -13,7 +13,7 @@ public protocol TransformerType: ConsumerType, ConsumableType { }
 
 public extension TransformerType {
     
-    public func then<Transform: TransformerType where Transform.InputType == OutputType>(transformer: Transform) -> TransformerPipeline<InputType, Transform.OutputType> {
+    public func then<Transform: TransformerType>(_ transformer: Transform) -> TransformerPipeline<InputType, Transform.OutputType> where Transform.InputType == OutputType {
         
         consumer = transformer.consume
     
@@ -29,7 +29,7 @@ public extension TransformerType {
         }
     }
     
-    public func then<NewOutput>(transform: OutputType -> NewOutput) -> TransformerPipeline<InputType, NewOutput> {
+    public func then<NewOutput>(_ transform: @escaping (OutputType) -> NewOutput) -> TransformerPipeline<InputType, NewOutput> {
         
         let transformer = AnyTransformer(transform: transform)
         
@@ -47,12 +47,12 @@ public extension TransformerType {
         }
     }
     
-    public func finally<Consumer: ConsumerType where Consumer.InputType == OutputType>(consumer: Consumer) -> AnyConsumer<InputType> {
+    public func finally<Consumer: ConsumerType>(_ consumer: Consumer) -> AnyConsumer<InputType> where Consumer.InputType == OutputType {
         
         return finally(consumer.consume)
     }
     
-    public func finally(consumer: OutputType -> Void) -> AnyConsumer<InputType> {
+    public func finally(_ consumer: @escaping (OutputType) -> Void) -> AnyConsumer<InputType> {
         
         self.consumer = consumer
         

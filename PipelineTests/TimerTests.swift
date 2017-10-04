@@ -14,7 +14,7 @@ class TimerTests: XCTestCase {
         
         let timer = Timer(interval: 1.0, repeats: true)
         
-        let timerExpectation = expectationWithDescription("timer")
+        let timerExpectation = expectation(description: "timer")
         
         var count = 0
         
@@ -34,6 +34,6 @@ class TimerTests: XCTestCase {
         
         timer.start()
         
-        waitForExpectationsWithTimeout(3.0, handler: nil)
+        waitForExpectations(timeout: 3.0, handler: nil)
     }
 }

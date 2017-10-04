@@ -12,13 +12,13 @@ func ensureMainThread<T>() -> AsyncTransformer<T, T> {
     
     return AsyncTransformer() { input, consumer in
         
-        if NSThread.isMainThread() {
+        if Thread.isMainThread {
             
             consumer(input)
             
         } else {
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 
                 consumer(input)
             }
@@ -26,18 +26,18 @@ func ensureMainThread<T>() -> AsyncTransformer<T, T> {
     }
 }
 
-func asyncBackgroundThread<T>(priority: dispatch_queue_priority_t = DISPATCH_QUEUE_PRIORITY_DEFAULT) -> AsyncTransformer<T, T> {
+func asyncBackgroundThread<T>(_ priority: dispatch_queue_priority_t = DispatchQueue.GlobalQueuePriority.default) -> AsyncTransformer<T, T> {
     
     return AsyncTransformer() { input, consumer in
         
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+        DispatchQueue.global(priority: priority).async {
             
             consumer(input)
         }
     }
 }
 
-func delay<T>(seconds: NSTimeInterval, queue: dispatch_queue_t = dispatch_get_main_queue()) -> AsyncTransformer<T, T> {
+func delay<T>(_ seconds: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> AsyncTransformer<T, T> {
     
     return AsyncTransformer() { input, consumer in
         
@@ -48,11 +48,7 @@ func delay<T>(seconds: NSTimeInterval, queue: dispatch_queue_t = dispatch_get_ma
     }
 }
 
-private func _delay(delay:Double, closure:()->()) {
-    dispatch_after(
-        dispatch_time(
-            DISPATCH_TIME_NOW,
-            Int64(delay * Double(NSEC_PER_SEC))
-        ),
-        dispatch_get_main_queue(), closure)
+private func _delay(_ delay:Double, closure:@escaping ()->()) {
+    DispatchQueue.main.asyncAfter(
+        deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }

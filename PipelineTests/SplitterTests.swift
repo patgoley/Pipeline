@@ -16,7 +16,7 @@ class SplitterTests: XCTestCase {
         
         for i in 0...4 {
             
-            let expt = expectationWithDescription("consumer \(i)")
+            let expt = expectation(description: "consumer \(i)")
             
             let consumer = AnyConsumer<Int>() { x in
                 
@@ -32,12 +32,12 @@ class SplitterTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 
     func testVariadicSplit() {
         
-        let exptA = expectationWithDescription("consumer a")
+        let exptA = expectation(description: "consumer a")
         
         let consumerA = AnyConsumer<Int>() { x in
             
@@ -46,7 +46,7 @@ class SplitterTests: XCTestCase {
             exptA.fulfill()
         }
         
-        let exptB = expectationWithDescription("consumer b")
+        let exptB = expectation(description: "consumer b")
         
         let consumerB = AnyConsumer<Int>() { x in
             
@@ -59,7 +59,7 @@ class SplitterTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testFunctionSplit() {
@@ -68,7 +68,7 @@ class SplitterTests: XCTestCase {
         
         for i in 0...4 {
             
-            let expt = expectationWithDescription("consumer \(i)")
+            let expt = expectation(description: "consumer \(i)")
             
             let consumer = { (x: Int) in
                 
@@ -84,12 +84,12 @@ class SplitterTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testVariadicFunctionSplit() {
         
-        let exptA = expectationWithDescription("consumer a")
+        let exptA = expectation(description: "consumer a")
         
         let consumerA = { (x: Int) in
             
@@ -98,7 +98,7 @@ class SplitterTests: XCTestCase {
             exptA.fulfill()
         }
         
-        let exptB = expectationWithDescription("consumer b")
+        let exptB = expectation(description: "consumer b")
         
         let consumerB = { (x: Int) in
             
@@ -111,6 +111,6 @@ class SplitterTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 }

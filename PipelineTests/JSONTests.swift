@@ -12,16 +12,16 @@ class JSONTests: XCTestCase {
 
     func testSerializer() {
         
-        let bundle = NSBundle(forClass: self.dynamicType)
+        let bundle = Bundle(for: type(of: self))
         
         let pipeline = bundle.loadResource("animals", fileExtension: "json")
-            |> NSJSONSerialization.deserializeArray
+            |> JSONSerialization.deserializeArray
         
         pipeline.consumer = { result in
             
             switch result {
                 
-            case .Success(let result):
+            case .success(let result):
                 
                 let expectedResult = [
                     "bird",
@@ -31,7 +31,7 @@ class JSONTests: XCTestCase {
                 
                 XCTAssert(result as! [String] == expectedResult, "")
                 
-            case .Error(let err):
+            case .error(let err):
                 
                 XCTAssert(false, "\(err)")
             }
@@ -42,14 +42,14 @@ class JSONTests: XCTestCase {
     
     func testModelParser() {
         
-        let bundle = NSBundle(forClass: self.dynamicType)
+        let bundle = Bundle(for: type(of: self))
         
         let pipeline = bundle.loadResource("user", fileExtension: "json")
-            |> NSJSONSerialization.deserializeObject
+            |> JSONSerialization.deserializeObject
             |> crashOnError
             |> User.createWithValues
         
-        let parseExpectation = expectationWithDescription("parse")
+        let parseExpectation = expectation(description: "parse")
         
         pipeline.consumer = { user in
             
@@ -61,7 +61,7 @@ class JSONTests: XCTestCase {
         
         pipeline.produce()
         
-        waitForExpectationsWithTimeout(10.0, handler: nil)
+        waitForExpectations(timeout: 10.0, handler: nil)
     }
 }
 
@@ -71,7 +71,7 @@ struct User: Parseable {
     let firstName: String
     let lastName: String
     
-    static func createWithValues(values: [String: AnyObject]) -> User {
+    static func createWithValues(_ values: [String: AnyObject]) -> User {
         
         return User(
             firstName: values["firstName"] as! String,

@@ -10,19 +10,19 @@ import Pipeline
 
 public final class Timer: ProducerType {
     
-    public typealias OutputType = NSDate
+    public typealias OutputType = Date
     
-    private var timer: NSTimer? = nil
+    fileprivate var timer: Foundation.Timer? = nil
     
-    public let interval: NSTimeInterval
+    public let interval: TimeInterval
     
     public let repeats: Bool
     
-    public var consumer: (NSDate -> Void)?
+    public var consumer: ((Date) -> Void)?
     
     public var target: (() -> Void)?
     
-    public init(interval: NSTimeInterval, repeats: Bool = true) {
+    public init(interval: TimeInterval, repeats: Bool = true) {
         
         self.interval = interval
         
@@ -31,7 +31,7 @@ public final class Timer: ProducerType {
     
     public func start() {
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: #selector(tick), userInfo: nil, repeats: repeats)
+        timer = Foundation.Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(tick), userInfo: nil, repeats: repeats)
     }
     
     public func stop() {
@@ -47,7 +47,7 @@ public final class Timer: ProducerType {
     
     @objc func tick() {
         
-        let date = NSDate()
+        let date = Date()
         
         consumer?(date)
         

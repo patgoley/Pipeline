@@ -12,7 +12,7 @@ public final class ValueProducer<T>: ProducerType {
     
     let value: T
     
-    public var consumer: (T -> Void)?
+    public var consumer: ((T) -> Void)?
     
     public init(_ value: T) {
         
@@ -29,9 +29,9 @@ public final class ThunkProducer<T>: ProducerType {
     
     let thunk: () -> T
     
-    public var consumer: (T -> Void)?
+    public var consumer: ((T) -> Void)?
     
-    public init(thunk: () -> T) {
+    public init(thunk: @escaping () -> T) {
         
         self.thunk = thunk
     }
