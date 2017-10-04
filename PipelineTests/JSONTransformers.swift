@@ -38,7 +38,7 @@ public extension JSONSerialization {
                 
             } else {
                 
-                return .error(JSONError.castError(NSArray))
+                return .error(JSONError.castError(NSArray.self))
             }
             
         } catch {
@@ -60,7 +60,7 @@ public extension JSONSerialization {
                 
             } else {
                 
-                return .error(JSONError.castError(NSDictionary))
+                return .error(JSONError.castError(NSDictionary.self))
             }
             
         } catch {

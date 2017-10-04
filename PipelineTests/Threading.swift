@@ -26,11 +26,11 @@ func ensureMainThread<T>() -> AsyncTransformer<T, T> {
     }
 }
 
-func asyncBackgroundThread<T>(_ priority: dispatch_queue_priority_t = DispatchQueue.GlobalQueuePriority.default) -> AsyncTransformer<T, T> {
+func asyncBackgroundThread<T>(_ priority: DispatchQoS.QoSClass = .default) -> AsyncTransformer<T, T> {
     
     return AsyncTransformer() { input, consumer in
         
-        DispatchQueue.global(priority: priority).async {
+        DispatchQueue.global(qos: priority).async {
             
             consumer(input)
         }
