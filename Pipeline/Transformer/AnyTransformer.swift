@@ -21,16 +21,16 @@ public final class AnyTransformer<T, U>: TransformerType  {
     
     public typealias OutputType = U
     
-    public var consumer: (OutputType -> Void)?
+    public var consumer: ((OutputType) -> Void)?
     
-    public let transform: InputType -> OutputType
+    public let transform: (InputType) -> OutputType
     
-    public init(transform: InputType -> OutputType) {
+    public init(transform: @escaping (InputType) -> OutputType) {
         
         self.transform = transform
     }
     
-    public func consume(input: InputType) {
+    public func consume(_ input: InputType) {
         
         let result = transform(input)
         

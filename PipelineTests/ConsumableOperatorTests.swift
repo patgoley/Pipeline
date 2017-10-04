@@ -105,7 +105,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let consumable = AnyConsumable<Int>(base: producer)
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let _ = consumable |> { (x: Int) throws -> String in
             
@@ -119,7 +119,7 @@ class ConsumableOperatorTests: XCTestCase {
             } |> { (result: Result<String>) in
                 
                 switch result {
-                case .Error(let err):
+                case .error(let err):
                     
                     XCTAssert(err is MockError)
                     
@@ -131,7 +131,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         producer.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testConsumeablePipelineThrowingFunction() {
@@ -140,7 +140,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let consumable = AnyConsumable<Int>(base: producer)
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let _ = consumable
             |> AnyTransformer<Int,Int>(transform: integerIdentity)
@@ -156,7 +156,7 @@ class ConsumableOperatorTests: XCTestCase {
             } |> { (result: Result<String>) -> Void in
                 
                 switch result {
-                case .Error(let err):
+                case .error(let err):
                     
                     XCTAssert(err is MockError)
                     
@@ -168,7 +168,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         producer.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testConsumeablePipelineThrowingTransformerFunction() {
@@ -188,7 +188,7 @@ class ConsumableOperatorTests: XCTestCase {
                
                 switch result{
                     
-                case .Success(_): XCTFail()
+                case .success(_): XCTFail()
                 default: break
                 }
             }
@@ -217,7 +217,7 @@ class ConsumableOperatorTests: XCTestCase {
         
         let producer = ThunkProducer<Int?>() { return nil }
         
-        let expt = expectationWithDescription("nil")
+        let expt = expectation(description: "nil")
         
         let pipe = producer |> optionalMap({ (int: Int) -> Int in int + 5 })
         
@@ -230,22 +230,22 @@ class ConsumableOperatorTests: XCTestCase {
         
         producer.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testConsumeableOptionalMapWithValue() {
         
         let producer = ThunkProducer<Int?>() { return 123 }
         
-        let expt = expectationWithDescription("value")
+        let expt = expectation(description: "value")
         
-        let pipe = ProducerPipeline(head: producer) |> optionalMap({ (int: Int) -> Int in int + 5 })
+        let pipe = ProducerPipeline(head: producer) |> optionalMap({ (int: Int) -> String in "\(int + 5)" })
         
-        pipe.consumer = { (x: Int?) in
+        pipe.consumer = { (x: String?) in
             
             if let val = x {
                 
-                XCTAssert(val == 128)
+                XCTAssert(val == "128")
                 
             } else {
                 
@@ -257,14 +257,14 @@ class ConsumableOperatorTests: XCTestCase {
         
         producer.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testConsumeableTransformerOptionalMap() {
         
         let producer = ThunkProducer<Int?>() { return nil }
         
-        let expt = expectationWithDescription("nil")
+        let expt = expectation(description: "nil")
         
         let pipe = producer |> optionalMap(AnyTransformer<Int, Int>() { (int: Int) -> Int in int + 5 })
         
@@ -277,14 +277,14 @@ class ConsumableOperatorTests: XCTestCase {
         
         producer.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testConsumeableTransformerOptionalMapWithValue() {
         
         let producer = ThunkProducer<Int?>() { return 123 }
         
-        let expt = expectationWithDescription("value")
+        let expt = expectation(description: "value")
         
         let pipe = producer |> optionalMap(AnyTransformer<Int, Int>() { (int: Int) -> Int in int + 5 })
         
@@ -304,6 +304,6 @@ class ConsumableOperatorTests: XCTestCase {
         
         producer.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 }

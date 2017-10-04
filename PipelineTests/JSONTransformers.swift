@@ -8,15 +8,15 @@
 import Foundation
 import Pipeline
 
-public enum JSONError: ErrorType, CustomStringConvertible {
+public enum JSONError: Error, CustomStringConvertible {
     
-    case CastError(AnyClass)
+    case castError(AnyClass)
     
     public var description: String {
         
         switch self {
             
-        case CastError(let expectedType):
+        case .castError(let expectedType):
             
             return "Failed to cast object to expected type \(expectedType)"
         }
@@ -24,76 +24,76 @@ public enum JSONError: ErrorType, CustomStringConvertible {
 }
 
 
-public extension NSJSONSerialization {
+public extension JSONSerialization {
     
-    public static func deserializeArray(data: NSData) -> Result<[AnyObject]> {
+    public static func deserializeArray(_ data: Data) -> Result<[AnyObject]> {
         
         do {
             
-            let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+            let json = try JSONSerialization.jsonObject(with: data, options: [])
             
             if let array = json as? [AnyObject] {
                 
-                return .Success(array)
+                return .success(array)
                 
             } else {
                 
-                return .Error(JSONError.CastError(NSArray))
+                return .error(JSONError.castError(NSArray.self))
             }
             
         } catch {
             
-            return .Error(error)
+            return .error(error)
         }
     }
     
     
-    public static func deserializeObject(data: NSData) -> Result<[String: AnyObject]> {
+    public static func deserializeObject(_ data: Data) -> Result<[String: AnyObject]> {
         
         do {
             
-            let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+            let json = try JSONSerialization.jsonObject(with: data, options: [])
             
             if let object = json as? [String: AnyObject] {
                 
-                return .Success(object)
+                return .success(object)
                 
             } else {
                 
-                return .Error(JSONError.CastError(NSDictionary))
+                return .error(JSONError.castError(NSDictionary.self))
             }
             
         } catch {
             
-            return .Error(error)
+            return .error(error)
         }
     }
     
-    public static func serializer(array: NSArray) -> Result<NSData> {
+    public static func serializer(_ array: NSArray) -> Result<Data> {
         
         do {
             
-            let data = try NSJSONSerialization.dataWithJSONObject(array, options: .PrettyPrinted)
+            let data = try JSONSerialization.data(withJSONObject: array, options: .prettyPrinted)
             
-            return .Success(data)
+            return .success(data)
             
         } catch {
             
-            return .Error(error)
+            return .error(error)
         }
     }
     
-    public static func serializer(dict: NSDictionary) -> Result<NSData> {
+    public static func serializer(_ dict: NSDictionary) -> Result<Data> {
         
         do {
             
-            let data = try NSJSONSerialization.dataWithJSONObject(dict, options: .PrettyPrinted)
+            let data = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
             
-            return .Success(data)
+            return .success(data)
             
         } catch {
             
-            return .Error(error)
+            return .error(error)
         }
     }
 }

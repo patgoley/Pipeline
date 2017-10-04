@@ -8,4 +8,10 @@
 import Foundation
 
 
-infix operator |> { precedence 95 associativity left }
+precedencegroup CompositionPrecedence {
+    higherThan: AssignmentPrecedence
+    lowerThan: TernaryPrecedence
+    associativity: left
+}
+
+infix operator |> : CompositionPrecedence

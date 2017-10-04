@@ -14,12 +14,12 @@ public final class Splitter<T>: ConsumerType {
     
     let consumers: [AnyConsumer<T>]
     
-    init<C: ConsumerType where C.InputType == T>(consumers: [C]) {
+    init<C: ConsumerType>(consumers: [C]) where C.InputType == T {
         
         self.consumers = consumers.map(AnyConsumer.init)
     }
     
-    public func consume(input: InputType) {
+    public func consume(_ input: InputType) {
         
         for consumer in consumers {
             
@@ -28,24 +28,24 @@ public final class Splitter<T>: ConsumerType {
     }
 }
 
-public func split<C: ConsumerType>(consumers: C...) -> Splitter<C.InputType> {
+public func split<C: ConsumerType>(_ consumers: C...) -> Splitter<C.InputType> {
     
     return Splitter(consumers: consumers)
 }
 
-public func split<I>(consumerFunctions: (I) -> Void...) -> Splitter<I> {
+public func split<I>(_ consumerFunctions: (I) -> Void...) -> Splitter<I> {
     
     let consumers = consumerFunctions.map(AnyConsumer.init)
     
     return Splitter(consumers: consumers)
 }
 
-public func split<C: ConsumerType>(consumers: [C]) -> Splitter<C.InputType> {
+public func split<C: ConsumerType>(_ consumers: [C]) -> Splitter<C.InputType> {
     
     return Splitter(consumers: consumers)
 }
 
-public func split<I>(consumerFunctions: [(I) -> Void]) -> Splitter<I> {
+public func split<I>(_ consumerFunctions: [(I) -> Void]) -> Splitter<I> {
     
     let consumers = consumerFunctions.map(AnyConsumer.init)
     

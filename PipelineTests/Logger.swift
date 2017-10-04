@@ -9,7 +9,7 @@ import Foundation
 import Pipeline
 
 
-func logToConsole<T>(input: T) -> T {
+func logToConsole<T>(_ input: T) -> T {
     
     print(input)
     

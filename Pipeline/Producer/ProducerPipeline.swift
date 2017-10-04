@@ -15,7 +15,7 @@ public final class ProducerPipeline<T>: Pipeline, ProducerType {
     
     var tail: AnyConsumable<T>
     
-    public var consumer: (OutputType -> Void)? {
+    public var consumer: ((OutputType) -> Void)? {
         
         didSet {
             
@@ -23,16 +23,16 @@ public final class ProducerPipeline<T>: Pipeline, ProducerType {
         }
     }
     
-    private let _setConsumer: (T -> Void)? -> Void
+    fileprivate let _setConsumer: (((T) -> Void)?) -> Void
     
-    public convenience init<Head: ProducerType where Head.OutputType == T>(head: Head) {
+    public convenience init<Head: ProducerType>(head: Head) where Head.OutputType == T {
         
         let tail = AnyConsumable(base: head)
         
         self.init(head: head, tail: tail)
     }
     
-    init<Tail: ConsumableType where Tail.OutputType == OutputType>(head: Producible, tail: Tail) {
+    init<Tail: ConsumableType>(head: Producible, tail: Tail) where Tail.OutputType == OutputType {
         
         self.head = head
         

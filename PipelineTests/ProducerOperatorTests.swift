@@ -12,7 +12,7 @@ class ProducerOperatorTests: XCTestCase {
     
     func testProducerTransformerType() {
         
-        let pipe = { () -> Int in return 123 } |> AnyTransformer<Int, Int>() { (x: Int) in
+        let pipe: ProducerPipeline<Int> = { () -> Int in return 123 } |> AnyTransformer<Int, Int>() { (x: Int) in
             
             return x + 5
         }
@@ -79,7 +79,7 @@ class ProducerOperatorTests: XCTestCase {
     
     func testProducerPipelineThrowingTransformerFunction() {
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let pipe = ValueProducer<Int>(123)
             |> integerIdentity
@@ -91,7 +91,7 @@ class ProducerOperatorTests: XCTestCase {
         
             switch result {
                 
-            case .Success: XCTFail()
+            case .success: XCTFail()
             default: break
             }
             
@@ -100,12 +100,12 @@ class ProducerOperatorTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testThrowingProducerFunction() {
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
         let throwingFunc: () throws -> String = {
             
@@ -126,14 +126,14 @@ class ProducerOperatorTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testProducerThrowingFunction() {
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
-        let throwingFunc: String throws -> String = { str in
+        let throwingFunc: (String) throws -> String = { str in
             
             throw MockError()
         }
@@ -153,19 +153,19 @@ class ProducerOperatorTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testProducerPipelineThrowingFunction() {
         
-        let expt = expectationWithDescription("error")
+        let expt = expectation(description: "error")
         
-        let throwingFunc: String throws -> String = { str in
+        let throwingFunc: (String) throws -> String = { str in
             
             throw MockError()
         }
         
-        let pipe = { return "abc" }
+        let pipe: Producible = { return "abc" }
             |> stringIdentity
             |> throwingFunc
             |> resolveError() {
@@ -181,6 +181,6 @@ class ProducerOperatorTests: XCTestCase {
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 }

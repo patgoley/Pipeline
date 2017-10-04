@@ -14,7 +14,7 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
     
     public typealias OutputType = U
     
-    public var consumer: (OutputType -> Void)? {
+    public var consumer: ((OutputType) -> Void)? {
         
         didSet {
             
@@ -22,20 +22,20 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
         }
     }
     
-    private let _setConsumer: (OutputType -> Void)? -> Void
+    fileprivate let _setConsumer: (((OutputType) -> Void)?) -> Void
     
     let head: AnyConsumer<InputType>
     
     let tail: AnyConsumable<OutputType>
     
-    public convenience init<Head: TransformerType where Head.InputType == InputType, Head.OutputType == OutputType>(head: Head) {
+    public convenience init<Head: TransformerType>(head: Head) where Head.InputType == InputType, Head.OutputType == OutputType {
         
         let headConsumer = AnyConsumer(base: head)
         
         self.init(head: headConsumer, tail: head)
     }
     
-    init<Tail: TransformerType where Tail.OutputType == OutputType>(head: AnyConsumer<InputType>, tail: Tail) {
+    init<Tail: TransformerType>(head: AnyConsumer<InputType>, tail: Tail) where Tail.OutputType == OutputType {
         
         self.head = head
         
@@ -47,7 +47,7 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
         }
     }
     
-    public func consume(input: InputType) {
+    public func consume(_ input: InputType) {
         
         head.consume(input)
     }
@@ -55,7 +55,7 @@ public final class TransformerPipeline<T, U>: Pipeline, TransformerType {
 
 public extension TransformerPipeline {
     
-    convenience init(head: InputType -> OutputType) {
+    convenience init(head: @escaping (InputType) -> OutputType) {
         
         let transformer = AnyTransformer(transform: head)
         

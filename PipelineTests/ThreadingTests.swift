@@ -12,15 +12,15 @@ class ThreadingTests: XCTestCase {
 
     func testEnsureMainThread() {
         
-        let expt = expectationWithDescription("async")
+        let expt = expectation(description: "async")
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        DispatchQueue.global(qos: .default).async {
             
-            XCTAssert(!NSThread.isMainThread())
+            XCTAssert(!Thread.isMainThread)
             
             let pipe = ValueProducer(123) |> ensureMainThread() |> { _ in
                 
-                XCTAssert(NSThread.isMainThread())
+                XCTAssert(Thread.isMainThread)
                 
                 expt.fulfill()
             }
@@ -28,25 +28,25 @@ class ThreadingTests: XCTestCase {
             pipe.produce()
         }
         
-        waitForExpectationsWithTimeout(3, handler: nil)
+        waitForExpectations(timeout: 3, handler: nil)
     }
 
     func testAsyncBackground() {
         
-        let expt = expectationWithDescription("async")
+        let expt = expectation(description: "async")
         
-        XCTAssert(NSThread.isMainThread())
+        XCTAssert(Thread.isMainThread)
         
         let pipe = ValueProducer("abc") |> asyncBackgroundThread() |> { _ in
             
-            XCTAssert(!NSThread.isMainThread())
+            XCTAssert(!Thread.isMainThread)
             
             expt.fulfill()
         }
         
         pipe.produce()
         
-        waitForExpectationsWithTimeout(3, handler: nil)
+        waitForExpectations(timeout: 3, handler: nil)
     }
 
 }

@@ -21,7 +21,7 @@ class TransformerTests: XCTestCase {
     
     func testAnyTransformerNoConsumer() {
         
-        let expt = expectationWithDescription("transformer without consumer")
+        let expt = expectation(description: "transformer without consumer")
         
         let transformer = AnyTransformer<String, String>() { (x: String) in
             
@@ -32,14 +32,14 @@ class TransformerTests: XCTestCase {
         
         transformer.consume("123")
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testAsyncTransformerNoConsumer() {
         
-        let expt = expectationWithDescription("transformer without consumer")
+        let expt = expectation(description: "transformer without consumer")
         
-        let transformer = AsyncTransformer() { (x: String, consumer: String -> Void) in
+        let transformer = AsyncTransformer() { (x: String, consumer: (String) -> Void) in
             
             expt.fulfill()
             
@@ -48,6 +48,6 @@ class TransformerTests: XCTestCase {
         
         transformer.consume("123")
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 }

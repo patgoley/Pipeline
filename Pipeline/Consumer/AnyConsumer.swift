@@ -12,19 +12,19 @@ public final class AnyConsumer<T>: ConsumerType {
     
     public typealias InputType = T
     
-    private let _consume: T -> Void
+    fileprivate let _consume: (T) -> Void
     
-    public init(consume: T -> Void) {
+    public init(consume: @escaping (T) -> Void) {
         
         self._consume = consume
     }
     
-    public init<Base: ConsumerType where Base.InputType == T>(base: Base) {
+    public init<Base: ConsumerType>(base: Base) where Base.InputType == T {
         
         self._consume = base.consume
     }
     
-    public func consume(input: T) {
+    public func consume(_ input: T) {
         
         _consume(input)
     }

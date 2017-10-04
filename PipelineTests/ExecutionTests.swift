@@ -12,12 +12,12 @@ class ExecutionTests: XCTestCase {
     
     func testProduceWithCompletion() {
         
-        let pipe = { return 123 } |> AnyTransformer<Int, Int>() { x in
+        let pipe: ProducerPipeline<Int> = { return 123 } |> AnyTransformer<Int, Int>() { x in
             
             return x + 5
         }
         
-        let expt = expectationWithDescription("execution")
+        let expt = expectation(description: "execution")
         
         pipe.produce() { x in
             
@@ -26,12 +26,12 @@ class ExecutionTests: XCTestCase {
             expt.fulfill()
         }
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testConsumeWithCompletion() {
         
-        let expt = expectationWithDescription("execution")
+        let expt = expectation(description: "execution")
         
         let pipe = { (x: Int) in return x + 5 }
             |> { (x: Int) in return "\(x)" }
@@ -43,12 +43,12 @@ class ExecutionTests: XCTestCase {
             expt.fulfill()
         }
         
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testPipelineProduceWithRetainsSelf() {
         
-        let pipe = { return 123 }
+        let pipe: ProducerPipeline<Int> = { return 123 }
             |> asyncBackgroundThread()
             |> delay(1)
             |> ensureMainThread()
