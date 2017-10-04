@@ -12,7 +12,7 @@ class ExecutionTests: XCTestCase {
     
     func testProduceWithCompletion() {
         
-        let pipe = { return 123 } |> AnyTransformer<Int, Int>() { x in
+        let pipe: ProducerPipeline<Int> = { return 123 } |> AnyTransformer<Int, Int>() { x in
             
             return x + 5
         }
@@ -48,7 +48,7 @@ class ExecutionTests: XCTestCase {
     
     func testPipelineProduceWithRetainsSelf() {
         
-        let pipe = { return 123 }
+        let pipe: ProducerPipeline<Int> = { return 123 }
             |> asyncBackgroundThread()
             |> delay(1)
             |> ensureMainThread()

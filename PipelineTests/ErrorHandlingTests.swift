@@ -219,8 +219,8 @@ class ErrorHandlingTests: XCTestCase {
             throw MockError()
         }
         
-        let pipe = map(throwingFunc)
-            |> resolveError() { err in
+        let pipe: Producible = producerMap(throwingFunc)
+            |> resolveError() {
                 
                 return "resolved"
                 

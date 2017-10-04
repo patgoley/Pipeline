@@ -12,7 +12,7 @@ class ProducerOperatorTests: XCTestCase {
     
     func testProducerTransformerType() {
         
-        let pipe = { () -> Int in return 123 } |> AnyTransformer<Int, Int>() { (x: Int) in
+        let pipe: ProducerPipeline<Int> = { () -> Int in return 123 } |> AnyTransformer<Int, Int>() { (x: Int) in
             
             return x + 5
         }
@@ -165,7 +165,7 @@ class ProducerOperatorTests: XCTestCase {
             throw MockError()
         }
         
-        let pipe = { return "abc" }
+        let pipe: Producible = { return "abc" }
             |> stringIdentity
             |> throwingFunc
             |> resolveError() {

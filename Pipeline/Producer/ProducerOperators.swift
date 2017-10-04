@@ -57,7 +57,7 @@ public func |> <P: ProducerType, U>(lhs: P, rhs: @escaping (P.OutputType) throws
 
 public func |> <V, T: TransformerType>(lhs: @escaping () throws -> V, rhs: T) -> ProducerPipeline<T.OutputType> where T.InputType == Result<V>  {
     
-    let throwingProduce = map(lhs)
+    let throwingProduce = producerMap(lhs)
     
     let producer = ThunkProducer(thunk: throwingProduce)
     
@@ -66,7 +66,7 @@ public func |> <V, T: TransformerType>(lhs: @escaping () throws -> V, rhs: T) ->
 
 public func |> <V, T>(lhs: @escaping () throws -> V, rhs: @escaping (Result<V>) -> T) -> ProducerPipeline<T> {
     
-    let throwingProduce = map(lhs)
+    let throwingProduce = producerMap(lhs)
     
     let producer = ThunkProducer(thunk: throwingProduce)
     

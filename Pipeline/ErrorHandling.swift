@@ -176,9 +176,9 @@ public func map<T, U>(_ transform: @escaping (T) throws -> U) -> (T) -> Result<U
  or the ErrorType that was thrown.
  */
 
-public func map<U>(_ produce: @escaping () throws -> U) -> () -> Result<U> {
+public func producerMap<U>(_ produce: @escaping () throws -> U) -> () -> Result<U> {
     
-    return { input in
+    return {
         
         do {
             
