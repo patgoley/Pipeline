@@ -72,6 +72,7 @@
 
 /* Begin PBXFileReference section */
 		8E3157F51D281BAD00292851 /* EagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EagerTests.swift; sourceTree = "<group>"; };
+		8E336FDD1F85B008005863A0 /* .swift-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".swift-version"; sourceTree = "<group>"; };
 		8E40C8431D46F61300F5B6AB /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
 		8E56E6D21D2613FD009182DF /* TestMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMocks.swift; sourceTree = "<group>"; };
 		8E57D0F01CF516FD00EDAF4A /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
@@ -196,6 +197,7 @@
 		8EE6443B1CE7AEA400403EFC = {
 			isa = PBXGroup;
 			children = (
+				8E336FDD1F85B008005863A0 /* .swift-version */,
 				8E5E70831E71CD1C00D433CF /* Pipeline.podspec */,
 				8E57D1371CFD611A00EDAF4A /* README.md */,
 				8E5E70851E71CD9400D433CF /* LICENSE.md */,
